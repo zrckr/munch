@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="RoundGroup" load_steps=5 format=3 uid="uid://nhjfao2m3wjx"]
+
+[ext_resource type="Script" path="res://rounds/round_group.gd" id="1_unisr"]
+[ext_resource type="Resource" uid="uid://jjihnrlie3oh" path="res://rounds/010/unit_1.tres" id="2_pg42u"]
+[ext_resource type="Resource" uid="uid://c41sb454rq8hv" path="res://rounds/010/unit_2.tres" id="3_fc2ay"]
+[ext_resource type="Resource" uid="uid://cp83d22c2h6vl" path="res://rounds/010/unit_3.tres" id="4_6wd8a"]
+
+[resource]
+resource_name = "group_4"
+script = ExtResource("1_unisr")
+units = Array[Resource("res://rounds/round_unit.gd")]([ExtResource("2_pg42u"), ExtResource("3_fc2ay"), ExtResource("4_6wd8a")])
+respawn_chance = 100
+respawn_time = 30
+override_enabled = true
+override_position_type = 3

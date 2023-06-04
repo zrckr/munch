@@ -1,0 +1,32 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bwjdf2rcphq3x"]
+
+[ext_resource type="FontFile" uid="uid://cy8uqg3ob77m6" path="res://ui/fonts/uni.ttf" id="1_mc5iv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1hnwk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fwq30"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k1tar"]
+content_margin_left = 8.0
+content_margin_top = 0.0
+content_margin_right = 8.0
+content_margin_bottom = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_whl0t"]
+bg_color = Color(0, 0, 0, 0.5)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucguo"]
+bg_color = Color(0.00392157, 0.0901961, 0.2, 1)
+
+[resource]
+Button/colors/font_hover_color = Color(1, 0.929412, 0, 1)
+Button/colors/font_pressed_color = Color(1, 0.929412, 0, 1)
+Button/font_sizes/font_size = 8
+Button/fonts/font = ExtResource("1_mc5iv")
+Button/styles/focus = SubResource("StyleBoxEmpty_1hnwk")
+Button/styles/hover = SubResource("StyleBoxEmpty_fwq30")
+Button/styles/normal = SubResource("StyleBoxEmpty_k1tar")
+Button/styles/pressed = SubResource("StyleBoxFlat_whl0t")
+HBoxContainer/constants/separation = 0
+Panel/styles/panel = SubResource("StyleBoxFlat_ucguo")

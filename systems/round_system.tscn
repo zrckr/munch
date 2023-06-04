@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://vgjwmgai2tyu"]
+
+[ext_resource type="Script" path="res://systems/round_system.gd" id="1_o8l4u"]
+[ext_resource type="Resource" uid="uid://b47hnihfecx3b" path="res://rounds/010/010_round.tres" id="2_jy60p"]
+
+[node name="RoundSystem" type="Node" groups=["round"]]
+script = ExtResource("1_o8l4u")
+rounds = Array[Resource("res://rounds/round.gd")]([ExtResource("2_jy60p")])
+
+[node name="DurationTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[connection signal="timeout" from="DurationTimer" to="." method="_on_duration_timer_timeout"]

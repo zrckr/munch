@@ -1,0 +1,325 @@
+[gd_scene load_steps=17 format=3 uid="uid://sgveds2tctyf"]
+
+[ext_resource type="Script" path="res://entities/components/lifetime.gd" id="1_8d5o3"]
+[ext_resource type="Script" path="res://entities/default/player/player_movement.gd" id="1_jqj7x"]
+[ext_resource type="Resource" uid="uid://c2pjf5xvmn3fx" path="res://entities/positive/bigboy/bigboy_properties.tres" id="2_q7r28"]
+[ext_resource type="Resource" uid="uid://4xtsxjrlw8rf" path="res://entities/positive/hoover/hoover_properties.tres" id="2_qurdm"]
+[ext_resource type="Script" path="res://entities/components/health.gd" id="3_caqr4"]
+[ext_resource type="PackedScene" uid="uid://d3okhww4go4qm" path="res://skins/munchkin/munchkin.tscn" id="4_mxpfj"]
+[ext_resource type="Script" path="res://entities/components/hitbox.gd" id="5_iyif1"]
+[ext_resource type="Script" path="res://entities/positive/hoover/hoover.gd" id="6_se17o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_or5au"]
+size = Vector2(16, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6v475"]
+radius = 4.0
+
+[sub_resource type="Animation" id="Animation_cx2nr"]
+resource_name = "RESET"
+length = 0.10001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/CpuParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/SuctionArea:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Skin/Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_yc458"]
+resource_name = "suck_down"
+length = 0.20001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Skin/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/CpuParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/SuctionArea:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_l6jfl"]
+resource_name = "suck_side"
+length = 0.20001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Skin/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/CpuParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/SuctionArea:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+
+[sub_resource type="Animation" id="Animation_172rq"]
+resource_name = "suck_up"
+length = 0.20001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Skin/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/CpuParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/SuctionArea:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.14159]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s7mff"]
+_data = {
+"RESET": SubResource("Animation_cx2nr"),
+"suck_down": SubResource("Animation_yc458"),
+"suck_side": SubResource("Animation_l6jfl"),
+"suck_up": SubResource("Animation_172rq")
+}
+
+[sub_resource type="Curve" id="Curve_52xgr"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Hoover" type="CharacterBody2D" groups=["positive"]]
+collision_layer = 36
+collision_mask = 2
+motion_mode = 1
+
+[node name="Lifetime" type="Timer" parent="." node_paths=PackedStringArray("skin_sprite", "movement")]
+process_callback = 0
+one_shot = true
+script = ExtResource("1_8d5o3")
+properties = ExtResource("2_q7r28")
+skin_sprite = NodePath("../Skin")
+movement = NodePath("../Movement")
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("skin_sprite")]
+script = ExtResource("1_jqj7x")
+skin_sprite = NodePath("../Skin")
+properties = ExtResource("2_qurdm")
+
+[node name="Health" type="Node" parent="." node_paths=PackedStringArray("skin_sprite")]
+script = ExtResource("3_caqr4")
+properties = ExtResource("2_qurdm")
+skin_sprite = NodePath("../Skin")
+
+[node name="Skin" parent="." instance=ExtResource("4_mxpfj")]
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_or5au")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("health", "skin_sprite")]
+position = Vector2(0, -8)
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("5_iyif1")
+health = NodePath("../Health")
+skin_sprite = NodePath("../Skin")
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_6v475")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[node name="Behavior" type="Node2D" parent="." node_paths=PackedStringArray("movement", "skin_sprite")]
+script = ExtResource("6_se17o")
+suction_time = 0.5
+movement = NodePath("../Movement")
+skin_sprite = NodePath("../Skin")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Behavior"]
+libraries = {
+"": SubResource("AnimationLibrary_s7mff")
+}
+
+[node name="Pivot" type="Node2D" parent="Behavior"]
+position = Vector2(0, -8)
+
+[node name="CpuParticles" type="CPUParticles2D" parent="Behavior/Pivot"]
+position = Vector2(0, 36)
+emitting = false
+lifetime = 0.33
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 21.42
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 60.0
+initial_velocity_max = 120.0
+radial_accel_min = -100.0
+radial_accel_max = -100.0
+damping_curve = SubResource("Curve_52xgr")
+
+[node name="SuctionArea" type="Area2D" parent="Behavior/Pivot"]
+position = Vector2(0, 16)
+collision_layer = 0
+collision_mask = 8
+monitoring = false
+monitorable = false
+
+[node name="Collision" type="CollisionPolygon2D" parent="Behavior/Pivot/SuctionArea"]
+position = Vector2(0, -16)
+polygon = PackedVector2Array(0, 0, 24, 72, -24, 72)
+
+[connection signal="timeout" from="Lifetime" to="Lifetime" method="_on_timeout"]
+
+[editable path="Skin"]

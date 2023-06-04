@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvvicg5pn14qv"]
+
+[ext_resource type="Script" path="res://systems/rtd_system.gd" id="1_xq83j"]
+[ext_resource type="Resource" uid="uid://db4tv6aaiae7h" path="res://entities/player_abilities.tres" id="2_1p0do"]
+
+[node name="RtdSystem" type="Node" groups=["rtd"]]
+script = ExtResource("1_xq83j")
+abilities = ExtResource("2_1p0do")

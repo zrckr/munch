@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EntityAbilities" load_steps=7 format=3 uid="uid://db4tv6aaiae7h"]
+
+[ext_resource type="PackedScene" uid="uid://cf3f6pexwsbpe" path="res://entities/negative/blackout/blackout.tscn" id="1_pp54e"]
+[ext_resource type="PackedScene" uid="uid://cl571b3mx4yy3" path="res://entities/negative/inverted/inverted.tscn" id="2_7uovh"]
+[ext_resource type="PackedScene" uid="uid://sgveds2tctyf" path="res://entities/positive/hoover/hoover.tscn" id="3_566bj"]
+[ext_resource type="PackedScene" uid="uid://d0x0yti7uv3mm" path="res://entities/negative/microman/microman.tscn" id="3_b6hmo"]
+[ext_resource type="PackedScene" uid="uid://mksrxwig7r1t" path="res://entities/positive/panzer/panzer.tscn" id="4_fkkph"]
+[ext_resource type="Script" path="res://entities/entity_abilities.gd" id="8_h8vtl"]
+
+[resource]
+script = ExtResource("8_h8vtl")
+default_scene = "res://entities/default/player/player.tscn"
+activation_threshold = 4
+abilities_positive = Array[PackedScene]([ExtResource("3_566bj"), ExtResource("4_fkkph")])
+abilities_negative = Array[PackedScene]([ExtResource("1_pp54e"), ExtResource("2_7uovh"), ExtResource("3_b6hmo")])
+chance_default = 60
+chance_minumum = 40
+chance_maximum = 80

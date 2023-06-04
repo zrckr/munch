@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://mksrxwig7r1t"]
+
+[ext_resource type="Script" path="res://entities/components/lifetime.gd" id="1_1310r"]
+[ext_resource type="Script" path="res://entities/positive/panzer/panzer_movement.gd" id="1_aqs5i"]
+[ext_resource type="PackedScene" uid="uid://uh2jkp1y03h" path="res://projectiles/bullet/bullet.tscn" id="2_dh7to"]
+[ext_resource type="Script" path="res://entities/components/health.gd" id="3_41be5"]
+[ext_resource type="PackedScene" uid="uid://b2kvrcvr0eut6" path="res://skins/panzer/panzer.tscn" id="4_m7qoq"]
+[ext_resource type="Resource" uid="uid://do6k0atg3n35t" path="res://entities/positive/panzer/panzer_properties.tres" id="4_pmou4"]
+[ext_resource type="Script" path="res://entities/components/hitbox.gd" id="5_rtquo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_or5au"]
+size = Vector2(16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6v475"]
+radius = 4.0
+
+[node name="Panzer" type="CharacterBody2D" groups=["positive"]]
+collision_layer = 36
+collision_mask = 2
+motion_mode = 1
+
+[node name="Lifetime" type="Timer" parent="." node_paths=PackedStringArray("skin_sprite", "movement")]
+process_callback = 0
+one_shot = true
+script = ExtResource("1_1310r")
+properties = ExtResource("4_pmou4")
+skin_sprite = NodePath("../Skin")
+movement = NodePath("../Movement")
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("skin_sprite", "muzzle_marker")]
+script = ExtResource("1_aqs5i")
+skin_sprite = NodePath("../Skin")
+rotation_factor = 2.5
+bullet_projectile = ExtResource("2_dh7to")
+muzzle_marker = NodePath("../Muzzle")
+properties = ExtResource("4_pmou4")
+
+[node name="Health" type="Node" parent="." node_paths=PackedStringArray("skin_sprite")]
+script = ExtResource("3_41be5")
+properties = ExtResource("4_pmou4")
+skin_sprite = NodePath("../Skin")
+
+[node name="Skin" parent="." instance=ExtResource("4_m7qoq")]
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(0, -12)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_or5au")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("health", "skin_sprite")]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("5_rtquo")
+health = NodePath("../Health")
+skin_sprite = NodePath("../Skin")
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_6v475")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+ignore_rotation = false
+
+[connection signal="timeout" from="Lifetime" to="Lifetime" method="_on_timeout"]

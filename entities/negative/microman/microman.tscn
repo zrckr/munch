@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://d0x0yti7uv3mm"]
+
+[ext_resource type="Script" path="res://entities/negative/microman/microman_movement.gd" id="1_2wkqp"]
+[ext_resource type="Script" path="res://entities/components/lifetime.gd" id="1_w0ya5"]
+[ext_resource type="Resource" uid="uid://c5v0bewvcatib" path="res://entities/negative/microman/microman_properties.tres" id="2_ieo6w"]
+[ext_resource type="Script" path="res://entities/components/health.gd" id="3_jd01o"]
+[ext_resource type="PackedScene" uid="uid://d3okhww4go4qm" path="res://skins/munchkin/munchkin.tscn" id="4_jov08"]
+[ext_resource type="Script" path="res://entities/components/hitbox.gd" id="5_ov6hr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cxsfy"]
+size = Vector2(8, 4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6lqej"]
+radius = 3.0
+
+[node name="MicroMan" type="CharacterBody2D" groups=["negative"]]
+collision_layer = 4
+collision_mask = 2
+motion_mode = 1
+
+[node name="Lifetime" type="Timer" parent="." node_paths=PackedStringArray("skin_sprite", "movement")]
+process_callback = 0
+one_shot = true
+script = ExtResource("1_w0ya5")
+properties = ExtResource("2_ieo6w")
+skin_sprite = NodePath("../Skin")
+movement = NodePath("../Movement")
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("skin_sprite")]
+script = ExtResource("1_2wkqp")
+skin_sprite = NodePath("../Skin")
+skid_factor = 2.0
+properties = ExtResource("2_ieo6w")
+
+[node name="Health" type="Node" parent="." node_paths=PackedStringArray("skin_sprite")]
+script = ExtResource("3_jd01o")
+properties = ExtResource("2_ieo6w")
+skin_sprite = NodePath("../Skin")
+
+[node name="Skin" parent="." instance=ExtResource("4_jov08")]
+scale = Vector2(0.5, 0.5)
+animation_speed = 1.25
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_cxsfy")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("health", "skin_sprite")]
+position = Vector2(0, -8)
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("5_ov6hr")
+health = NodePath("../Health")
+skin_sprite = NodePath("../Skin")
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_6lqej")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[connection signal="timeout" from="Lifetime" to="Lifetime" method="_on_timeout"]

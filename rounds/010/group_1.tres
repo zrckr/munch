@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RoundGroup" load_steps=3 format=3 uid="uid://cu7ev5qgsf1wv"]
+
+[ext_resource type="Script" path="res://rounds/round_group.gd" id="1_s6nh4"]
+[ext_resource type="Resource" uid="uid://jjihnrlie3oh" path="res://rounds/010/unit_1.tres" id="2_ji3gc"]
+
+[resource]
+resource_name = "group_1"
+script = ExtResource("1_s6nh4")
+units = Array[Resource("res://rounds/round_unit.gd")]([ExtResource("2_ji3gc")])
+respawn_chance = 100
+respawn_time = 1
+override_enabled = false
+override_position_type = 0

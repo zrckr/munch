@@ -1,0 +1,10 @@
+[gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://bxyfpwp6jvq8"]
+
+[ext_resource type="Gradient" uid="uid://bauts5teqv5rg" path="res://backgrounds/gradients/divil_gradient.tres" id="1_ldhvu"]
+
+[resource]
+gradient = ExtResource("1_ldhvu")
+width = 240
+height = 180
+fill = 1
+fill_to = Vector2(0.33, 0.33)

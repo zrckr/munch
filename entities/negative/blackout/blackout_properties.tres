@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntityProperties" load_steps=2 format=3 uid="uid://copwsigj5n0rs"]
+
+[ext_resource type="Script" path="res://entities/entity_properties.gd" id="1_lva8g"]
+
+[resource]
+resource_name = "blackout"
+script = ExtResource("1_lva8g")
+display_name = "Black Out!"
+lifetime = 10
+health_use_previous_value = true
+health_value = 3
+health_overheal = 3
+damage_value = 0
+damage_cap = 0
+speed_value = 80.0
+speed_cap = 160.0

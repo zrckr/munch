@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://shfr5ls2g8nq"]
+
+[ext_resource type="Script" path="res://ui/waypoint/waypoint.gd" id="1_0fpfk"]
+[ext_resource type="Texture2D" uid="uid://di3svfhvsggop" path="res://ui/waypoint/waypoint.svg" id="1_ys58p"]
+
+[node name="Waypoint" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0fpfk")
+
+[node name="Marker" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 8.0
+texture = ExtResource("1_ys58p")
+expand_mode = 1
