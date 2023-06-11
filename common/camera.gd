@@ -6,11 +6,13 @@ var follow_to_player := true
 @export
 var disable_shake := false
 
+var player_entity: Entity:
+	get: return get_tree().get_first_node_in_group(Entity.Group.PLAYER)
+
 
 func _physics_process(_delta: float) -> void:
-	var player = get_tree().get_first_node_in_group(Game.Groups.PLAYER)
-	if player is Node2D and follow_to_player:
-		global_position = player.global_position
+	if player_entity and follow_to_player:
+		global_position = player_entity.global_position
 
 
 func shake(intensity: float, duration: float) -> void:

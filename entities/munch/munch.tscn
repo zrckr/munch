@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://demj0a08gekqc"]
+
+[ext_resource type="Texture2D" uid="uid://12snf7se5pww" path="res://assets/munch/munch.png" id="1_5adpq"]
+[ext_resource type="Script" path="res://entities/entity.gd" id="1_37jtp"]
+[ext_resource type="Script" path="res://entities/munch/munch_movement_component.gd" id="1_il1on"]
+[ext_resource type="Resource" uid="uid://bck43kgh2r2r8" path="res://entities/munch/munch_properties.tres" id="2_0hanb"]
+[ext_resource type="Script" path="res://entities/munch/munch_animation_component.gd" id="2_duh27"]
+[ext_resource type="AnimationLibrary" uid="uid://d2ou2phowi1ss" path="res://assets/munch/munch.tres" id="3_k3c0c"]
+[ext_resource type="Script" path="res://entities/components/hitbox_component.gd" id="4_itf2t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svj2w"]
+size = Vector2(6, 6)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mb3yf"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ru841"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4r7uj"]
+radius = 64.0
+
+[node name="Munch" type="CharacterBody2D" groups=["munch"]]
+collision_layer = 32
+motion_mode = 1
+script = ExtResource("1_37jtp")
+properties = ExtResource("2_0hanb")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_svj2w")
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("1_il1on")
+
+[node name="ScatterTimer" type="Timer" parent="MovementComponent"]
+process_callback = 0
+one_shot = true
+
+[node name="AnimationComponent" type="Node2D" parent="."]
+rotation = 1.5708
+script = ExtResource("2_duh27")
+
+[node name="Sprite" type="Sprite2D" parent="AnimationComponent"]
+texture_filter = 1
+texture_repeat = 1
+texture = ExtResource("1_5adpq")
+hframes = 4
+
+[node name="Player" type="AnimationPlayer" parent="AnimationComponent"]
+root_node = NodePath("../..")
+autoplay = "default"
+libraries = {
+"": ExtResource("3_k3c0c")
+}
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("4_itf2t")
+
+[node name="Collision" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_mb3yf")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[node name="DetectionComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="Collision" type="CollisionShape2D" parent="DetectionComponent"]
+shape = SubResource("CircleShape2D_ru841")
+debug_color = Color(1, 0.75, 0, 0)
+
+[node name="LostComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="Collision" type="CollisionShape2D" parent="LostComponent"]
+shape = SubResource("CircleShape2D_4r7uj")
+debug_color = Color(0.168627, 1, 0, 0)
+
+[connection signal="timeout" from="MovementComponent/ScatterTimer" to="MovementComponent" method="_on_scatter_timer_timeout"]
+[connection signal="body_entered" from="DetectionComponent" to="MovementComponent" method="_on_detection_component_body_entered"]
+[connection signal="body_exited" from="LostComponent" to="MovementComponent" method="_on_lost_component_body_exited"]

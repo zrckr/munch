@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://63xj1ottp7nk"]
+
+[ext_resource type="Script" path="res://entities/spawner/spawner.gd" id="1_rcdcp"]
+[ext_resource type="Material" uid="uid://dxgea0csu46c7" path="res://entities/spawner/pixelate.tres" id="2_ivymu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m8goo"]
+size = Vector2(16, 16)
+
+[node name="Spawner" type="Node2D"]
+script = ExtResource("1_rcdcp")
+time_to_spawn = 3
+shader_material = ExtResource("2_ivymu")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[node name="SpawnArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 42
+
+[node name="Collision" type="CollisionShape2D" parent="SpawnArea"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_m8goo")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="SpawnArea" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="SpawnArea" to="." method="_on_body_exited"]

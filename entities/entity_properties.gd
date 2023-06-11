@@ -1,18 +1,33 @@
 class_name EntityProperties
 extends Resource
 
-@export var display_name := 'Untitled'
-@export var lifetime := -1
+enum HealthType {
+	SET_HEALTH_FOR_NEW_ABILITY,
+	USE_HEALTH_FROM_PREVIOUS_ABILITY,
+	INVULNERABLE_TO_ATTACKS,
+}
 
-@export_group('Health', 'health_')
-@export var health_use_previous_value := false
-@export_range(1, 100, 1, 'suffix:hp') var health_value := 1
-@export_range(1, 100, 1, 'suffix:hp') var health_overheal := 3
+@export
+var display_name := 'Untitled'
 
-@export_group('Damage', 'damage_')
-@export_range(0, 100, 1, 'suffix:dp') var damage_value := 0
-@export_range(0, 100, 1, 'suffix:dp') var damage_cap := 0
+## NOTE: Keep it sync with the `Entity.Group` dictionary
+@export_enum('player', 'enemy', 'munch', 'positive_roll', 'negative_roll')
+var entity_group := ''
 
-@export_group('Movement', 'speed_')
-@export_range(0, 400, 5, 'suffix:px/s') var speed_value := 4.0
-@export_range(0, 400, 5, 'suffix:px/s') var speed_cap := 4.0
+@export_range(-1, 600, 1, 'suffix:seconds')
+var lifetime := -1
+
+@export_range(-1, 100, 1)
+var health_points := 1
+
+@export
+var health_type: HealthType
+
+@export_range(0, 100, 1, 'suffix:dp')
+var damage := 0
+
+@export_range(0, 400, 5, 'suffix:px/s')
+var speed := 4.0
+
+@export
+var extra := {}

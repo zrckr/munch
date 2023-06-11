@@ -1,0 +1,86 @@
+[gd_scene load_steps=14 format=3 uid="uid://mksrxwig7r1t"]
+
+[ext_resource type="Script" path="res://entities/components/animation_component.gd" id="1_ihpyn"]
+[ext_resource type="Script" path="res://entities/entity.gd" id="1_mumsa"]
+[ext_resource type="Texture2D" uid="uid://onsvxw17odwc" path="res://assets/panzer/panzer.png" id="2_8i7yx"]
+[ext_resource type="PackedScene" uid="uid://uh2jkp1y03h" path="res://projectiles/bullet/bullet.tscn" id="2_dh7to"]
+[ext_resource type="AnimationLibrary" uid="uid://b5bx6jnb6h613" path="res://assets/panzer/panzer.tres" id="3_01ctt"]
+[ext_resource type="Script" path="res://entities/abilities/panzer/panzer_movement_component.gd" id="4_3rp1l"]
+[ext_resource type="Resource" uid="uid://do6k0atg3n35t" path="res://entities/abilities/panzer/panzer_properties.tres" id="4_pmou4"]
+[ext_resource type="Script" path="res://entities/components/lifetime_component.gd" id="5_ftwsw"]
+[ext_resource type="Script" path="res://entities/abilities/panzer/panzer_attack_component.gd" id="6_3f6qu"]
+[ext_resource type="Script" path="res://entities/components/health_component.gd" id="6_b44iw"]
+[ext_resource type="Script" path="res://entities/components/hurtbox_component.gd" id="7_5ku2b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_or5au"]
+size = Vector2(16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6v475"]
+radius = 4.0
+
+[node name="Panzer" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_mumsa")
+properties = ExtResource("4_pmou4")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_or5au")
+
+[node name="AnimationComponent" type="Node2D" parent="."]
+texture_filter = 1
+script = ExtResource("1_ihpyn")
+
+[node name="Sprite" type="Sprite2D" parent="AnimationComponent"]
+texture = ExtResource("2_8i7yx")
+hframes = 2
+
+[node name="Player" type="AnimationPlayer" parent="AnimationComponent"]
+autoplay = "default"
+libraries = {
+"": ExtResource("3_01ctt")
+}
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("4_3rp1l")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("6_b44iw")
+
+[node name="InvincibilityTimer" type="Timer" parent="HealthComponent"]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
+[node name="StunTimer" type="Timer" parent="HealthComponent"]
+process_callback = 0
+wait_time = 0.16
+one_shot = true
+
+[node name="LifetimeComponent" type="Node" parent="."]
+script = ExtResource("5_ftwsw")
+
+[node name="DurationTimer" type="Timer" parent="LifetimeComponent"]
+process_callback = 0
+one_shot = true
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+script = ExtResource("7_5ku2b")
+
+[node name="Collision" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_6v475")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[node name="AttackComponent" type="Node2D" parent="."]
+script = ExtResource("6_3f6qu")
+bullet_projectile = ExtResource("2_dh7to")
+bullet_collision_layer = 4
+bullet_collision_mask = 8
+
+[node name="MuzzleMarker" type="Marker2D" parent="AttackComponent"]
+position = Vector2(0, -8)
+
+[connection signal="area_entered" from="HurtboxComponent" to="HurtboxComponent" method="_on_area_entered"]

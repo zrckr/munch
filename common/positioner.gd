@@ -9,14 +9,6 @@ enum Type {
 }
 
 ##
-var min_position: Vector2:
-	get: return _min_position
-
-##
-var max_position: Vector2:
-	get: return _max_position
-
-##
 var _min_position: Vector2
 
 ##
@@ -111,6 +103,12 @@ func get_random_by_type(type: Type) -> Vector2:
 			return get_random_outside_box()
 	
 	return Vector2.ZERO
+
+
+func is_inside_bounds(position: Vector2) -> bool:
+	var inside_x = position.x > _min_position.x and position.x < _max_position.x
+	var inside_y = position.y > _min_position.y and position.y < _max_position.y
+	return inside_x and inside_y
 
 
 func duplicate() -> Positioner:

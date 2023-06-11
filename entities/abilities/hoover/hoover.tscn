@@ -1,0 +1,130 @@
+[gd_scene load_steps=15 format=3 uid="uid://bml7ddqie1tki"]
+
+[ext_resource type="Script" path="res://entities/entity.gd" id="1_ijl6m"]
+[ext_resource type="Resource" uid="uid://4xtsxjrlw8rf" path="res://entities/abilities/hoover/hoover_properties.tres" id="2_qurdm"]
+[ext_resource type="Script" path="res://entities/player/player_movement_component.gd" id="3_8rhic"]
+[ext_resource type="Script" path="res://entities/components/animation_component.gd" id="4_tuolq"]
+[ext_resource type="Texture2D" uid="uid://d2isyc0t8sklm" path="res://assets/munchkin/munchkin.png" id="5_jokwk"]
+[ext_resource type="Script" path="res://entities/abilities/hoover/hoover_component.gd" id="5_yfa5t"]
+[ext_resource type="AnimationLibrary" uid="uid://n7eqhsgy7kxq" path="res://assets/munchkin/munchkin.tres" id="6_0b7mx"]
+[ext_resource type="Script" path="res://entities/components/health_component.gd" id="7_a8k4i"]
+[ext_resource type="Script" path="res://entities/components/lifetime_component.gd" id="8_xrbq2"]
+[ext_resource type="Script" path="res://entities/components/hurtbox_component.gd" id="9_wpied"]
+[ext_resource type="AnimationLibrary" uid="uid://0qxrn2fpxblq" path="res://entities/abilities/hoover/hoover_animations.tres" id="11_wmh7s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sctg7"]
+size = Vector2(16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w0w13"]
+radius = 6.0
+
+[sub_resource type="Curve" id="Curve_b863f"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Hoover" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_ijl6m")
+properties = ExtResource("2_qurdm")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_sctg7")
+debug_color = Color(0, 0.6, 0.7, 0.2)
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("3_8rhic")
+
+[node name="AnimationComponent" type="Node2D" parent="."]
+use_parent_material = true
+position = Vector2(0, -8)
+script = ExtResource("4_tuolq")
+
+[node name="Sprite" type="Sprite2D" parent="AnimationComponent"]
+texture_filter = 1
+use_parent_material = true
+texture = ExtResource("5_jokwk")
+hframes = 7
+vframes = 6
+
+[node name="Player" type="AnimationPlayer" parent="AnimationComponent"]
+autoplay = "idle"
+libraries = {
+"": ExtResource("6_0b7mx")
+}
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("7_a8k4i")
+
+[node name="InvincibilityTimer" type="Timer" parent="HealthComponent"]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
+[node name="StunTimer" type="Timer" parent="HealthComponent"]
+process_callback = 0
+wait_time = 0.16
+one_shot = true
+
+[node name="LifetimeComponent" type="Node" parent="."]
+script = ExtResource("8_xrbq2")
+
+[node name="DurationTimer" type="Timer" parent="LifetimeComponent"]
+process_callback = 0
+one_shot = true
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+script = ExtResource("9_wpied")
+
+[node name="Collision" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_w0w13")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[node name="HooverComponent" type="Node2D" parent="."]
+script = ExtResource("5_yfa5t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HooverComponent"]
+autoplay = "RESET"
+libraries = {
+"": ExtResource("11_wmh7s")
+}
+
+[node name="Pivot" type="Node2D" parent="HooverComponent"]
+position = Vector2(0, -8)
+
+[node name="CpuParticles" type="CPUParticles2D" parent="HooverComponent/Pivot"]
+position = Vector2(0, 36)
+emitting = false
+lifetime = 0.33
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 21.42
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 60.0
+initial_velocity_max = 120.0
+radial_accel_min = -100.0
+radial_accel_max = -100.0
+damping_curve = SubResource("Curve_b863f")
+
+[node name="SuctionArea" type="Area2D" parent="HooverComponent/Pivot"]
+position = Vector2(0, 16)
+collision_layer = 0
+collision_mask = 8
+
+[node name="Collision" type="CollisionPolygon2D" parent="HooverComponent/Pivot/SuctionArea"]
+position = Vector2(0, -16)
+polygon = PackedVector2Array(0, 0, 24, 72, -24, 72)
+disabled = true
+
+[connection signal="timeout" from="HealthComponent/InvincibilityTimer" to="HealthComponent" method="_on_invincibility_timer_timeout"]
+[connection signal="timeout" from="HealthComponent/StunTimer" to="HealthComponent" method="_on_stun_timer_timeout"]
+[connection signal="timeout" from="LifetimeComponent/DurationTimer" to="LifetimeComponent" method="_on_duration_timer_timeout"]
+[connection signal="area_entered" from="HurtboxComponent" to="HurtboxComponent" method="_on_area_entered"]
+[connection signal="body_entered" from="HooverComponent/Pivot/SuctionArea" to="HooverComponent" method="_on_suction_area_body_entered"]

@@ -20,11 +20,11 @@ signal player_health_updated(health)
 
 signal player_munchies_eaten(munchies, total)
 
-signal player_rolled_the_dice(ability)
+signal player_rolled_the_dice(properties)
 
 signal player_roll_ticked(time)
 
-signal player_wasted_the_roll()
+signal player_wasted_the_roll(properties)
 
 signal player_roll_worn_off()
 
@@ -72,15 +72,15 @@ func _ready() -> void:
 		print('PLAYER: Eaten %d/%d munchies' % [munchies, total])
 	)
 	
-	Events.player_rolled_the_dice.connect(func(ability):
-		print('RTD: Player rolled the %s roll!' % ability.name)
+	Events.player_rolled_the_dice.connect(func(properties):
+		print('RTD: Player rolled the %s roll!' % properties.display_name)
 	)
 	
 	Events.player_wasted_the_roll.connect(func():
 		print('RTD: Player wasted its roll')
 	)
 	
-	Events.player_roll_worn_off.connect(func():
+	Events.player_roll_worn_off.connect(func(_properties):
 		print('RTD: Player\'s roll has worn off')
 	)
 	

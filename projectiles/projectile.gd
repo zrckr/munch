@@ -33,5 +33,5 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func _on_body_entered(body: PhysicsBody2D) -> void:
-	if body.collision_layer & Physics.Layer.OBSTACLES:
+	if body.collision_layer & Physics.Layer.NEUTRAL:
 		queue_free()

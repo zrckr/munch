@@ -9,7 +9,6 @@ blend_mode = 3
 
 [node name="Dots" type="Node"]
 script = ExtResource("1_p02sg")
-maximum_global_position = Vector2(720, 480)
 
 [node name="Texture" type="Polygon2D" parent="."]
 texture_filter = 1
@@ -27,8 +26,7 @@ texture = ExtResource("3_qp0l2")
 polygon = PackedVector2Array(-360, -240, 360, -240, 360, 240, -360, 240)
 
 [node name="StaticBody" type="StaticBody2D" parent="."]
-collision_layer = 2
-collision_mask = 76
+collision_mask = 42
 metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon" type="CollisionPolygon2D" parent="StaticBody"]

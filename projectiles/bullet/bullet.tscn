@@ -76,8 +76,8 @@ _data = {
 }
 
 [node name="Bullet" type="Area2D"]
-collision_layer = 16
-collision_mask = 14
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_uyc57")
 target_speed = 300.0
 acceleration_time = 0.25

@@ -1,0 +1,117 @@
+[gd_scene load_steps=14 format=3 uid="uid://dcjrgb0bm2flw"]
+
+[ext_resource type="Texture2D" uid="uid://41qj6c3rwqad" path="res://assets/divil/divil.png" id="1_hhb5v"]
+[ext_resource type="Script" path="res://entities/entity.gd" id="1_iq1x5"]
+[ext_resource type="Script" path="res://entities/divil/divil_movement_component.gd" id="1_lgtsk"]
+[ext_resource type="AnimationLibrary" uid="uid://cpxl3h3pybhww" path="res://assets/divil/divil.tres" id="2_bqd7v"]
+[ext_resource type="Resource" uid="uid://crmtt3wvk7qa5" path="res://entities/divil/divil_properties.tres" id="2_djf61"]
+[ext_resource type="Script" path="res://entities/components/animation_component.gd" id="4_joj7f"]
+[ext_resource type="Script" path="res://entities/components/health_component.gd" id="6_127vw"]
+[ext_resource type="Script" path="res://entities/components/hitbox_component.gd" id="8_ndgnt"]
+[ext_resource type="Script" path="res://entities/components/hurtbox_component.gd" id="9_upsxc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_or5au"]
+size = Vector2(16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6v475"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hj0es"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tt3n7"]
+radius = 32.0
+
+[node name="Divil" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 9
+motion_mode = 1
+safe_margin = 0.16
+script = ExtResource("1_iq1x5")
+properties = ExtResource("2_djf61")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_or5au")
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("1_lgtsk")
+
+[node name="AnimationComponent" type="Node2D" parent="."]
+use_parent_material = true
+script = ExtResource("4_joj7f")
+
+[node name="Sprite" type="Sprite2D" parent="AnimationComponent"]
+texture_filter = 1
+use_parent_material = true
+position = Vector2(0, -8)
+texture = ExtResource("1_hhb5v")
+hframes = 5
+vframes = 5
+frame = 21
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "divil",
+"only_visible": false,
+"op_exp": false,
+"player": "AnimationPlayer",
+"source": "res://skins/divil/divil.ase"
+}
+
+[node name="Player" type="AnimationPlayer" parent="AnimationComponent"]
+autoplay = "idle"
+libraries = {
+"": ExtResource("2_bqd7v")
+}
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("6_127vw")
+
+[node name="InvincibilityTimer" type="Timer" parent="HealthComponent"]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
+[node name="StunTimer" type="Timer" parent="HealthComponent"]
+process_callback = 0
+wait_time = 0.16
+one_shot = true
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("8_ndgnt")
+
+[node name="Collision" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_6v475")
+debug_color = Color(0.701961, 0.52549, 0, 0.419608)
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("9_upsxc")
+
+[node name="Collision" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_hj0es")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[node name="DetectionComponent" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="Collision" type="CollisionShape2D" parent="DetectionComponent"]
+shape = SubResource("CircleShape2D_tt3n7")
+debug_color = Color(0.717647, 0, 1, 0)
+
+[connection signal="timeout" from="HealthComponent/InvincibilityTimer" to="HealthComponent" method="_on_invincibility_timer_timeout"]
+[connection signal="timeout" from="HealthComponent/StunTimer" to="HealthComponent" method="_on_stun_timer_timeout"]
+[connection signal="area_entered" from="HurtboxComponent" to="HurtboxComponent" method="_on_area_entered"]
+[connection signal="body_entered" from="DetectionComponent" to="MovementComponent" method="_on_detection_component_body_entered"]

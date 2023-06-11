@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 Events="*res://singletons/events.gd"
-Game="*res://singletons/game.gd"
 
 [debug]
 
@@ -33,11 +32,11 @@ window/size/resizable=false
 window/size/window_width_override=720
 window/size/window_height_override=480
 window/stretch/mode="canvas_items"
-window/dpi/allow_hidpi=false
 
 [editor]
 
 movie_writer/movie_file="/tmp/movie.avi"
+script/templates_search_path="res://templates"
 
 [input]
 
@@ -69,13 +68,12 @@ attack={
 
 [layer_names]
 
-2d_physics/layer_1="Neutral"
-2d_physics/layer_2="Obstacles"
-2d_physics/layer_3="Player"
-2d_physics/layer_4="Divils"
-2d_physics/layer_5="Projectiles"
-2d_physics/layer_6="RolledTheDice"
-2d_physics/layer_7="Munchies"
+2d_physics/layer_1="NEUTRAL"
+2d_physics/layer_2="PLAYER_ENTITY"
+2d_physics/layer_3="PLAYER_DAMAGE"
+2d_physics/layer_4="ENEMY_ENTITY"
+2d_physics/layer_5="ENEMY_DAMAGE"
+2d_physics/layer_6="MUNCH"
 
 [rendering]
 

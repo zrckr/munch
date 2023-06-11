@@ -1,7 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dxgea0csu46c7"]
-
-[ext_resource type="Shader" path="res://shaders/pixelate.gdshader" id="1_po871"]
-
-[resource]
-shader = ExtResource("1_po871")
-shader_parameter/amount = 1.57

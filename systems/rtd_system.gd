@@ -1,91 +1,116 @@
 class_name RtdSystem
-extends Node
+extends System
 
 @export
-var abilities: EntityAbilities
+var abilities: EntityAbilities:
+	get:
+		assert(abilities, 'No EntityAbilities present for [%s]' % owner.name)
+		return abilities
 
-##
-var munchies_eaten: int:
-	get: return _munchies_eaten
-	set(value):
-		_munchies_eaten = value
-		Events.player_munchies_eaten \
-			.emit(value, abilities.activation_threshold)
+var _positive_queue: Array[PackedScene]:
+	get:
+		if _positive_queue.is_empty():
+			_positive_queue.append_array(abilities.positive_abilities)
+			_positive_queue.shuffle()
+		return _positive_queue
 
-##
-var current_chance := 0
+var _negative_queue: Array[PackedScene]:
+	get:
+		if _negative_queue.is_empty():
+			_negative_queue.append_array(abilities.negative_abilities)
+			_negative_queue.shuffle()
+		return _negative_queue
 
-##
-var random := RandomNumberGenerator.new()
-
-##
-var _munchies_eaten := 0
+var _current_chance: int
 
 
-func _enter_tree() -> void:
-	assert(abilities, 'The abilities is not defined')
-	current_chance = abilities.chance_default
-	random.randomize()
+func _enter_tree():
+	get_tree().node_added.connect(_on_node_added)
+
+
+func _exit_tree() -> void:
+	get_tree().node_removed.connect(_on_node_added)
+
+
+func _process(_delta: float) -> void:
+	for entity in get_tree().get_nodes_in_group(Entity.Group._ROLL_THE_DICE):
+		entity.remove_from_group(Entity.Group._ROLL_THE_DICE)
+		_roll_the_dice(entity)
+		entity.queue_free()
+	
+	for entity in get_tree().get_nodes_in_group(Entity.Group._WEAR_OFF_ROLL):
+		entity.remove_from_group(Entity.Group._WEAR_OFF_ROLL)
+		_back_to_default(entity)
+		entity.queue_free()
 
 
 func _input(_event: InputEvent) -> void:
 	if OS.is_debug_build():
 		if Input.is_physical_key_pressed(KEY_F1):
 			push_warning('Only the positive rolls will be used')
-			current_chance = EntityAbilities.ALWAYS_POSITIVE_ABILITIES_CHANCE
+			_current_chance = EntityAbilities.ALWAYS_POSITIVE_ABILITIES_CHANCE
 		
 		if Input.is_physical_key_pressed(KEY_F2):
 			push_warning('Only the negative rolls will be used')
-			current_chance = EntityAbilities.ALWAYS_NEGATIVE_ABILITIES_CHANCE
+			_current_chance = EntityAbilities.ALWAYS_NEGATIVE_ABILITIES_CHANCE
 		
 		if Input.is_physical_key_pressed(KEY_F3):
 			push_warning('[RTD] Reset to default roll chance')
-			current_chance = abilities.chance_default
+			_current_chance = abilities.default_chance
 
 
-func can_roll_the_dice(entity: Node) -> bool:
-	var called_from_default = abilities.default_scene == str(entity.scene_file_path)
-	var all_munchies_eaten = abilities.activation_threshold == munchies_eaten
-	return called_from_default and all_munchies_eaten
-
-
-func increase_roll_chance(amount: int) -> void:
-	assert(Math.betweeni(amount, -100, 100), \
-		'Invalid roll chance amount: %d' % amount)
+func _roll_the_dice(entity: Entity) -> void:
+	var random_ability = _choose_random_ability(_current_chance)
+	var random_properties = random_ability.properties
 	
-	current_chance = clampi(
-		current_chance + amount,
-		abilities.chance_minumum,
-		abilities.chance_maximum
+	random_ability.state = entity.state
+	random_ability.add_to_group(entity.properties.entity_group)
+	
+	get_tree().current_scene.add_child(random_ability)
+	Events.player_rolled_the_dice.emit(random_properties)
+
+
+func _back_to_default(entity: Entity) -> void:
+	var default_ability = _choose_default_ability()
+	var default_properties = default_ability.properties
+	
+	default_ability.state = entity.state
+	
+	get_tree().current_scene.add_child(default_ability)
+	Events.player_roll_worn_off.emit(default_properties)
+
+
+func _choose_random_ability(chance: int) -> Entity:
+	var roll_positive = (chance / 100.0) > randf()
+	
+	var selected_abilities = (
+		_positive_queue if roll_positive
+		else _negative_queue
 	)
+	
+	var packed_scene = selected_abilities.pop_front()
+	var entity = packed_scene.instantiate() as Entity
+	
+	assert(entity is Entity, 'The scene [%s] is not an Entity' % \
+		packed_scene.resource_path)
+	
+	return entity as Entity
 
 
-func lower_activation_threshold() -> void:
-	munchies_eaten += 1
+func _choose_default_ability() -> Entity:
+	var entity = abilities.default_ability.instantiate()
+	
+	assert(entity is Entity, 'The scene [%s] is not an Entity' % \
+		abilities.default_ability.resource_path)
+	
+	return entity as Entity
 
 
-func roll_the_dice(entity: Node) -> void:
-	var ability = abilities.choose_random(current_chance, random)
-	if not ability:
-		Events.player_wasted_the_roll.emit()
+func _on_node_added(node: Node) -> void:
+	if node is Entity and node.is_player_default():
+		Events.player_roll_worn_off.emit(node.properties)
 		return
 	
-	var instance = ability.instantiate()
-	instance.global_position = entity.global_position
-	instance.add_to_group(entity.get_groups().front())
-	
-	get_tree().current_scene.add_child(instance)
-	Events.player_rolled_the_dice.emit(instance)
-
-
-func back_to_default(entity: Node) -> void:
-	munchies_eaten = 0
-	
-	var default = abilities.choose_default(entity)
-	assert(default, 'The default ability is not defined')
-	
-	var instance = default.instantiate()
-	instance.global_position = entity.global_position
-	
-	get_tree().current_scene.add_child(instance)
-	Events.player_roll_worn_off.emit()
+	if node is MunchboxComponent:
+		node._munchies_total = abilities.activation_threshold
+		return

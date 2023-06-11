@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EntityProperties" load_steps=2 format=3 uid="uid://crmtt3wvk7qa5"]
+
+[ext_resource type="Script" path="res://entities/entity_properties.gd" id="1_11m0s"]
+
+[resource]
+resource_name = "divil"
+script = ExtResource("1_11m0s")
+display_name = "Litil Divil"
+entity_group = "enemy"
+lifetime = -1
+health_points = 1
+health_type = 0
+damage = 1
+speed = 60.0
+extra = {}
