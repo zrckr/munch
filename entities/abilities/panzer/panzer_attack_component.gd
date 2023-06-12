@@ -1,5 +1,10 @@
 extends Node2D
 
+enum State {
+	RELOADING,
+	READY,
+}
+
 var _entity: Entity:
 	get:
 		assert(owner is Entity, 'The [%s] is not an Entity' % owner.name)
@@ -7,6 +12,13 @@ var _entity: Entity:
 
 @export
 var bullet_projectile: PackedScene
+
+var _state: State:
+	get:
+		return _state
+	set(value):
+		_state = value
+		_process_attack(value)
 
 @export_flags_2d_physics
 var bullet_collision_layer: int
@@ -17,11 +29,24 @@ var bullet_collision_mask: int
 @onready
 var _muzzle_marker: Marker2D = $MuzzleMarker
 
+@onready
+var _reload_timer: Timer = $ReloadTimer
 
-func _input(event: InputEvent) -> void:
+
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed('attack'):
-		await get_tree().physics_frame
-		_spawn_projectile_instance()
+		call_deferred('_spawn_projectile_instance')
+		_state = State.RELOADING
+
+
+func _process_attack(new_state: State) -> void:
+	match new_state:
+		State.READY:
+			set_process_unhandled_input(true)
+		
+		State.RELOADING:
+			set_process_unhandled_input(false)
+			_reload_timer.start()
 
 
 func _spawn_projectile_instance() -> void:
@@ -35,3 +60,7 @@ func _spawn_projectile_instance() -> void:
 		get_tree().root.add_child(projectile)
 	else:
 		get_tree().current_scene.add_child(projectile)
+
+
+func _on_reload_timer_timeout() -> void:
+	_state = State.READY

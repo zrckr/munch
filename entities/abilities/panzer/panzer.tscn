@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://mksrxwig7r1t"]
+[gd_scene load_steps=19 format=3 uid="uid://mksrxwig7r1t"]
 
 [ext_resource type="Script" path="res://entities/components/animation_component.gd" id="1_ihpyn"]
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_mumsa"]
@@ -11,12 +11,21 @@
 [ext_resource type="Script" path="res://entities/abilities/panzer/panzer_attack_component.gd" id="6_3f6qu"]
 [ext_resource type="Script" path="res://entities/components/health_component.gd" id="6_b44iw"]
 [ext_resource type="Script" path="res://entities/components/hurtbox_component.gd" id="7_5ku2b"]
+[ext_resource type="Script" path="res://entities/abilities/panzer/panzer_shield_component.gd" id="12_h0sqb"]
+[ext_resource type="Texture2D" uid="uid://damd3b64suo78" path="res://assets/circle/circle.png" id="12_ll6q7"]
+[ext_resource type="Texture2D" uid="uid://bas41pi83hg2w" path="res://assets/square/square.png" id="13_3rwe2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_or5au"]
 size = Vector2(16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6v475"]
 radius = 4.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t1yhw"]
+blend_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kmxhf"]
+blend_mode = 2
 
 [node name="Panzer" type="CharacterBody2D"]
 collision_layer = 2
@@ -83,4 +92,52 @@ bullet_collision_mask = 8
 [node name="MuzzleMarker" type="Marker2D" parent="AttackComponent"]
 position = Vector2(0, -8)
 
+[node name="ReloadTimer" type="Timer" parent="AttackComponent"]
+process_callback = 0
+wait_time = 3.0
+one_shot = true
+
+[node name="ShieldComponent" type="Area2D" parent="."]
+show_behind_parent = true
+collision_layer = 4
+collision_mask = 16
+monitoring = false
+script = ExtResource("12_h0sqb")
+
+[node name="Collision" type="CollisionPolygon2D" parent="ShieldComponent"]
+build_mode = 1
+polygon = PackedVector2Array(32, 0, 32, -4, 28, -16, 20, -24, 16, -28, 4, -32, -4, -32, -16, -28, -20, -24, -28, -16, -32, -4, -32, 0, -24, 0, -24, -4, -20, -12, -12, -20, -4, -24, 4, -24, 12, -20, 20, -12, 24, -4, 24, 0)
+
+[node name="WaitTimer" type="Timer" parent="ShieldComponent"]
+process_callback = 0
+wait_time = 10.0
+one_shot = true
+
+[node name="DurationTimer" type="Timer" parent="ShieldComponent"]
+process_callback = 0
+wait_time = 7.0
+one_shot = true
+
+[node name="Shield" type="Node2D" parent="ShieldComponent"]
+modulate = Color(0, 0.6, 0.701961, 0.419608)
+scale = Vector2(0.25, 0.25)
+
+[node name="OuterCircle" type="Sprite2D" parent="ShieldComponent/Shield"]
+texture = ExtResource("12_ll6q7")
+
+[node name="InnerCircle" type="Sprite2D" parent="ShieldComponent/Shield"]
+material = SubResource("CanvasItemMaterial_t1yhw")
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("12_ll6q7")
+
+[node name="HalfSquare" type="Sprite2D" parent="ShieldComponent/Shield"]
+material = SubResource("CanvasItemMaterial_kmxhf")
+position = Vector2(3.8147e-06, 64)
+scale = Vector2(1, 0.5)
+texture = ExtResource("13_3rwe2")
+
 [connection signal="area_entered" from="HurtboxComponent" to="HurtboxComponent" method="_on_area_entered"]
+[connection signal="timeout" from="AttackComponent/ReloadTimer" to="AttackComponent" method="_on_reload_timer_timeout"]
+[connection signal="area_entered" from="ShieldComponent" to="ShieldComponent" method="_on_area_entered"]
+[connection signal="timeout" from="ShieldComponent/WaitTimer" to="ShieldComponent" method="_on_wait_timer_timeout"]
+[connection signal="timeout" from="ShieldComponent/DurationTimer" to="ShieldComponent" method="_on_duration_timer_timeout"]
