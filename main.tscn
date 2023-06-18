@@ -26,9 +26,11 @@ limit_bottom = 480
 editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource("3_6k5lx")
+follow_player = true
+shake_damage_intensity = 4.0
+shake_damage_duration = 0.25
 metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("7_ckx1v")]
-offset_bottom = 36.0
