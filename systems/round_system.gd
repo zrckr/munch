@@ -26,6 +26,10 @@ var _entity_spawn_queue := []
 var _duration_timer: Timer = $DurationTimer
 
 
+func _ready() -> void:
+	set_process(false)
+
+
 func _process(_delta: float) -> void:
 	for entity in _entity_spawn_queue.duplicate():
 		_entity_spawn_queue.pop_front()
@@ -45,9 +49,13 @@ func start_next_round() -> void:
 	_queue_enemies_to_spawn()
 	
 	get_tree().node_removed.connect(_on_node_removed)
+	set_process(true)
+	
+	Events.round_started.emit(_current_round_index + 1)
 
 
 func end_current_round() -> void:
+	set_process(false)
 	get_tree().node_removed.disconnect(_on_node_removed)
 	_duration_timer.stop()
 
