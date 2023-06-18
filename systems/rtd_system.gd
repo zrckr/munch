@@ -24,6 +24,10 @@ var _negative_queue: Array[PackedScene]:
 var _current_chance: int
 
 
+func _ready() -> void:
+	_current_chance = abilities.default_chance
+
+
 func _enter_tree():
 	get_tree().node_added.connect(_on_node_added)
 
@@ -47,15 +51,15 @@ func _process(_delta: float) -> void:
 func _input(_event: InputEvent) -> void:
 	if OS.is_debug_build():
 		if Input.is_physical_key_pressed(KEY_F1):
-			push_warning('Only the positive rolls will be used')
+			print('[RTD] Only the positive rolls will be used')
 			_current_chance = EntityAbilities.ALWAYS_POSITIVE_ABILITIES_CHANCE
 		
 		if Input.is_physical_key_pressed(KEY_F2):
-			push_warning('Only the negative rolls will be used')
+			print('[RTD] Only the negative rolls will be used')
 			_current_chance = EntityAbilities.ALWAYS_NEGATIVE_ABILITIES_CHANCE
 		
 		if Input.is_physical_key_pressed(KEY_F3):
-			push_warning('[RTD] Reset to default roll chance')
+			print('[RTD] Reset to default roll chance')
 			_current_chance = abilities.default_chance
 
 

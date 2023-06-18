@@ -259,8 +259,6 @@ tracks/4/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_na02e"]
-length = 0.15
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -323,8 +321,6 @@ tracks/4/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_2qguc"]
-length = 0.15
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -387,8 +383,6 @@ tracks/4/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_je4ec"]
-length = 0.15
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

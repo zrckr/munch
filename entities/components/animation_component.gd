@@ -57,19 +57,12 @@ func play_idle() -> void:
 
 
 func play_move(direction: Vector2i) -> void:
-	var facing_direction = ''
+	var facing_direction = _determine_facing_direction(direction)
 	_sprite.flip_h = false
-	
-	if direction.x != 0:
-		facing_direction = 'side'
-	if direction.y < 0:
-		facing_direction = 'up'
-	if direction.y > 0:
-		facing_direction = 'down'
 	
 	if facing_direction:
 		_sprite.flip_h = direction.x > 0
-		_player.play('move_' + facing_direction)
+		_player.play('move' + facing_direction)
 
 
 func play_damaged() -> void:
@@ -77,8 +70,9 @@ func play_damaged() -> void:
 	_player.play('damaged')
 
 
-func play_defeated_async() -> void:
-	_player.play('defeated')
+func play_defeated_async(direction := Vector2i.ZERO) -> void:
+	var facing_direction = _determine_facing_direction(direction)
+	_player.play('defeated' + facing_direction)
 	await _player.animation_finished
 
 
@@ -91,3 +85,13 @@ func reset() -> void:
 		_player.play('RESET')
 		_player.advance(0)
 		_player.stop()
+
+
+func _determine_facing_direction(direction := Vector2i.ZERO) -> String:
+	if direction.x != 0:
+		return '_side'
+	if direction.y < 0:
+		return '_up'
+	if direction.y > 0:
+		return '_down'
+	return ''

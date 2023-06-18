@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityAbilities" load_steps=3 format=3 uid="uid://cvbykbgxidjel"]
+
+[ext_resource type="Script" path="res://entities/abilities/entity_abilities.gd" id="1_tcqu2"]
+[ext_resource type="PackedScene" uid="uid://ymqfi2vgtjim" path="res://entities/player/player.tscn" id="1_vemda"]
+
+[resource]
+script = ExtResource("1_tcqu2")
+activation_threshold = 0
+default_ability = ExtResource("1_vemda")
+positive_abilities = Array[PackedScene]([])
+negative_abilities = Array[PackedScene]([])
+default_chance = 0
+minumum_chance = 0
+maximum_chance = 0

@@ -22,13 +22,15 @@ func _enter_tree() -> void:
 
 
 func _serialize(state: EntityState) -> void:
-	state.hitbox_enabled = not _collision_shape.disabled
 	state.hitbox_damage = damage
+	if _collision_shape:
+		state.hitbox_enabled = not _collision_shape.disabled
 
 
 func _deserialize(state: EntityState) -> void:
-	_collision_shape.disabled = not state.hitbox_enabled
 	damage = state.hitbox_damage
+	if _collision_shape:
+		_collision_shape.disabled = not state.hitbox_enabled
 
 
 func enable() -> void:
