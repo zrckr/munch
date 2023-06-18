@@ -7,10 +7,8 @@ var target_speed: float
 @export_range(0.01, 1.0, 0.01, 'suffix:s')
 var acceleration_time: float
 
-@onready
-var animation: Node2D = $Animation
+var damage: int
 
-##
 var _current_speed: float
 
 
@@ -25,13 +23,3 @@ func _physics_process(delta: float) -> void:
 	
 	var direction = -transform.y.normalized()
 	position += direction * target_speed * delta
-
-
-func _on_area_entered(area: Area2D) -> void:
-	area.queue_free()
-	queue_free()
-
-
-func _on_body_entered(body: PhysicsBody2D) -> void:
-	if body.collision_layer & Physics.Layer.NEUTRAL:
-		queue_free()

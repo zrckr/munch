@@ -1,4 +1,4 @@
-extends Node
+extends HitboxComponent
 
 enum State {
 	RECHARGING,
@@ -6,25 +6,12 @@ enum State {
 	DEPLOYED,
 }
 
-var _entity: Entity:
-	get:
-		assert(owner is Entity, 'The [%s] is not an Entity' % owner.name)
-		return owner as Entity
-
-var _properties: EntityProperties:
-	get:
-		assert(_entity.properties, 'No EntityProperties present for [%s]' % owner.name)
-		return _entity.properties
-
 var _state: State:
 	get:
 		return _state
 	set(value):
 		_state = value
 		_process_shield(value)
-
-@onready 
-var _collision: CollisionPolygon2D = $Collision
 
 @onready 
 var _wait_timer: Timer = $WaitTimer
@@ -46,12 +33,21 @@ func _unhandled_input(event: InputEvent) -> void:
 		_state = State.DEPLOYED
 
 
+func enable() -> void:
+	super.enable()
+	_shield.set_deferred('visible', true)
+
+
+func disable() -> void:
+	super.disable()
+	_shield.set_deferred('visible', false)
+
+
 func _process_shield(new_state: State) -> void:
 	match new_state:
 		State.RECHARGING:
 			set_process_unhandled_input(false)
-			_shield.set_deferred('visible', false)
-			_collision.set_deferred('disabled', true)
+			disable()
 			_wait_timer.start()
 		
 		State.READY:
@@ -59,8 +55,7 @@ func _process_shield(new_state: State) -> void:
 		
 		State.DEPLOYED:
 			set_process_unhandled_input(false)
-			_shield.set_deferred('visible', true)
-			_collision.set_deferred('disabled', false)
+			enable()
 			_duration_timer.start()
 
 
@@ -74,6 +69,6 @@ func _on_duration_timer_timeout() -> void:
 	_state = State.RECHARGING
 
 
-func _on_area_entered(area: Area2D) -> void:
-	if area is Projectile:
-		area.queue_free()
+func _on_area_entered(hitbox: HitboxComponent) -> void:
+	if hitbox.owner is Projectile:
+		hitbox.owner.queue_free()

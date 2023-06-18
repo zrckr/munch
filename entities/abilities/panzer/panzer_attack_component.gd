@@ -10,6 +10,11 @@ var _entity: Entity:
 		assert(owner is Entity, 'The [%s] is not an Entity' % owner.name)
 		return owner as Entity
 
+var _properties: EntityProperties:
+	get:
+		assert(_entity.properties, 'No EntityProperties present for [%s]' % owner.name)
+		return _entity.properties
+
 @export
 var bullet_projectile: PackedScene
 
@@ -52,6 +57,7 @@ func _process_attack(new_state: State) -> void:
 func _spawn_projectile_instance() -> void:
 	var projectile = bullet_projectile.instantiate() as Projectile
 	
+	projectile.damage = _properties.damage
 	projectile.collision_layer = bullet_collision_layer
 	projectile.collision_mask = bullet_collision_mask
 	projectile.transform = _muzzle_marker.global_transform

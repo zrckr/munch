@@ -67,11 +67,18 @@ func play_move(direction: Vector2i) -> void:
 
 func play_damaged() -> void:
 	_sprite.modulate = Color.RED
-	_player.play('damaged')
+	if _player.has_animation('damaged'):
+		_player.play('damaged')
 
 
 func play_defeated_async(direction := Vector2i.ZERO) -> void:
 	var facing_direction = _determine_facing_direction(direction)
+
+	if _player.has_animation('defeated' + facing_direction):
+		_player.play('defeated' + facing_direction)
+	else:
+		_player.play('defeated')
+	
 	_player.play('defeated' + facing_direction)
 	await _player.animation_finished
 

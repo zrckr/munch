@@ -33,18 +33,29 @@ func disable() -> void:
 	_collision_shape.set_deferred('disabled', true)
 
 
-func _on_area_entered(hitbox: HitboxComponent) -> void:
+func _on_area_entered(damage_source: Area2D) -> void:
 	if not _entity.health_component:
 		return
+	
+	var is_projectile = damage_source is Projectile
+	var is_hitbox = damage_source is HitboxComponent
+	
+	if not (is_projectile or is_hitbox):
+		push_error('Make sure that damage source is either' +
+			' `Projectile` or `HitboxComponent`')
+		return
+	
+	if is_projectile:
+		damage_source.queue_free()
 	
 	self.disable()
 	_emit_damaged_event()
 	
 	_entity.animation_component.play_damaged()
-	_entity.health_component.take_damage(hitbox.damage)
+	_entity.health_component.take_damage(damage_source.damage)
 	
-	var knockback_strength = _properties.speed * hitbox.damage
-	var knockback_direction = hitbox.global_position \
+	var knockback_strength = _properties.speed * damage_source.damage
+	var knockback_direction = damage_source.global_position \
 		.direction_to(_entity.global_position) \
 		.round()
 	

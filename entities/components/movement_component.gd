@@ -15,11 +15,17 @@ var facing_direction: Vector2i:
 	get:
 		return Vector2i(_current_direction.round())
 
+var knockback_direction: Vector2i:
+	get:
+		return Vector2i(_knockback_direction.round())
+
 var _current_speed: float
 
 var _current_direction: Vector2
 
 var _is_knockbacked: bool
+
+var _knockback_direction: Vector2
 
 
 func _enter_tree() -> void:
@@ -54,6 +60,7 @@ func disable() -> void:
 
 func start_knockback(direction: Vector2, strength: float) -> void:
 	_is_knockbacked = true
+	_knockback_direction = direction
 	while _is_knockbacked and is_physics_processing():
 		await get_tree().physics_frame
 		_entity.velocity = direction * strength

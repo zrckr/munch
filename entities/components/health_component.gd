@@ -65,7 +65,8 @@ func _make_entity_dead() -> void:
 	_entity.movement_component.disable()
 	_emit_died_event()
 	
-	await _entity.animation_component.play_defeated_async()
+	var direction = _entity.movement_component.knockback_direction * -1.0
+	await _entity.animation_component.play_defeated_async(direction)
 	_entity.queue_free()
 
 

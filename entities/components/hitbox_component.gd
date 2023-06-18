@@ -14,7 +14,7 @@ var _properties: EntityProperties:
 var damage: int
 
 @onready
-var _collision_shape: CollisionShape2D = $Collision
+var _collision_shape: Node2D = $Collision	# CollisionShape2D or CollisionPolygon2D
 
 
 func _enter_tree() -> void:

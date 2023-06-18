@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://entities/components/animation_component.gd" id="1_ihpyn"]
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_mumsa"]
 [ext_resource type="Texture2D" uid="uid://onsvxw17odwc" path="res://assets/panzer/panzer.png" id="2_8i7yx"]
-[ext_resource type="PackedScene" uid="uid://uh2jkp1y03h" path="res://projectiles/bullet/bullet.tscn" id="2_dh7to"]
+[ext_resource type="PackedScene" uid="uid://uh2jkp1y03h" path="res://projectiles/bullet.tscn" id="2_dh7to"]
 [ext_resource type="AnimationLibrary" uid="uid://b5bx6jnb6h613" path="res://assets/panzer/panzer.tres" id="3_01ctt"]
 [ext_resource type="Script" path="res://entities/abilities/panzer/panzer_movement_component.gd" id="4_3rp1l"]
 [ext_resource type="Resource" uid="uid://do6k0atg3n35t" path="res://entities/abilities/panzer/panzer_properties.tres" id="4_pmou4"]
@@ -75,7 +75,7 @@ one_shot = true
 
 [node name="HurtboxComponent" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 8
+collision_mask = 24
 monitorable = false
 script = ExtResource("7_5ku2b")
 
@@ -136,6 +136,9 @@ position = Vector2(3.8147e-06, 64)
 scale = Vector2(1, 0.5)
 texture = ExtResource("13_3rwe2")
 
+[connection signal="timeout" from="HealthComponent/InvincibilityTimer" to="HealthComponent" method="_on_invincibility_timer_timeout"]
+[connection signal="timeout" from="HealthComponent/StunTimer" to="HealthComponent" method="_on_stun_timer_timeout"]
+[connection signal="timeout" from="LifetimeComponent/DurationTimer" to="LifetimeComponent" method="_on_duration_timer_timeout"]
 [connection signal="area_entered" from="HurtboxComponent" to="HurtboxComponent" method="_on_area_entered"]
 [connection signal="timeout" from="AttackComponent/ReloadTimer" to="AttackComponent" method="_on_reload_timer_timeout"]
 [connection signal="area_entered" from="ShieldComponent" to="ShieldComponent" method="_on_area_entered"]
