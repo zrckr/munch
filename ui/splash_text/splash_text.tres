@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cnr6crv48q5e2"]
+
+[ext_resource type="FontFile" uid="uid://ccvelydr6osi0" path="res://assets/fonts/digital_disco.ttf" id="1_x27ju"]
+
+[resource]
+RichTextLabel/colors/font_shadow_color = Color(0.24, 0.24, 0.24, 1)
+RichTextLabel/constants/shadow_offset_x = 1
+RichTextLabel/constants/shadow_offset_y = 1
+RichTextLabel/font_sizes/normal_font_size = 24
+RichTextLabel/fonts/normal_font = ExtResource("1_x27ju")
