@@ -1,54 +1,34 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfxq5upvhagwk"]
+[gd_scene load_steps=6 format=3 uid="uid://bfxq5upvhagwk"]
 
-[ext_resource type="Script" path="res://ui/hud/hud.gd" id="1_pb07n"]
+[ext_resource type="Theme" uid="uid://br7rkp2l10vsp" path="res://ui/hud/hud.tres" id="1_s461j"]
+[ext_resource type="Script" path="res://ui/hud/hud.gd" id="1_yge2m"]
+[ext_resource type="PackedScene" uid="uid://b7v3xdiro0vpi" path="res://ui/hud/player/player_hud.tscn" id="2_m38yg"]
+[ext_resource type="PackedScene" uid="uid://6bf4kdiplhyf" path="res://ui/splash_text/splash_text.tscn" id="2_w7f8l"]
+[ext_resource type="PackedScene" uid="uid://baelvh8oflorp" path="res://ui/hud/round/round_hud.tscn" id="3_cipwr"]
 
 [node name="HUD" type="MarginContainer"]
 texture_filter = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 42.0
+offset_bottom = 16.0
 grow_horizontal = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-script = ExtResource("1_pb07n")
+script = ExtResource("1_yge2m")
+splash_scene = ExtResource("2_w7f8l")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="BackgroundPanel" type="Panel" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme = ExtResource("1_s461j")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="MainContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
-alignment = 1
+theme_override_constants/separation = 40
 
-[node name="PlayerAbility" type="Label" parent="VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 12
-text = "ABILITY"
-
-[node name="TimeLeft" type="Label" parent="VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "TIME"
-
-[node name="MunchiesEaten" type="Label" parent="VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 12
-text = "MUNCHIES"
-horizontal_alignment = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="PlayerHud" parent="MainContainer" instance=ExtResource("2_m38yg")]
 layout_mode = 2
 
-[node name="PlayerHealth" type="Label" parent="VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
+[node name="RoundHud" parent="MainContainer" instance=ExtResource("3_cipwr")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 12
-text = "HEALTH"
+
+[node name="SplashPlacement" type="Marker2D" parent="."]
+position = Vector2(176, 48)
+gizmo_extents = 8.0

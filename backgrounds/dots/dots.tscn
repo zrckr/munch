@@ -30,4 +30,4 @@ collision_mask = 42
 metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon" type="CollisionPolygon2D" parent="StaticBody"]
-polygon = PackedVector2Array(-32, -32, 752, -32, 752, 512, -32, 512, -32, -32, 0, 0, 0, 480, 720, 480, 720, 0, 0, 0)
+polygon = PackedVector2Array(-32, -32, 752, -32, 752, 512, -32, 512, -32, -32, 0, 16, 0, 480, 720, 480, 720, 16, 0, 16)

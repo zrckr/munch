@@ -2,7 +2,7 @@ extends Node
 
 #region Round
 
-signal round_started()
+signal round_started(number)
 
 signal round_ticked(time)
 
