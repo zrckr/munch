@@ -1,18 +1,18 @@
 [gd_scene load_steps=3 format=3 uid="uid://2et0j1kq3ixs"]
 
-[ext_resource type="PackedScene" uid="uid://mksrxwig7r1t" path="res://entities/abilities/panzer/panzer.tscn" id="1_xfpa4"]
 [ext_resource type="PackedScene" uid="uid://dcjrgb0bm2flw" path="res://entities/divil/divil.tscn" id="2_2gfwp"]
+[ext_resource type="PackedScene" uid="uid://cfalb86rkfe7j" path="res://entities/abilities/bigboy/bigboy.tscn" id="2_rdu7w"]
 
 [node name="Zoo" type="Node2D"]
 
-[node name="Panzer" parent="." instance=ExtResource("1_xfpa4")]
-position = Vector2(76, 104)
-
 [node name="Divil" parent="." instance=ExtResource("2_2gfwp")]
-position = Vector2(188, 68)
+position = Vector2(312, 40)
 
 [node name="Divil2" parent="." instance=ExtResource("2_2gfwp")]
-position = Vector2(152, 128)
+position = Vector2(276, 100)
 
 [node name="Divil3" parent="." instance=ExtResource("2_2gfwp")]
-position = Vector2(200, 168)
+position = Vector2(324, 140)
+
+[node name="BigBoy" parent="." groups=["player"] instance=ExtResource("2_rdu7w")]
+position = Vector2(60, 88)

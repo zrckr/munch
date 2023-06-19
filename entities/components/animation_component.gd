@@ -56,6 +56,12 @@ func play_idle() -> void:
 	_player.play('idle')
 
 
+func play_rolling_vertical(speed_scale: float) -> void:
+	if _player.current_animation != 'rolling_vertical':
+		_player.play('rolling_vertical')
+	_player.speed_scale = clampf(speed_scale, -2.0, 2.0)
+
+
 func play_move(direction: Vector2i) -> void:
 	var facing_direction = _determine_facing_direction(direction)
 	_sprite.flip_h = false

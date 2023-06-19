@@ -26,7 +26,7 @@ var health_type: HealthType
 @export_range(0, 100, 1, 'suffix:dp')
 var damage := 0
 
-@export_range(0, 400, 5, 'suffix:px/s')
+@export_range(0, 400, 1, 'suffix:px/s')
 var speed := 4.0
 
 @export

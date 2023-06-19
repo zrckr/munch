@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://entities/components/animation_component.gd" id="1_ihpyn"]
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_mumsa"]
 [ext_resource type="Texture2D" uid="uid://onsvxw17odwc" path="res://assets/panzer/panzer.png" id="2_8i7yx"]
-[ext_resource type="PackedScene" uid="uid://uh2jkp1y03h" path="res://projectiles/bullet.tscn" id="2_dh7to"]
+[ext_resource type="PackedScene" uid="uid://uh2jkp1y03h" path="res://projectiles/bullet/bullet.tscn" id="2_dh7to"]
 [ext_resource type="AnimationLibrary" uid="uid://b5bx6jnb6h613" path="res://assets/panzer/panzer.tres" id="3_01ctt"]
 [ext_resource type="Script" path="res://entities/abilities/panzer/panzer_movement_component.gd" id="4_3rp1l"]
 [ext_resource type="Resource" uid="uid://do6k0atg3n35t" path="res://entities/abilities/panzer/panzer_properties.tres" id="4_pmou4"]
@@ -94,7 +94,7 @@ position = Vector2(0, -8)
 
 [node name="ReloadTimer" type="Timer" parent="AttackComponent"]
 process_callback = 0
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
 
 [node name="ShieldComponent" type="Area2D" parent="."]
@@ -110,12 +110,12 @@ polygon = PackedVector2Array(32, 0, 32, -4, 28, -16, 20, -24, 16, -28, 4, -32, -
 
 [node name="WaitTimer" type="Timer" parent="ShieldComponent"]
 process_callback = 0
-wait_time = 10.0
+wait_time = 6.0
 one_shot = true
 
 [node name="DurationTimer" type="Timer" parent="ShieldComponent"]
 process_callback = 0
-wait_time = 7.0
+wait_time = 4.0
 one_shot = true
 
 [node name="Shield" type="Node2D" parent="ShieldComponent"]
