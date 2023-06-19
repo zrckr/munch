@@ -85,7 +85,6 @@ func play_defeated_async(direction := Vector2i.ZERO) -> void:
 	else:
 		_player.play('defeated')
 	
-	_player.play('defeated' + facing_direction)
 	await _player.animation_finished
 
 

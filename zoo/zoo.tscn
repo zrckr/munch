@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://2et0j1kq3ixs"]
 
 [ext_resource type="PackedScene" uid="uid://dcjrgb0bm2flw" path="res://entities/divil/divil.tscn" id="2_2gfwp"]
-[ext_resource type="PackedScene" uid="uid://cfalb86rkfe7j" path="res://entities/abilities/bigboy/bigboy.tscn" id="2_rdu7w"]
+[ext_resource type="PackedScene" uid="uid://bml7ddqie1tki" path="res://entities/abilities/hoover/hoover.tscn" id="2_fghj2"]
 
 [node name="Zoo" type="Node2D"]
 
@@ -14,5 +14,4 @@ position = Vector2(276, 100)
 [node name="Divil3" parent="." instance=ExtResource("2_2gfwp")]
 position = Vector2(324, 140)
 
-[node name="BigBoy" parent="." groups=["player"] instance=ExtResource("2_rdu7w")]
-position = Vector2(60, 88)
+[node name="Hoover" parent="." groups=["player"] instance=ExtResource("2_fghj2")]

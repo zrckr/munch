@@ -9,6 +9,8 @@ var acceleration_time: float
 
 var damage: int
 
+var rotation_amount: float
+
 var _current_speed: float
 
 
@@ -23,3 +25,4 @@ func _physics_process(delta: float) -> void:
 	
 	var direction = -transform.y.normalized()
 	position += direction * target_speed * delta
+	rotation += rotation_amount * delta
