@@ -1,6 +1,10 @@
 class_name AnimationComponent
 extends Node2D
 
+signal started(name)
+
+signal finished(name)
+
 var _entity: Entity:
 	get:
 		assert(owner is Entity, 'The [%s] is not an Entity' % owner.name)
@@ -107,3 +111,11 @@ func _determine_facing_direction(direction := Vector2i.ZERO) -> String:
 	if direction.y > 0:
 		return '_down'
 	return ''
+
+
+func _on_animation_player_started(anim_name: StringName) -> void:
+	started.emit(anim_name)
+
+
+func _on_animation_player_finished(anim_name: StringName) -> void:
+	finished.emit(anim_name)

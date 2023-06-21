@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://l2d48ke1tab6"]
+
+[ext_resource type="Script" path="res://entities/components/animation_component.gd" id="1_4h65n"]
+[ext_resource type="Texture2D" uid="uid://qyelvt8x3n8o" path="res://assets/dummy/dummy.png" id="2_r740u"]
+
+[node name="AnimationComponent" type="Node2D"]
+use_parent_material = true
+position = Vector2(0, -8)
+script = ExtResource("1_4h65n")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+use_parent_material = true
+texture = ExtResource("2_r740u")
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "munchkin",
+"only_visible": false,
+"op_exp": false,
+"player": "AnimationPlayer",
+"source": "res://skins/munchkin/munchkin.ase"
+}
+
+[node name="Player" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+
+[connection signal="animation_finished" from="Player" to="." method="_on_animation_player_finished"]
+[connection signal="animation_started" from="Player" to="." method="_on_animation_player_started"]

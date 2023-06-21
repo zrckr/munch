@@ -3,6 +3,12 @@ extends Node
 
 const INFINITE_HEALTH_POINTS := -1
 
+@export_range(0.01, 3.0, 0.01, 'suffix:seconds')
+var invincibility_time: float
+
+@export_range(0.01, 3.0, 0.01, 'suffix:seconds')
+var stun_time: float
+
 var _entity: Entity:
 	get:
 		assert(owner is Entity, 'The [%s] is not an Entity' % owner.name)
@@ -58,7 +64,7 @@ func _deserialize(state: EntityState) -> void:
 func take_damage(damage_points: int) -> void:
 	if not _is_invulnerable_to_attacks:
 		_health_points -= damage_points
-		_stun_timer.start()
+		_stun_timer.start(stun_time)
 
 
 func _make_entity_dead() -> void:
@@ -87,7 +93,7 @@ func _on_stun_timer_timeout() -> void:
 	_entity.movement_component.end_knockback()
 	
 	if _health_points > 0:
-		_invincibility_timer.start()
+		_invincibility_timer.start(invincibility_time)
 		_entity.animation_component \
 			.blink_sprite(_invincibility_timer.wait_time)
 	else:

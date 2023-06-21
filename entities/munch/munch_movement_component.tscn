@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdap8y78ah6nx"]
+
+[ext_resource type="Script" path="res://entities/munch/munch_movement_component.gd" id="1_xnih5"]
+
+[node name="MunchMovementComponent" type="Node"]
+script = ExtResource("1_xnih5")
+
+[node name="ScatterTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[connection signal="timeout" from="ScatterTimer" to="." method="_on_scatter_timer_timeout"]
