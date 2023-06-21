@@ -1,3 +1,4 @@
+@icon('res://editor/icons/node.png')
 class_name ParticleAttractor
 extends Node2D
 

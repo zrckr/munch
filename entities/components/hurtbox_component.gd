@@ -1,3 +1,4 @@
+@icon('res://editor/icons/hurtbox.png')
 class_name HurtboxComponent
 extends Area2D
 

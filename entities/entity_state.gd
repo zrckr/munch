@@ -1,3 +1,4 @@
+@icon('res://editor/icons/resource.png')
 class_name EntityState
 extends Resource
 

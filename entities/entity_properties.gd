@@ -1,3 +1,4 @@
+@icon('res://editor/icons/resource.png')
 class_name EntityProperties
 extends Resource
 

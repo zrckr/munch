@@ -1,3 +1,4 @@
+@icon('res://editor/icons/lifetime.png')
 class_name LifetimeComponent
 extends Node
 

@@ -1,3 +1,4 @@
+@icon('res://editor/icons/entity.png')
 class_name Entity
 extends CharacterBody2D
 

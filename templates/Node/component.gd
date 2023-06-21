@@ -1,5 +1,6 @@
 # meta-description: Template for defining entity component
 
+@icon('res://editor/icons/component.png')
 extends _BASE_
 
 # Shortcut for accessing entity reference

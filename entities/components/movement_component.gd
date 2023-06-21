@@ -1,3 +1,4 @@
+@icon('res://editor/icons/movement.png')
 class_name MovementComponent
 extends Node
 

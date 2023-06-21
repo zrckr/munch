@@ -1,3 +1,4 @@
+@icon('res://editor/icons/hitbox.png')
 class_name HitboxComponent
 extends Area2D
 

@@ -1,3 +1,4 @@
+@icon('res://editor/icons/system.png')
 class_name System
 extends Node
 

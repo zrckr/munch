@@ -1,4 +1,5 @@
-extends Node2D
+@icon('res://editor/icons/hitbox.png')
+extends Area2D
 
 enum State {
 	RELOADING,

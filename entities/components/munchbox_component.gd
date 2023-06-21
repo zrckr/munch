@@ -1,3 +1,4 @@
+@icon('res://editor/icons/component.png')
 class_name MunchboxComponent
 extends Area2D
 

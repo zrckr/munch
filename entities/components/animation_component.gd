@@ -1,3 +1,4 @@
+@icon('res://editor/icons/animation.png')
 class_name AnimationComponent
 extends Node2D
 
