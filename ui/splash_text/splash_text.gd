@@ -58,6 +58,12 @@ func set_rainbow(freq: float, sat: float, val: float) -> SplashText:
 	return self
 
 
+func append_image(path: String, width: int, height: int) -> SplashText:
+	_final_text += "[img=%dx%d]%s[/img]" % \
+		[width, height, path]
+	return self
+
+
 func _on_duration_timer_timeout() -> void:
 	_exit_timer.start()
 	

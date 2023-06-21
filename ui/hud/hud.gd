@@ -1,7 +1,9 @@
 extends Control
 
+const MUNCH_ICON := 'res://assets/munch/munch_icon.tres'
+
 const MUNCHIES_STRINGS := {
-	0: 'EAT MUNCHIES!',
+	0: 'EAT MUNCHIES! ',
 	1: 'ALRIGHT',
 	2: 'COOL',
 	3: 'YES',
@@ -37,7 +39,7 @@ func _on_player_rolled_the_dice(properties: EntityProperties) -> void:
 			_set_splash_text('AVOID DIVILS')
 
 
-func _on_player_worn_off(properties: EntityProperties) -> void:
+func _on_player_worn_off(_properties: EntityProperties) -> void:
 	if _rolled_the_dice:
 		_rolled_the_dice = false
 		_on_player_munchies_eaten(0, -1)
@@ -49,15 +51,18 @@ func _on_player_munchies_eaten(munchies: int, total: int) -> void:
 	
 	if munchies != total:
 		var text = tr(MUNCHIES_STRINGS.get(munchies))
-		_set_splash_text(text)
+		_set_splash_text(text, munchies == 0)
 
 
-func _set_splash_text(text: String) -> void:
+func _set_splash_text(text: String, append_icon := false) -> void:
 	if is_instance_valid(_splash_instance):
 		_splash_instance.queue_free()
 	
 	_splash_instance = splash_scene.instantiate()
 	_splash_instance.set_text(text)
 	_splash_instance.set_skew_effect()
+	
+	if append_icon:
+		_splash_instance.append_image(MUNCH_ICON, 16, 16)
 	
 	_splash_placement.call_deferred('add_child', _splash_instance)
