@@ -79,3 +79,15 @@ static func maskv(unit: Vector2) -> Vector2:
 
 static func anglevi(value: Vector2) -> float:
 	return Vector2(value).angle() - PI / 2.0
+
+
+static func smooth_step(from: float, to: float, t: float) -> float:
+	t = clampf(t, 0, 1)
+	t = -2.0 * t * t * t + 3.0 * t * t
+	return to * t + from * (1 - t)
+
+
+static func smooth_stepv(from: Vector2, to: Vector2, t: float) -> Vector2:
+	return Vector2(
+		smooth_step(from.x, to.x, t),
+		smooth_step(from.y, to.y, t))

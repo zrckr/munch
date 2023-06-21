@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_a670i"]
 [ext_resource type="Resource" uid="uid://c5v0bewvcatib" path="res://entities/abilities/microman/microman_properties.tres" id="2_hhrbs"]
-[ext_resource type="Script" path="res://entities/player/player_movement_component.gd" id="3_cgd6q"]
+[ext_resource type="Script" path="res://entities/abilities/microman/microman_movement_component.gd" id="3_jyp04"]
 [ext_resource type="Script" path="res://entities/components/animation_component.gd" id="4_mfwyb"]
 [ext_resource type="Texture2D" uid="uid://d2isyc0t8sklm" path="res://assets/munchkin/munchkin.png" id="5_4rrcc"]
 [ext_resource type="AnimationLibrary" uid="uid://n7eqhsgy7kxq" path="res://assets/munchkin/munchkin.tres" id="6_knd6s"]
@@ -17,6 +17,7 @@ size = Vector2(8, 8)
 radius = 4.0
 
 [node name="MicroMan" type="CharacterBody2D"]
+position = Vector2(8, 12)
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_a670i")
@@ -28,7 +29,8 @@ shape = SubResource("RectangleShape2D_sctg7")
 debug_color = Color(0, 0.6, 0.7, 0.2)
 
 [node name="MovementComponent" type="Node" parent="."]
-script = ExtResource("3_cgd6q")
+script = ExtResource("3_jyp04")
+movement_ease = 0.25
 
 [node name="AnimationComponent" type="Node2D" parent="."]
 use_parent_material = true
