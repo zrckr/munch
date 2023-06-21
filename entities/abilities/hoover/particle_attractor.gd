@@ -13,8 +13,6 @@ var spawn_max_delay: float
 @export_range(0.01, 1.0, 0.01, 'suffix:seconds')
 var attraction_time: float
 
-var _tween: Tween
-
 var _particles := []
 
 var _emitting := false

@@ -64,6 +64,15 @@ func _physics_process(_delta: float) -> void:
 	_muzzle_marker.rotation = PI + rotation_angle
 
 
+func _exit_tree() -> void:
+	var entities = _suction_tweens.keys().duplicate()
+	for entity in entities:
+		if _suction_tweens[entity]:
+			_suction_tweens[entity].kill()
+		if is_instance_valid(entity):
+			entity.queue_free()
+
+
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed('use'):
 		_begin_suction_action()
