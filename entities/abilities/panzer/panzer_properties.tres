@@ -11,5 +11,5 @@ lifetime = 30
 health_points = 12
 health_type = 0
 damage = 3
-speed = 90.0
+speed = 70.0
 extra = {}

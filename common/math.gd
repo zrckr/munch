@@ -58,6 +58,10 @@ static func betweeni(value: int, min_value: int, max_value: int) -> bool:
 	return value >= min_value and value <= max_value
 
 
+static func betweenf(value: float, min_value: float, max_value: float) -> bool:
+	return value >= min_value and value <= max_value
+
+
 static func clampv(value: Vector2, min_value: Vector2, max_value: Vector2) -> Vector2:
 	return Vector2(
 		clampf(value.x, min_value.x, max_value.x),
