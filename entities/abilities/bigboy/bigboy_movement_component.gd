@@ -10,7 +10,7 @@ var _rotation_direction := 0.0
 
 
 func _physics_process(delta: float) -> void:
-	var movement_direction = Input.get_axis('up', 'down')
+	var movement_direction = Input.get_axis('down', 'up')
 	
 	var target_velocity = _entity.transform.y * movement_direction * _current_speed
 	_entity.rotation += _rotation_direction * rotation_amount * delta
