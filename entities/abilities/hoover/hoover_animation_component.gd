@@ -15,7 +15,7 @@ func play_suck_animation(direction: Vector2i) -> void:
 		_player.play('hoover/suck_' + facing_direction)
 
 
-func reset_suck_animation() -> void:
+func stop_suck_animation() -> void:
 	if _player.is_playing():
 		_player.play('hoover/RESET')
 		_player.advance(0)

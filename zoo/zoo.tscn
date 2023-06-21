@@ -6,12 +6,16 @@
 [node name="Zoo" type="Node2D"]
 
 [node name="Divil" parent="." instance=ExtResource("2_2gfwp")]
-position = Vector2(312, 40)
+position = Vector2(64, 136)
 
 [node name="Divil2" parent="." instance=ExtResource("2_2gfwp")]
-position = Vector2(276, 100)
+position = Vector2(128, 136)
 
 [node name="Divil3" parent="." instance=ExtResource("2_2gfwp")]
-position = Vector2(324, 140)
+position = Vector2(192, 136)
+
+[node name="Divil4" parent="." instance=ExtResource("2_2gfwp")]
+position = Vector2(256, 136)
 
 [node name="Hoover" parent="." groups=["player"] instance=ExtResource("2_fghj2")]
+position = Vector2(184, 32)

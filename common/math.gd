@@ -75,3 +75,7 @@ static func maxv(a: Vector2, b: Vector2) -> Vector2:
 static func maskv(unit: Vector2) -> Vector2:
 	assert(is_equal_approx(unit.length_squared(), 1.0))
 	return Vector2.ONE - unit.abs()
+
+
+static func anglevi(value: Vector2) -> float:
+	return Vector2(value).angle() - PI / 2.0

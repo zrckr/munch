@@ -1,3 +1,0 @@
-class_name HooverParticleEmitter
-extends Node2D
-
