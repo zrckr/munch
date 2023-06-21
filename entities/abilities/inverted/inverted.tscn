@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://tdiomsggppti"]
+[gd_scene load_steps=14 format=3 uid="uid://tdiomsggppti"]
 
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_pic3n"]
 [ext_resource type="Resource" uid="uid://cqi6q3e164kud" path="res://entities/abilities/inverted/inverted_properties.tres" id="2_s6jkk"]
 [ext_resource type="Script" path="res://entities/player/player_movement_component.gd" id="3_ajnd6"]
 [ext_resource type="Script" path="res://entities/components/animation_component.gd" id="4_e2ytt"]
 [ext_resource type="Material" uid="uid://dtd5x0kf5251u" path="res://entities/abilities/inverted/inverted_material.tres" id="4_s8ldp"]
+[ext_resource type="Script" path="res://entities/abilities/inverted/inverted_component.gd" id="4_vr8kl"]
 [ext_resource type="Texture2D" uid="uid://d2isyc0t8sklm" path="res://assets/munchkin/munchkin.png" id="5_hujr6"]
 [ext_resource type="AnimationLibrary" uid="uid://n7eqhsgy7kxq" path="res://assets/munchkin/munchkin.tres" id="6_7fnxj"]
 [ext_resource type="Script" path="res://entities/components/health_component.gd" id="7_0y5jc"]
@@ -30,6 +31,9 @@ debug_color = Color(0, 0.6, 0.7, 0.2)
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("3_ajnd6")
+
+[node name="InvertedComponent" type="Node" parent="."]
+script = ExtResource("4_vr8kl")
 
 [node name="AnimationComponent" type="Node2D" parent="."]
 material = ExtResource("4_s8ldp")

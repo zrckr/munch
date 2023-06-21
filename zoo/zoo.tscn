@@ -1,9 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://2et0j1kq3ixs"]
 
 [ext_resource type="PackedScene" uid="uid://dcjrgb0bm2flw" path="res://entities/divil/divil.tscn" id="2_2gfwp"]
-[ext_resource type="PackedScene" uid="uid://bml7ddqie1tki" path="res://entities/abilities/hoover/hoover.tscn" id="2_fghj2"]
+[ext_resource type="PackedScene" uid="uid://tdiomsggppti" path="res://entities/abilities/inverted/inverted.tscn" id="2_akxve"]
 
 [node name="Zoo" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(180, 120)
 
 [node name="Divil" parent="." instance=ExtResource("2_2gfwp")]
 position = Vector2(64, 136)
@@ -17,5 +20,5 @@ position = Vector2(192, 136)
 [node name="Divil4" parent="." instance=ExtResource("2_2gfwp")]
 position = Vector2(256, 136)
 
-[node name="Hoover" parent="." groups=["player"] instance=ExtResource("2_fghj2")]
-position = Vector2(184, 32)
+[node name="Inverted" parent="." groups=["player"] instance=ExtResource("2_akxve")]
+position = Vector2(24, 32)
