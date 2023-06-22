@@ -1,22 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc2krc6tt2hq4"]
+[gd_scene load_steps=4 format=3 uid="uid://dc2krc6tt2hq4"]
 
 [ext_resource type="Script" path="res://entities/abilities/hoover/hoover_component.gd" id="1_0g1nv"]
-[ext_resource type="PackedScene" uid="uid://bihr48syce6ww" path="res://projectiles/dead_divil_ball/dead_divil_ball.tscn" id="2_rhvg1"]
 [ext_resource type="PackedScene" uid="uid://x2hlj5hfconk" path="res://entities/abilities/hoover/particle_attractor.tscn" id="3_gs0u1"]
 [ext_resource type="Theme" uid="uid://br7rkp2l10vsp" path="res://ui/hud/hud.tres" id="4_pcgab"]
 
 [node name="HooverComponent" type="Area2D"]
 texture_filter = 1
-position = Vector2(0, -8)
 collision_layer = 0
-collision_mask = 8
+collision_mask = 0
 monitorable = false
 script = ExtResource("1_0g1nv")
-projectile_scene = ExtResource("2_rhvg1")
-projectile_collision_layer = 4
-projectile_collision_mask = 8
-suction_time = 0.5
-suction_capacity = 4
 
 [node name="CollisionPolygon" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, 0, 16, 32, -16, 32)

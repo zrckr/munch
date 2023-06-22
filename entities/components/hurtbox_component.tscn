@@ -6,9 +6,8 @@
 radius = 6.0
 
 [node name="HurtboxComponent" type="Area2D"]
-position = Vector2(0, -8)
 collision_layer = 0
-collision_mask = 16
+collision_mask = 0
 monitorable = false
 script = ExtResource("1_mp3db")
 
