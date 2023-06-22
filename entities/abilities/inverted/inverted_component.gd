@@ -1,3 +1,5 @@
+@icon('res://editor/icons/component.png')
+class_name InvertedComponent
 extends Node
 
 

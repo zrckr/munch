@@ -4,6 +4,8 @@
 
 [node name="HealthComponent" type="Node"]
 script = ExtResource("1_f1o40")
+invincibility_time = 2.0
+stun_time = 0.16
 
 [node name="InvincibilityTimer" type="Timer" parent="."]
 process_callback = 0

@@ -1,4 +1,5 @@
 @icon('res://editor/icons/hitbox.png')
+class_name PanzerAttackComponent
 extends Area2D
 
 enum State {

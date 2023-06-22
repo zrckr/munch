@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://qyelvt8x3n8o" path="res://assets/dummy/dummy.png" id="2_r740u"]
 
 [node name="AnimationComponent" type="Node2D"]
-use_parent_material = true
 script = ExtResource("1_4h65n")
 
 [node name="Sprite" type="Sprite2D" parent="."]

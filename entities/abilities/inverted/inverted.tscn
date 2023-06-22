@@ -1,22 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://tdiomsggppti"]
+[gd_scene load_steps=13 format=3 uid="uid://tdiomsggppti"]
 
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_pic3n"]
 [ext_resource type="Resource" uid="uid://cqi6q3e164kud" path="res://entities/abilities/inverted/inverted_properties.tres" id="2_s6jkk"]
-[ext_resource type="Script" path="res://entities/player/player_movement_component.gd" id="3_ajnd6"]
-[ext_resource type="Script" path="res://entities/components/animation_component.gd" id="4_e2ytt"]
+[ext_resource type="PackedScene" uid="uid://b7fmaie8kgdq4" path="res://entities/player/player_movement_component.tscn" id="3_506qp"]
 [ext_resource type="Material" uid="uid://dtd5x0kf5251u" path="res://entities/abilities/inverted/inverted_material.tres" id="4_s8ldp"]
-[ext_resource type="Script" path="res://entities/abilities/inverted/inverted_component.gd" id="4_vr8kl"]
+[ext_resource type="PackedScene" uid="uid://qtdteykvgb8m" path="res://entities/abilities/inverted/inverted_component.tscn" id="5_57dys"]
 [ext_resource type="Texture2D" uid="uid://d2isyc0t8sklm" path="res://assets/munchkin/munchkin.png" id="5_hujr6"]
 [ext_resource type="AnimationLibrary" uid="uid://n7eqhsgy7kxq" path="res://assets/munchkin/munchkin.tres" id="6_7fnxj"]
-[ext_resource type="Script" path="res://entities/components/health_component.gd" id="7_0y5jc"]
-[ext_resource type="Script" path="res://entities/components/lifetime_component.gd" id="8_r1ebk"]
-[ext_resource type="Script" path="res://entities/components/hurtbox_component.gd" id="9_hc0rt"]
+[ext_resource type="PackedScene" uid="uid://l2d48ke1tab6" path="res://entities/components/animation_component.tscn" id="7_lafy5"]
+[ext_resource type="PackedScene" uid="uid://vntl2dpqvd7j" path="res://entities/components/health_component.tscn" id="12_l3vl4"]
+[ext_resource type="PackedScene" uid="uid://bmjdup2xe0q0x" path="res://entities/components/lifetime_component.tscn" id="14_fqbvd"]
+[ext_resource type="PackedScene" uid="uid://djg3fqugilgl5" path="res://entities/components/hurtbox_component.tscn" id="16_1leps"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sctg7"]
 size = Vector2(16, 16)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_w0w13"]
-radius = 6.0
 
 [node name="Inverted" type="CharacterBody2D"]
 collision_layer = 2
@@ -29,72 +26,30 @@ position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_sctg7")
 debug_color = Color(0, 0.6, 0.7, 0.2)
 
-[node name="MovementComponent" type="Node" parent="."]
-script = ExtResource("3_ajnd6")
+[node name="MovementComponent" parent="." instance=ExtResource("3_506qp")]
 
-[node name="InvertedComponent" type="Node" parent="."]
-script = ExtResource("4_vr8kl")
+[node name="InvertedComponent" parent="." instance=ExtResource("5_57dys")]
 
-[node name="AnimationComponent" type="Node2D" parent="."]
+[node name="AnimationComponent" parent="." instance=ExtResource("7_lafy5")]
 material = ExtResource("4_s8ldp")
 position = Vector2(0, -8)
-script = ExtResource("4_e2ytt")
 
-[node name="Sprite" type="Sprite2D" parent="AnimationComponent"]
-texture_filter = 1
-use_parent_material = true
+[node name="Sprite" parent="AnimationComponent" index="0"]
 texture = ExtResource("5_hujr6")
 hframes = 7
 vframes = 6
-metadata/_aseprite_wizard_config_ = {
-"layer": "",
-"o_ex_p": "",
-"o_folder": "",
-"o_name": "munchkin",
-"only_visible": false,
-"op_exp": false,
-"player": "AnimationPlayer",
-"source": "res://skins/munchkin/munchkin.ase"
-}
 
-[node name="Player" type="AnimationPlayer" parent="AnimationComponent"]
-autoplay = "idle"
+[node name="Player" parent="AnimationComponent" index="1"]
 libraries = {
 "": ExtResource("6_7fnxj")
 }
 
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("7_0y5jc")
+[node name="HealthComponent" parent="." instance=ExtResource("12_l3vl4")]
 
-[node name="InvincibilityTimer" type="Timer" parent="HealthComponent"]
-process_callback = 0
-wait_time = 2.0
-one_shot = true
+[node name="LifetimeComponent" parent="." instance=ExtResource("14_fqbvd")]
 
-[node name="StunTimer" type="Timer" parent="HealthComponent"]
-process_callback = 0
-wait_time = 0.16
-one_shot = true
-
-[node name="LifetimeComponent" type="Node" parent="."]
-script = ExtResource("8_r1ebk")
-
-[node name="DurationTimer" type="Timer" parent="LifetimeComponent"]
-process_callback = 0
-one_shot = true
-
-[node name="HurtboxComponent" type="Area2D" parent="."]
+[node name="HurtboxComponent" parent="." instance=ExtResource("16_1leps")]
 position = Vector2(0, -8)
-collision_layer = 0
 collision_mask = 16
-monitorable = false
-script = ExtResource("9_hc0rt")
 
-[node name="Collision" type="CollisionShape2D" parent="HurtboxComponent"]
-shape = SubResource("CircleShape2D_w0w13")
-debug_color = Color(0.701961, 0, 0, 0.419608)
-
-[connection signal="timeout" from="HealthComponent/InvincibilityTimer" to="HealthComponent" method="_on_invincibility_timer_timeout" flags=18]
-[connection signal="timeout" from="HealthComponent/StunTimer" to="HealthComponent" method="_on_stun_timer_timeout" flags=18]
-[connection signal="timeout" from="LifetimeComponent/DurationTimer" to="LifetimeComponent" method="_on_duration_timer_timeout" flags=18]
-[connection signal="area_entered" from="HurtboxComponent" to="HurtboxComponent" method="_on_area_entered" flags=18]
+[editable path="AnimationComponent"]
