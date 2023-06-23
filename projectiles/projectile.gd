@@ -26,3 +26,7 @@ func _physics_process(delta: float) -> void:
 	var direction = -transform.y.normalized()
 	position += direction * target_speed * delta
 	rotation += rotation_amount * delta
+
+
+func _on_timer_timeout() -> void:
+	queue_free()
