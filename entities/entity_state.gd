@@ -13,7 +13,7 @@ extends Resource
 @export var duration_time: float
 
 @export_group('Movement')
-@export var transform: Transform2D
+@export var position: Vector2
 @export var direction: Vector2
 @export var speed: float
 

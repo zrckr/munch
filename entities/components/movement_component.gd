@@ -34,13 +34,13 @@ func _enter_tree() -> void:
 
 
 func _serialize(state: EntityState) -> void:
-	state.transform = _entity.global_transform
+	state.position = _entity.global_position
 	state.direction = _current_direction
 	state.speed = _current_speed
 
 
 func _deserialize(state: EntityState) -> void:
-	_entity.global_transform = state.transform
+	_entity.global_position = state.position
 	_current_direction = state.direction
 	_current_speed = state.speed
 
