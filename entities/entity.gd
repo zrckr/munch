@@ -25,45 +25,34 @@ var state: EntityState:
 
 @onready
 var lifetime_component: LifetimeComponent = get_node_or_null('LifetimeComponent'):
-	get:
-		assert(lifetime_component, 'The LifetimeComponent is missing in [%s]' % get_path())
-		return lifetime_component
+	get: return lifetime_component
 
 @onready
 var movement_component: MovementComponent = get_node_or_null('MovementComponent'):
-	get:
-		assert(movement_component, 'The MovementComponent is missing in [%s]' % get_path())
-		return movement_component
+	get: return movement_component
 
 @onready
 var health_component: HealthComponent = get_node_or_null('HealthComponent'):
-	get:
-		assert(health_component, 'The HealthComponent is missing in [%s]' % get_path())
-		return health_component
+	get: return health_component
 
 @onready
 var hitbox_component: HitboxComponent = get_node_or_null('HitboxComponent'):
-	get:
-		assert(hitbox_component, 'The HitboxComponent is missing in [%s]' % get_path())
-		return hitbox_component
+	get: return hitbox_component
 
 @onready
 var hurtbox_component: HurtboxComponent = get_node_or_null('HurtboxComponent'):
-	get:
-		assert(hurtbox_component, 'The HurtboxComponent is missing in [%s]' % get_path())
-		return hurtbox_component
+	get: return hurtbox_component
 
 @onready
 var animation_component: AnimationComponent = get_node_or_null('AnimationComponent'):
-	get:
-		assert(animation_component, 'The AnimationComponent is missing in [%s]' % get_path())
-		return animation_component
+	get: return animation_component
 
 
 func _enter_tree() -> void:
 	add_to_group(properties.entity_group)
-	assert(_is_any_group(), 'You forgot to add [%s] to one of these groups: %s' % \
-		[get_path(), str(Group.values())])
+	if not _is_any_group():
+		push_error('You forgot to add [%s] to one of these groups: %s' % \
+			[get_path(), str(Group.values())])
 
 
 func roll_the_dice() -> void:

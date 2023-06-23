@@ -3,14 +3,10 @@ class_name HurtboxComponent
 extends Area2D
 
 var _entity: Entity:
-	get:
-		assert(owner is Entity, 'The [%s] is not an Entity' % owner.name)
-		return owner as Entity
+	get: return owner as Entity
 
 var _properties: EntityProperties:
-	get:
-		assert(_entity.properties, 'No EntityProperties present for [%s]' % owner.name)
-		return _entity.properties
+	get: return _entity.properties
 
 @onready
 var _collision_shape: CollisionShape2D = $Collision

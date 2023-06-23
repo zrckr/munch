@@ -3,14 +3,10 @@ class_name MovementComponent
 extends Node
 
 var _entity: Entity:
-	get:
-		assert(owner is Entity, 'The [%s] is not an Entity' % owner.name)
-		return owner as Entity
+	get: return owner as Entity
 
 var _properties: EntityProperties:
-	get:
-		assert(_entity.properties, 'No EntityProperties present for [%s]' % owner.name)
-		return _entity.properties
+	get: return _entity.properties
 
 var facing_direction: Vector2i:
 	get:
@@ -30,8 +26,8 @@ var _knockback_direction: Vector2
 
 
 func _enter_tree() -> void:
-	assert(_entity.motion_mode == CharacterBody2D.MOTION_MODE_FLOATING,
-		'Set the motion mode to `Floating` for [%s]' % owner.name)
+	if _entity.motion_mode != CharacterBody2D.MOTION_MODE_FLOATING:
+		push_error('Set the motion mode to `Floating` for [%s]' % owner.name)
 	
 	_current_speed = _properties.speed
 	_current_direction = Vector2.ZERO

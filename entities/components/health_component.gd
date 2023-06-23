@@ -11,14 +11,10 @@ var invincibility_time: float
 var stun_time: float
 
 var _entity: Entity:
-	get:
-		assert(owner is Entity, 'The [%s] is not an Entity' % owner.name)
-		return owner as Entity
+	get: return owner as Entity
 
 var _properties: EntityProperties:
-	get:
-		assert(_entity.properties, 'No EntityProperties present for [%s]' % owner.name)
-		return _entity.properties
+	get: return _entity.properties
 
 var _health_points: int:
 	get:

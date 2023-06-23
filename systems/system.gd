@@ -9,8 +9,9 @@ const Group := {
 
 
 func _enter_tree() -> void:
-	assert(_is_any_group(), 'You forgot to add [%s] to one of these groups: %s' % \
-		[get_path(), str(Group.values())])
+	if not _is_any_group():
+		push_error('You forgot to add [%s] to one of these groups: %s' % \
+			[get_path(), str(Group.values())])
 
 
 func _is_any_group() -> bool:

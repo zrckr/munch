@@ -3,9 +3,7 @@ extends System
 
 @export
 var abilities: EntityAbilities:
-	get:
-		assert(abilities, 'No EntityAbilities present for [%s]' % owner.name)
-		return abilities
+	get: return abilities
 
 var _positive_queue: Array[PackedScene]:
 	get:
@@ -94,19 +92,11 @@ func _choose_random_ability(chance: int) -> Entity:
 	
 	var packed_scene = selected_abilities.pop_front()
 	var entity = packed_scene.instantiate() as Entity
-	
-	assert(entity is Entity, 'The scene [%s] is not an Entity' % \
-		packed_scene.resource_path)
-	
 	return entity as Entity
 
 
 func _choose_default_ability() -> Entity:
 	var entity = abilities.default_ability.instantiate()
-	
-	assert(entity is Entity, 'The scene [%s] is not an Entity' % \
-		abilities.default_ability.resource_path)
-	
 	return entity as Entity
 
 

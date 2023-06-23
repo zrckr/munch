@@ -5,14 +5,10 @@ extends Node
 const INFINITE_LIFETIME := -1
 
 var _entity: Entity:
-	get:
-		assert(owner is Entity, 'The [%s] is not an Entity' % owner.name)
-		return owner as Entity
+	get: return owner as Entity
 
 var _properties: EntityProperties:
-	get:
-		assert(_entity.properties, 'No EntityProperties present for [%s]' % owner.name)
-		return _entity.properties
+	get: return _entity.properties
 
 @onready
 var _duration_timer: Timer = $DurationTimer
