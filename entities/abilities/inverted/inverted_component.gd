@@ -2,14 +2,15 @@
 class_name InvertedComponent
 extends Node
 
+var display_system: DisplaySystem:
+	get: return get_tree().get_first_node_in_group(System.Group.DISPLAY)
+
 
 func _enter_tree() -> void:
-	var camera_2d := get_viewport().get_camera_2d()
-	if camera_2d:
-		camera_2d.zoom = Vector2.ONE * -1.0
+	if display_system:
+		display_system.viewport_scale = Vector2.ONE * -1.0
 
 
 func _exit_tree() -> void:
-	var camera_2d := get_viewport().get_camera_2d()
-	if camera_2d:
-		camera_2d.zoom = Vector2.ONE
+	if display_system:
+		display_system.viewport_scale = Vector2.ONE
