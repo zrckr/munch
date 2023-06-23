@@ -39,7 +39,7 @@ func _prepare_entity_to_spawn() -> void:
 	_entity_to_spawn.process_mode = Node.PROCESS_MODE_DISABLED
 	_entity_to_spawn.material = shader_material.duplicate()
 	
-	get_tree().current_scene.add_child(_entity_to_spawn)
+	get_viewport().add_child(_entity_to_spawn)
 	for group in entity_groups:
 		_entity_to_spawn.add_to_group(group)
 

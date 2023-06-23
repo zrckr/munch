@@ -68,7 +68,7 @@ func _roll_the_dice(entity: Entity) -> void:
 	random_ability.state = entity.state
 	random_ability.add_to_group(entity.properties.entity_group)
 	
-	get_tree().current_scene.add_child(random_ability)
+	get_viewport().add_child(random_ability)
 	Events.player_rolled_the_dice.emit(random_properties)
 
 
@@ -78,7 +78,7 @@ func _back_to_default(entity: Entity) -> void:
 	
 	default_ability.state = entity.state
 	
-	get_tree().current_scene.add_child(default_ability)
+	get_viewport().add_child(default_ability)
 	Events.player_roll_worn_off.emit(default_properties)
 
 

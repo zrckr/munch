@@ -33,7 +33,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	for entity in _entity_spawn_queue.duplicate():
 		_entity_spawn_queue.pop_front()
-		get_tree().current_scene.call_deferred('add_child', entity, true)
+		get_viewport().call_deferred('add_child', entity, true)
 	
 	if not _duration_timer.is_stopped():
 		var time_left = int(_duration_timer.time_left)

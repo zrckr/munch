@@ -69,10 +69,7 @@ func _spawn_projectile_instance() -> void:
 	projectile.collision_mask = bullet_collision_mask
 	projectile.transform = _muzzle_marker.global_transform
 	
-	if get_tree().current_scene == _entity:
-		get_tree().root.add_child(projectile)
-	else:
-		get_tree().current_scene.add_child(projectile)
+	get_viewport().add_child(projectile)
 
 
 func _get_direction_and_calculate_target() -> float:

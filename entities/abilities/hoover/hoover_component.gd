@@ -132,10 +132,7 @@ func _shoot_projectiles() -> void:
 	projectile.collision_mask = projectile_collision_mask
 	projectile.transform = _muzzle_marker.global_transform
 	
-	if get_tree().current_scene == _entity:
-		get_tree().root.add_child(projectile)
-	else:
-		get_tree().current_scene.add_child(projectile)
+	get_viewport().add_child(projectile)
 	
 	_begin_suction_action()
 	_attack_timer.start()
