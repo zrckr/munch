@@ -17,3 +17,7 @@ mono_crash.*.json
 
 # Git plugin
 addons/godot-git-plugin/
+
+# IDEs
+.vscode/
+.idea/
