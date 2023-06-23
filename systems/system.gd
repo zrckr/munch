@@ -3,6 +3,7 @@ class_name System
 extends Node
 
 const Group := {
+	DISPLAY = 'display_system',
 	RTD = 'rtd_system',
 	ROUND = 'round_system',
 }
