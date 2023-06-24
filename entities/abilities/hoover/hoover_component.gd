@@ -71,16 +71,13 @@ func _exit_tree() -> void:
 
 
 func _unhandled_input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed('use'):
-		_begin_suction_action()
-		return
-	
-	if Input.is_action_just_released('use'):
-		_end_suction_action()
-		return
-	
 	if Input.is_action_just_pressed('attack'):
+		_begin_suction_action()
 		_shoot_projectiles()
+		return
+	
+	if Input.is_action_just_released('attack'):
+		_end_suction_action()
 		return
 
 
@@ -126,17 +123,17 @@ func _shoot_projectiles() -> void:
 	if not _can_shoot_projectiles:
 		return
 	
+	_suction_amount = 0
+	
 	var projectile = projectile_scene.instantiate() as Projectile
 	projectile.damage = _properties.damage
 	projectile.collision_layer = projectile_collision_layer
 	projectile.collision_mask = projectile_collision_mask
 	projectile.transform = _muzzle_marker.global_transform
-	
 	get_viewport().add_child(projectile)
 	
 	_begin_suction_action()
 	_attack_timer.start()
-	
 	await _attack_timer.timeout
 	_end_suction_action()
 

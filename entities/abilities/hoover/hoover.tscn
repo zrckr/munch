@@ -28,6 +28,7 @@ debug_color = Color(0, 0.6, 0.7, 0.2)
 
 [node name="HooverComponent" parent="." instance=ExtResource("10_ylmul")]
 position = Vector2(0, -8)
+collision_mask = 8
 projectile_scene = ExtResource("12_mb6uc")
 projectile_collision_layer = 4
 projectile_collision_mask = 8

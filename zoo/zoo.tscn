@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://2et0j1kq3ixs"]
 
-[ext_resource type="PackedScene" uid="uid://mksrxwig7r1t" path="res://entities/abilities/panzer/panzer.tscn" id="2_1io6d"]
 [ext_resource type="PackedScene" uid="uid://dcjrgb0bm2flw" path="res://entities/divil/divil.tscn" id="2_2gfwp"]
+[ext_resource type="PackedScene" uid="uid://bml7ddqie1tki" path="res://entities/abilities/hoover/hoover.tscn" id="2_nocav"]
 
 [node name="Zoo" type="Node2D"]
 
@@ -20,5 +20,5 @@ position = Vector2(192, 136)
 [node name="Divil4" parent="." instance=ExtResource("2_2gfwp")]
 position = Vector2(256, 136)
 
-[node name="Panzer" parent="." instance=ExtResource("2_1io6d")]
-position = Vector2(32, 32)
+[node name="Hoover" parent="." instance=ExtResource("2_nocav")]
+position = Vector2(32, 40)
