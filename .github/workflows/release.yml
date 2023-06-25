@@ -1,0 +1,50 @@
+name: 🚀 Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "^r{1}[0-9]+"
+      # - "[0-9]{2}w[0-9]{2}[a-z~]{1}"
+
+env:
+  GODOT_VERSION: 4.0.3
+  EXPORT_NAME: munch
+
+jobs:
+  export-web:
+    name: Web Export
+    runs-on: ubuntu-22.04
+    container:
+      image: barichello/godot-ci:4.0.3
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v3
+
+      - name: 🤖 Setup Godot
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv -v -f /root/.local/share/godot/templates/${GODOT_VERSION}.stable/ ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/
+
+      - name: 🔨 Web Build
+        run: |
+          cp .github/dist/export_presets.cfg .
+          godot --headless --export-release "Web" .github/dist/index.html
+          rm .github/dist/custom-index.html
+
+      - name: ⏫️ Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: web
+          path: .github/dist
+
+      - name: 📚 Install rsync
+        run: |
+          apt-get update && apt-get install -y rsync
+      
+      - name: 📃 Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with:
+          branch: gh-pages
+          folder: .github/dist
+          single-commit: true
