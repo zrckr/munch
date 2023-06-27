@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://br7rkp2l10vsp" path="res://ui/hud/hud.tres" id="1_7quh5"]
 [ext_resource type="Script" path="res://ui/hud/round/round_hud.gd" id="1_i46v3"]
-[ext_resource type="Texture2D" uid="uid://dp1s0bxxgxls8" path="res://assets/misc/clock.tres" id="3_xx2uo"]
-[ext_resource type="Texture2D" uid="uid://c3ogugx82e020" path="res://assets/misc/enemy.tres" id="4_etp55"]
+[ext_resource type="Texture2D" uid="uid://dp1s0bxxgxls8" path="res://assets/icons/misc/clock.tres" id="3_xx2uo"]
+[ext_resource type="Texture2D" uid="uid://c3ogugx82e020" path="res://assets/icons/misc/enemy.tres" id="4_etp55"]
 
 [node name="RoundHud" type="MarginContainer"]
 texture_filter = 1

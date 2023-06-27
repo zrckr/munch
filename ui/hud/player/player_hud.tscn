@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://br7rkp2l10vsp" path="res://ui/hud/hud.tres" id="1_3mhc5"]
 [ext_resource type="Script" path="res://ui/hud/player/player_hud.gd" id="2_5gs80"]
-[ext_resource type="Texture2D" uid="uid://bmq7nmhvumig0" path="res://assets/misc/empty_heart.tres" id="3_eegih"]
-[ext_resource type="Texture2D" uid="uid://bc8ruo2q3kes8" path="res://assets/misc/timer.tres" id="4_xc70j"]
+[ext_resource type="Texture2D" uid="uid://bmq7nmhvumig0" path="res://assets/icons/misc/empty_heart.tres" id="3_eegih"]
+[ext_resource type="Texture2D" uid="uid://bc8ruo2q3kes8" path="res://assets/icons/misc/timer.tres" id="4_xc70j"]
 
 [node name="PlayerHud" type="MarginContainer"]
 texture_filter = 1
