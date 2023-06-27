@@ -47,6 +47,10 @@ var hurtbox_component: HurtboxComponent = get_node_or_null('HurtboxComponent'):
 var animation_component: AnimationComponent = get_node_or_null('AnimationComponent'):
 	get: return animation_component
 
+@onready
+var hints_component: HintsComponent = get_node_or_null('HintsComponet'):
+	get: return hints_component
+
 
 func _enter_tree() -> void:
 	add_to_group(properties.entity_group)

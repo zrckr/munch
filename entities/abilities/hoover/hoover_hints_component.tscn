@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://tko4p1feisu4"]
+
+[ext_resource type="Script" path="res://entities/abilities/hoover/hoover_hints_component.gd" id="1_ddnwb"]
+[ext_resource type="PackedScene" uid="uid://df5e3dlmay31l" path="res://ui/input_hint/input_hint.tscn" id="1_o1mb8"]
+[ext_resource type="Texture2D" uid="uid://drxyjhq6an620" path="res://assets/icons/ability/hoover_suck.tres" id="2_hsre4"]
+[ext_resource type="Theme" uid="uid://geiwj6p6qnop" path="res://ui/input_hint/input_hint.tres" id="2_mrdba"]
+[ext_resource type="Texture2D" uid="uid://byj76vssksgot" path="res://assets/icons/ability/hoover_attack.tres" id="3_2ehew"]
+
+[node name="HooverHintsComponet" type="CanvasLayer"]
+script = ExtResource("1_ddnwb")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -46.0
+offset_top = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_mrdba")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="SuctionHint" parent="MarginContainer/HBoxContainer" instance=ExtResource("1_o1mb8")]
+unique_name_in_owner = true
+layout_mode = 2
+status_icon = ExtResource("2_hsre4")
+input_action = "use"
+
+[node name="AttackHint" parent="MarginContainer/HBoxContainer" instance=ExtResource("1_o1mb8")]
+unique_name_in_owner = true
+layout_mode = 2
+status_icon = ExtResource("3_2ehew")
+input_action = "attack"

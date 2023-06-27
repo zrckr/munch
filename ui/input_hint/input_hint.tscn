@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://df5e3dlmay31l"]
+
+[ext_resource type="Shader" path="res://assets/shaders/wipe.gdshader" id="1_63jch"]
+[ext_resource type="Script" path="res://ui/input_hint/input_hint.gd" id="1_pbkeb"]
+[ext_resource type="Texture2D" uid="uid://csxbv30kb5nix" path="res://assets/icons/ability/fallback.tres" id="2_kdiqd"]
+[ext_resource type="Texture2D" uid="uid://jqjjc6ol8vnj" path="res://assets/icons/buttons/fallback.tres" id="3_baobs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_anxd7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xhfh4"]
+resource_local_to_scene = true
+shader = ExtResource("1_63jch")
+shader_parameter/percentage = 1.0
+shader_parameter/masked_alpha = 1.0
+shader_parameter/unmasked_alpha = 0.25
+shader_parameter/horizontal = false
+shader_parameter/invert = true
+
+[node name="InputHint" type="PanelContainer"]
+texture_filter = 1
+offset_right = 16.0
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_anxd7")
+script = ExtResource("1_pbkeb")
+status_icon = ExtResource("2_kdiqd")
+
+[node name="IconsContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="StatusIcon" type="TextureRect" parent="IconsContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_xhfh4")
+custom_minimum_size = Vector2(16, 10.6667)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_kdiqd")
+expand_mode = 1
+
+[node name="InputIcon" type="TextureRect" parent="IconsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(10.667, 10.667)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_baobs")
+expand_mode = 1

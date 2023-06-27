@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bml7ddqie1tki"]
+[gd_scene load_steps=12 format=3 uid="uid://bml7ddqie1tki"]
 
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_ijl6m"]
 [ext_resource type="Resource" uid="uid://4xtsxjrlw8rf" path="res://entities/abilities/hoover/hoover_properties.tres" id="2_qurdm"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://vntl2dpqvd7j" path="res://entities/components/health_component.tscn" id="7_ukqwn"]
 [ext_resource type="PackedScene" uid="uid://bmjdup2xe0q0x" path="res://entities/components/lifetime_component.tscn" id="8_gsq3g"]
 [ext_resource type="PackedScene" uid="uid://djg3fqugilgl5" path="res://entities/components/hurtbox_component.tscn" id="9_sjaod"]
+[ext_resource type="PackedScene" uid="uid://tko4p1feisu4" path="res://entities/abilities/hoover/hoover_hints_component.tscn" id="10_5rbdw"]
 [ext_resource type="PackedScene" uid="uid://dc2krc6tt2hq4" path="res://entities/abilities/hoover/hoover_component.tscn" id="10_ylmul"]
 [ext_resource type="PackedScene" uid="uid://bihr48syce6ww" path="res://projectiles/dead_divil_ball/dead_divil_ball.tscn" id="12_mb6uc"]
 
@@ -45,5 +46,7 @@ position = Vector2(0, -8)
 [node name="HurtboxComponent" parent="." instance=ExtResource("9_sjaod")]
 position = Vector2(0, -8)
 collision_mask = 16
+
+[node name="HintsComponet" parent="." instance=ExtResource("10_5rbdw")]
 
 [editable path="HurtboxComponent"]

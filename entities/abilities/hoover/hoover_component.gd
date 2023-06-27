@@ -88,6 +88,7 @@ func _begin_suction_action() -> void:
 		_collision_polygon.set_deferred('disabled', false)
 		_particle_attractor.start_emitting()
 		_entity.movement_component.disable()
+		_entity.hints_component.attack.set_percentage(0.0)
 
 
 func _on_body_entered_during_suction(entity: Entity) -> void:
@@ -143,6 +144,7 @@ func _end_suction_action() -> void:
 	_collision_polygon.set_deferred('disabled', true)
 	_particle_attractor.stop_emitting()
 	_entity.movement_component.enable()
+	_entity.hints_component.attack.set_percentage(1.0)
 
 
 func _get_suction_direction() -> Vector2i:
