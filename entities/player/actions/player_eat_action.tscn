@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cj8f7o1o4isgl"]
+
+[ext_resource type="Script" path="res://entities/player/actions/player_eat_action.gd" id="1_lvxx0"]
+[ext_resource type="Script" path="res://entities/collision_box.gd" id="2_b1vfo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o6b1v"]
+radius = 9.5
+
+[node name="Rtd" type="Node2D"]
+script = ExtResource("1_lvxx0")
+
+[node name="MunchBox" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 0
+collision_mask = 32
+monitorable = false
+script = ExtResource("2_b1vfo")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="MunchBox"]
+shape = SubResource("CircleShape2D_o6b1v")
+debug_color = Color(0.701961, 0.701961, 0.701961, 0.419608)
+
+[connection signal="area_entered" from="MunchBox" to="." method="_on_munchbox_area_entered"]

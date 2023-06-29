@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsxy1fufjhh6e"]
+
+[ext_resource type="Script" path="res://entities/player/player_animations.gd" id="1_2kb5s"]
+[ext_resource type="Texture2D" uid="uid://d2isyc0t8sklm" path="res://assets/munchkin/munchkin.png" id="2_4eeo2"]
+[ext_resource type="AnimationLibrary" uid="uid://n7eqhsgy7kxq" path="res://assets/munchkin/munchkin.tres" id="3_oxusf"]
+
+[node name="Animations" type="Node2D"]
+position = Vector2(0, -8)
+script = ExtResource("1_2kb5s")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+use_parent_material = true
+texture = ExtResource("2_4eeo2")
+hframes = 7
+vframes = 6
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "munchkin",
+"only_visible": false,
+"op_exp": false,
+"player": "AnimationPlayer",
+"source": "res://skins/munchkin/munchkin.ase"
+}
+
+[node name="Player" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": ExtResource("3_oxusf")
+}
+
+[connection signal="animation_finished" from="Player" to="." method="_on_animation_player_finished" flags=18]
+[connection signal="animation_started" from="Player" to="." method="_on_animation_player_started" flags=18]

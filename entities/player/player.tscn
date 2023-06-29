@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_ottf0"]
 [ext_resource type="Resource" uid="uid://bymi512knjeag" path="res://entities/player/player_properties.tres" id="2_5blxn"]
-[ext_resource type="PackedScene" uid="uid://b7fmaie8kgdq4" path="res://entities/player/player_movement_component.tscn" id="3_4u3vl"]
-[ext_resource type="PackedScene" uid="uid://l2d48ke1tab6" path="res://entities/components/animation_component.tscn" id="4_lt3wc"]
-[ext_resource type="Texture2D" uid="uid://d2isyc0t8sklm" path="res://assets/munchkin/munchkin.png" id="5_3nmau"]
-[ext_resource type="PackedScene" uid="uid://vntl2dpqvd7j" path="res://entities/components/health_component.tscn" id="5_322nv"]
-[ext_resource type="AnimationLibrary" uid="uid://n7eqhsgy7kxq" path="res://assets/munchkin/munchkin.tres" id="6_oxpke"]
-[ext_resource type="PackedScene" uid="uid://bmjdup2xe0q0x" path="res://entities/components/lifetime_component.tscn" id="6_x75yg"]
-[ext_resource type="PackedScene" uid="uid://djg3fqugilgl5" path="res://entities/components/hurtbox_component.tscn" id="7_528xc"]
-[ext_resource type="PackedScene" uid="uid://b7oaiuofpvfiq" path="res://entities/components/munchbox_component.tscn" id="8_850wn"]
+[ext_resource type="PackedScene" uid="uid://bsxy1fufjhh6e" path="res://entities/player/player_animations.tscn" id="3_l0s0p"]
+[ext_resource type="PackedScene" uid="uid://bn08hptsrcain" path="res://entities/player/actions/player_lifetime_action.tscn" id="5_iotc0"]
+[ext_resource type="Script" path="res://entities/player/player_state.gd" id="6_4c3s3"]
+[ext_resource type="PackedScene" uid="uid://286q72b8fii1" path="res://entities/player/actions/player_idle_action.tscn" id="6_7ikci"]
+[ext_resource type="PackedScene" uid="uid://b4a12hh3a4ncv" path="res://entities/player/actions/player_move_action.tscn" id="7_7s2sw"]
+[ext_resource type="PackedScene" uid="uid://cd3us1gatply4" path="res://entities/player/actions/player_hurt_action.tscn" id="9_e48ia"]
+[ext_resource type="PackedScene" uid="uid://bh5rf1f3knqh8" path="res://entities/player/actions/player_defeat_action.tscn" id="9_tn6wh"]
+[ext_resource type="PackedScene" uid="uid://cj8f7o1o4isgl" path="res://entities/player/actions/player_eat_action.tscn" id="10_ce2p4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sctg7"]
 size = Vector2(8, 8)
@@ -25,34 +25,27 @@ position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_sctg7")
 debug_color = Color(0, 0.6, 0.7, 0.2)
 
-[node name="MovementComponent" parent="." instance=ExtResource("3_4u3vl")]
+[node name="Animations" parent="." instance=ExtResource("3_l0s0p")]
 
-[node name="AnimationComponent" parent="." instance=ExtResource("4_lt3wc")]
-position = Vector2(0, -8)
+[node name="State" type="Node2D" parent="."]
+script = ExtResource("6_4c3s3")
 
-[node name="Sprite" parent="AnimationComponent" index="0"]
-texture = ExtResource("5_3nmau")
-hframes = 7
-vframes = 6
+[node name="Lifetime" parent="State" instance=ExtResource("5_iotc0")]
 
-[node name="Player" parent="AnimationComponent" index="1"]
-libraries = {
-"": ExtResource("6_oxpke")
-}
+[node name="Idle" parent="State" instance=ExtResource("6_7ikci")]
 
-[node name="HealthComponent" parent="." instance=ExtResource("5_322nv")]
-stun_time = 0.2
+[node name="Move" parent="State" instance=ExtResource("7_7s2sw")]
 
-[node name="LifetimeComponent" parent="." instance=ExtResource("6_x75yg")]
+[node name="Defeat" parent="State" instance=ExtResource("9_tn6wh")]
 
-[node name="HurtboxComponent" parent="." instance=ExtResource("7_528xc")]
-position = Vector2(0, -8)
-collision_mask = 16
+[node name="Hurt" parent="State" instance=ExtResource("9_e48ia")]
 
-[node name="MunchboxComponent" parent="." instance=ExtResource("8_850wn")]
-position = Vector2(0, -8)
-collision_mask = 32
+[node name="Eat" parent="State" instance=ExtResource("10_ce2p4")]
 
-[editable path="AnimationComponent"]
-[editable path="HurtboxComponent"]
-[editable path="MunchboxComponent"]
+[editable path="Animations"]
+[editable path="State/Lifetime"]
+[editable path="State/Idle"]
+[editable path="State/Move"]
+[editable path="State/Defeat"]
+[editable path="State/Hurt"]
+[editable path="State/Eat"]
