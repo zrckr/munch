@@ -1,34 +1,27 @@
-@icon('res://editor/icons/resource.png')
+@icon('res://editor/icons/node.png')
 class_name EntityState
-extends Resource
+extends CanvasItem
 
-@export_group('Collision')
-@export var collision_priority: float
+@onready
+var entity := owner as Entity:
+	get: return entity
 
-@export_group('Health')
-@export var health_points: int
-@export var is_invulnerable: bool
+var action: StringName:
+	get:
+		return action
+	set(value):
+		if action != value:
+			last_action = action
+			action = value
 
-@export_group('Lifetime')
-@export var duration_time: float
+var last_action: StringName
 
-@export_group('Movement')
-@export var position: Vector2
-@export var direction: Vector2
-@export var speed: float
 
-@export_group('Animation')
-@export var animation_name: String
-@export var animation_position: float
-
-@export_group('Hurtbox')
-@export var hurtbox_enabled: bool
-
-@export_group('Hitbox')
-@export var hitbox_enabled: bool
-@export var hitbox_damage: int
-
-@export_group('Munchbox')
-@export var munchbox_enabled: bool
-@export var munchbox_eaten: int
-@export var munchbox_total: int
+func get_actions() -> Array[EntityAction]:
+	var actions: Array[EntityAction] = []
+	for node in get_children():
+		if node is EntityAction:
+			actions.push_back(node)
+		else:
+			push_warning("'%s' is not an EntityAction" % node.get_path())
+	return actions

@@ -18,34 +18,13 @@ const Group := {
 @export
 var properties: EntityProperties
 
-##
-var state: EntityState:
-	get: return _serialize()
-	set(value): _deserialize(value)
+@onready
+var animations: EntityAnimations = $Animations:
+	get: return animations
 
 @onready
-var lifetime_component: LifetimeComponent = get_node_or_null('LifetimeComponent'):
-	get: return lifetime_component
-
-@onready
-var movement_component: MovementComponent = get_node_or_null('MovementComponent'):
-	get: return movement_component
-
-@onready
-var health_component: HealthComponent = get_node_or_null('HealthComponent'):
-	get: return health_component
-
-@onready
-var hitbox_component: HitboxComponent = get_node_or_null('HitboxComponent'):
-	get: return hitbox_component
-
-@onready
-var hurtbox_component: HurtboxComponent = get_node_or_null('HurtboxComponent'):
-	get: return hurtbox_component
-
-@onready
-var animation_component: AnimationComponent = get_node_or_null('AnimationComponent'):
-	get: return animation_component
+var state: EntityState = $State:
+	get: return state
 
 
 func _enter_tree() -> void:
@@ -71,20 +50,6 @@ func is_player_ability() -> bool:
 
 func is_player_default() -> bool:
 	return is_in_group(Group.PLAYER) and not _is_ability()
-
-
-func _serialize() -> EntityState:
-	var value := EntityState.new()
-	for component in get_children():
-		if component.has_method('_serialize'):
-			component._serialize(value)
-	return value
-
-
-func _deserialize(value: EntityState) -> void:
-	for component in get_children():
-		if component.has_method('_deserialize'):
-			component._deserialize(value)
 
 
 func _is_any_group() -> bool:
