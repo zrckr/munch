@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0pkwo1wa4om5"]
+
+[ext_resource type="Script" path="res://entities/munch/actions/munch_frightened.gd" id="1_4gyju"]
+[ext_resource type="Script" path="res://entities/collision_box.gd" id="2_03o40"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ru841"]
+radius = 32.0
+
+[node name="Frightened" type="Node2D"]
+script = ExtResource("1_4gyju")
+
+[node name="DetectionBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("2_03o40")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="DetectionBox"]
+shape = SubResource("CircleShape2D_ru841")
+debug_color = Color(1, 0.75, 0, 0)
+
+[connection signal="body_entered" from="DetectionBox" to="." method="_on_detectionbox_body_entered"]

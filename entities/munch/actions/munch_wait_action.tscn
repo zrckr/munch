@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://caods3nj73i70"]
+
+[ext_resource type="Script" path="res://entities/munch/actions/munch_wait.gd" id="1_jbsm8"]
+
+[node name="Wait" type="Node2D"]
+script = ExtResource("1_jbsm8")
+
+[node name="WaitTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

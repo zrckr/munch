@@ -1,21 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://demj0a08gekqc"]
+[gd_scene load_steps=11 format=3 uid="uid://demj0a08gekqc"]
 
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_37jtp"]
 [ext_resource type="Resource" uid="uid://bck43kgh2r2r8" path="res://entities/munch/munch_properties.tres" id="2_0hanb"]
-[ext_resource type="PackedScene" uid="uid://cdap8y78ah6nx" path="res://entities/munch/munch_movement_component.tscn" id="3_k38a6"]
-[ext_resource type="PackedScene" uid="uid://cknfb1thevd56" path="res://entities/munch/munch_animation_component.tscn" id="4_flpnh"]
-[ext_resource type="PackedScene" uid="uid://bdmftonryvchu" path="res://entities/components/hitbox_component.tscn" id="5_gn026"]
+[ext_resource type="PackedScene" uid="uid://deqmq6qjlj2ax" path="res://entities/munch/munch_animations.tscn" id="3_prlyh"]
+[ext_resource type="Script" path="res://entities/munch/munch_state.gd" id="6_2xk2u"]
+[ext_resource type="Script" path="res://entities/collision_box.gd" id="6_3dq2a"]
+[ext_resource type="Script" path="res://entities/munch/actions/munch_wait.gd" id="6_fsxfr"]
+[ext_resource type="PackedScene" uid="uid://btm8qyvtet2mx" path="res://entities/munch/actions/munch_scatter_action.tscn" id="7_tpcw6"]
+[ext_resource type="PackedScene" uid="uid://b0pkwo1wa4om5" path="res://entities/munch/actions/munch_frightened_action.tscn" id="10_01q51"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svj2w"]
 size = Vector2(6, 6)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ru841"]
-radius = 32.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_6v475"]
+radius = 6.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4r7uj"]
-radius = 64.0
-
-[node name="Munch" type="CharacterBody2D" groups=["munch"]]
+[node name="Munch" type="CharacterBody2D"]
 collision_layer = 32
 motion_mode = 1
 script = ExtResource("1_37jtp")
@@ -24,33 +24,40 @@ properties = ExtResource("2_0hanb")
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_svj2w")
 
-[node name="MovementComponent" parent="." instance=ExtResource("3_k38a6")]
+[node name="Animations" parent="." instance=ExtResource("3_prlyh")]
 
-[node name="AnimationComponent" parent="." instance=ExtResource("4_flpnh")]
+[node name="Player" parent="Animations" index="1"]
+autoplay = ""
 
-[node name="HitboxComponent" parent="." instance=ExtResource("5_gn026")]
+[node name="HitBox" type="Area2D" parent="."]
 collision_layer = 32
+collision_mask = 0
+monitoring = false
+script = ExtResource("6_3dq2a")
 
-[node name="DetectionComponent" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
+[node name="CollisionShape" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_6v475")
+debug_color = Color(0.701961, 0.52549, 0, 0.419608)
 
-[node name="Collision" type="CollisionShape2D" parent="DetectionComponent"]
-shape = SubResource("CircleShape2D_ru841")
-debug_color = Color(1, 0.75, 0, 0)
+[node name="State" type="Node2D" parent="."]
+script = ExtResource("6_2xk2u")
 
-[node name="LostComponent" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
+[node name="Wait" type="Node2D" parent="State"]
+script = ExtResource("6_fsxfr")
 
-[node name="Collision" type="CollisionShape2D" parent="LostComponent"]
-shape = SubResource("CircleShape2D_4r7uj")
-debug_color = Color(0.168627, 1, 0, 0)
+[node name="WaitTimer" type="Timer" parent="State/Wait"]
+process_callback = 0
+one_shot = true
 
-[connection signal="body_entered" from="DetectionComponent" to="MovementComponent" method="_on_detection_component_body_entered"]
-[connection signal="body_exited" from="LostComponent" to="MovementComponent" method="_on_lost_component_body_exited"]
+[node name="Scatter" parent="State" instance=ExtResource("7_tpcw6")]
 
-[editable path="AnimationComponent"]
-[editable path="HitboxComponent"]
+[node name="Frightened" parent="State" instance=ExtResource("10_01q51")]
+acceleration_weight = 0.25
+mininum_deviation_angle = -5
+maximum_deviation_angle = 5
+
+[connection signal="timeout" from="State/Wait/WaitTimer" to="State/Wait" method="_on_wait_timer_timeout"]
+
+[editable path="Animations"]
+[editable path="State/Scatter"]
+[editable path="State/Frightened"]

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://btm8qyvtet2mx"]
+
+[ext_resource type="Script" path="res://entities/munch/actions/munch_scatter.gd" id="1_v5ma1"]
+[ext_resource type="Script" path="res://entities/collision_box.gd" id="2_ni0rq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4r7uj"]
+radius = 64.0
+
+[node name="Scatter" type="Node2D"]
+script = ExtResource("1_v5ma1")
+
+[node name="LostBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("2_ni0rq")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="LostBox"]
+shape = SubResource("CircleShape2D_4r7uj")
+debug_color = Color(0.168627, 1, 0, 0)
+
+[connection signal="body_exited" from="LostBox" to="." method="_on_lostbox_body_exited" flags=18]

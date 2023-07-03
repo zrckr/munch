@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://deqmq6qjlj2ax"]
+
+[ext_resource type="Script" path="res://entities/munch/munch_animations.gd" id="1_3uk8y"]
+[ext_resource type="Texture2D" uid="uid://12snf7se5pww" path="res://assets/munch/munch.png" id="2_i4h6n"]
+[ext_resource type="AnimationLibrary" uid="uid://d2ou2phowi1ss" path="res://assets/munch/munch.tres" id="3_5q4fe"]
+
+[node name="Animations" type="Node2D"]
+rotation = 1.5708
+script = ExtResource("1_3uk8y")
+rotation_factor = 0.1
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+texture = ExtResource("2_i4h6n")
+hframes = 4
+
+[node name="Player" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+autoplay = "default"
+libraries = {
+"": ExtResource("3_5q4fe")
+}
