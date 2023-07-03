@@ -33,6 +33,9 @@ const DECUPLE := 80.0
 ## 90 degrees
 const HALF_PI := PI / 2.0
 
+## Golden ratio
+const PHI := (1 + sqrt(5)) / 2.0
+
 ## Directions
 const DIRECTIONS := [
 	Vector2i.UP,

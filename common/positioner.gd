@@ -18,6 +18,10 @@ var _max_position: Vector2
 var _edge_offset: float
 
 
+func _init() -> void:
+	push_warning('Deprecated class')
+
+
 func set_min_position(value: Vector2) -> Positioner:
 	_min_position = value
 	return self
