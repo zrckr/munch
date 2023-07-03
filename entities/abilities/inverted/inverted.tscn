@@ -1,55 +1,22 @@
-[gd_scene load_steps=13 format=3 uid="uid://tdiomsggppti"]
+[gd_scene load_steps=5 format=3 uid="uid://tdiomsggppti"]
 
-[ext_resource type="Script" path="res://entities/entity.gd" id="1_pic3n"]
+[ext_resource type="PackedScene" uid="uid://ymqfi2vgtjim" path="res://entities/player/player.tscn" id="1_q18w2"]
 [ext_resource type="Resource" uid="uid://cqi6q3e164kud" path="res://entities/abilities/inverted/inverted_properties.tres" id="2_s6jkk"]
-[ext_resource type="PackedScene" uid="uid://b7fmaie8kgdq4" path="res://entities/player/player_movement_component.tscn" id="3_506qp"]
+[ext_resource type="PackedScene" uid="uid://djlaovks4jc2i" path="res://entities/abilities/inverted/action/inverted_action.tscn" id="3_ygkp8"]
 [ext_resource type="Material" uid="uid://dtd5x0kf5251u" path="res://entities/abilities/inverted/inverted_material.tres" id="4_s8ldp"]
-[ext_resource type="PackedScene" uid="uid://qtdteykvgb8m" path="res://entities/abilities/inverted/inverted_component.tscn" id="5_57dys"]
-[ext_resource type="Texture2D" uid="uid://d2isyc0t8sklm" path="res://assets/munchkin/munchkin.png" id="5_hujr6"]
-[ext_resource type="AnimationLibrary" uid="uid://n7eqhsgy7kxq" path="res://assets/munchkin/munchkin.tres" id="6_7fnxj"]
-[ext_resource type="PackedScene" uid="uid://l2d48ke1tab6" path="res://entities/components/animation_component.tscn" id="7_lafy5"]
-[ext_resource type="PackedScene" uid="uid://vntl2dpqvd7j" path="res://entities/components/health_component.tscn" id="12_l3vl4"]
-[ext_resource type="PackedScene" uid="uid://bmjdup2xe0q0x" path="res://entities/components/lifetime_component.tscn" id="14_fqbvd"]
-[ext_resource type="PackedScene" uid="uid://djg3fqugilgl5" path="res://entities/components/hurtbox_component.tscn" id="16_1leps"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sctg7"]
-size = Vector2(16, 16)
-
-[node name="Inverted" type="CharacterBody2D"]
-collision_layer = 2
-motion_mode = 1
-script = ExtResource("1_pic3n")
+[node name="Inverted" instance=ExtResource("1_q18w2")]
 properties = ExtResource("2_s6jkk")
 
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_sctg7")
-debug_color = Color(0, 0.6, 0.7, 0.2)
-
-[node name="MovementComponent" parent="." instance=ExtResource("3_506qp")]
-
-[node name="InvertedComponent" parent="." instance=ExtResource("5_57dys")]
-
-[node name="AnimationComponent" parent="." instance=ExtResource("7_lafy5")]
+[node name="Animations" parent="." index="1"]
 material = ExtResource("4_s8ldp")
-position = Vector2(0, -8)
 
-[node name="Sprite" parent="AnimationComponent" index="0"]
-texture = ExtResource("5_hujr6")
-hframes = 7
-vframes = 6
+[node name="Inverted" parent="State" index="0" instance=ExtResource("3_ygkp8")]
 
-[node name="Player" parent="AnimationComponent" index="1"]
-libraries = {
-"": ExtResource("6_7fnxj")
-}
-
-[node name="HealthComponent" parent="." instance=ExtResource("12_l3vl4")]
-
-[node name="LifetimeComponent" parent="." instance=ExtResource("14_fqbvd")]
-
-[node name="HurtboxComponent" parent="." instance=ExtResource("16_1leps")]
-position = Vector2(0, -8)
-collision_mask = 16
-
-[editable path="AnimationComponent"]
+[editable path="Animations"]
+[editable path="State/Lifetime"]
+[editable path="State/Idle"]
+[editable path="State/Move"]
+[editable path="State/Defeat"]
+[editable path="State/Hurt"]
+[editable path="State/Eat"]
