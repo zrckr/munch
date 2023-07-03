@@ -2,21 +2,21 @@
 
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_a670i"]
 [ext_resource type="Resource" uid="uid://c5v0bewvcatib" path="res://entities/abilities/microman/microman_properties.tres" id="2_hhrbs"]
-[ext_resource type="PackedScene" uid="uid://sa0wurblnvvl" path="res://entities/abilities/microman/microman_movement_component.tscn" id="3_grlde"]
-[ext_resource type="PackedScene" uid="uid://l2d48ke1tab6" path="res://entities/components/animation_component.tscn" id="4_npdkq"]
-[ext_resource type="Texture2D" uid="uid://d2isyc0t8sklm" path="res://assets/munchkin/munchkin.png" id="5_4rrcc"]
-[ext_resource type="AnimationLibrary" uid="uid://n7eqhsgy7kxq" path="res://assets/munchkin/munchkin.tres" id="6_knd6s"]
-[ext_resource type="PackedScene" uid="uid://vntl2dpqvd7j" path="res://entities/components/health_component.tscn" id="7_hxsck"]
-[ext_resource type="PackedScene" uid="uid://bmjdup2xe0q0x" path="res://entities/components/lifetime_component.tscn" id="8_4am2q"]
-[ext_resource type="PackedScene" uid="uid://djg3fqugilgl5" path="res://entities/components/hurtbox_component.tscn" id="9_nepew"]
+[ext_resource type="PackedScene" uid="uid://bsxy1fufjhh6e" path="res://entities/player/player_animations.tscn" id="3_ols8w"]
+[ext_resource type="Script" path="res://entities/player/player_state.gd" id="4_ajgnd"]
+[ext_resource type="PackedScene" uid="uid://bn08hptsrcain" path="res://entities/player/actions/player_lifetime_action.tscn" id="5_b1j6o"]
+[ext_resource type="PackedScene" uid="uid://286q72b8fii1" path="res://entities/player/actions/player_idle_action.tscn" id="6_n24ci"]
+[ext_resource type="PackedScene" uid="uid://w67thyx14mlx" path="res://entities/abilities/microman/actions/microman_move_action.tscn" id="7_5rn62"]
+[ext_resource type="PackedScene" uid="uid://bh5rf1f3knqh8" path="res://entities/player/actions/player_defeat_action.tscn" id="8_8x3li"]
+[ext_resource type="PackedScene" uid="uid://cd3us1gatply4" path="res://entities/player/actions/player_hurt_action.tscn" id="9_1r25b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sctg7"]
 size = Vector2(8, 8)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hd2l7"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_byhh2"]
 radius = 4.0
 
-[node name="MicroMan" type="CharacterBody2D"]
+[node name="Microman" type="CharacterBody2D"]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_a670i")
@@ -27,34 +27,31 @@ position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_sctg7")
 debug_color = Color(0, 0.6, 0.7, 0.2)
 
-[node name="MovementComponent" parent="." instance=ExtResource("3_grlde")]
-
-[node name="AnimationComponent" parent="." instance=ExtResource("4_npdkq")]
+[node name="Animations" parent="." instance=ExtResource("3_ols8w")]
 position = Vector2(0, -4)
-
-[node name="Sprite" parent="AnimationComponent" index="0"]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_4rrcc")
-hframes = 7
-vframes = 6
 
-[node name="Player" parent="AnimationComponent" index="1"]
-libraries = {
-"": ExtResource("6_knd6s")
-}
+[node name="State" type="Node2D" parent="."]
+script = ExtResource("4_ajgnd")
 
-[node name="HealthComponent" parent="." instance=ExtResource("7_hxsck")]
-invincibility_time = 2.0
-stun_time = 0.16
+[node name="Lifetime" parent="State" instance=ExtResource("5_b1j6o")]
 
-[node name="LifetimeComponent" parent="." instance=ExtResource("8_4am2q")]
+[node name="Idle" parent="State" instance=ExtResource("6_n24ci")]
 
-[node name="HurtboxComponent" parent="." instance=ExtResource("9_nepew")]
+[node name="Move" parent="State" instance=ExtResource("7_5rn62")]
+
+[node name="Defeat" parent="State" instance=ExtResource("8_8x3li")]
+
+[node name="Hurt" parent="State" instance=ExtResource("9_1r25b")]
+
+[node name="HurtBox" parent="State/Hurt" index="2"]
 position = Vector2(0, -4)
-collision_mask = 16
 
-[node name="Collision" parent="HurtboxComponent" index="0"]
-shape = SubResource("CircleShape2D_hd2l7")
+[node name="CollisionShape" parent="State/Hurt/HurtBox" index="0"]
+shape = SubResource("CircleShape2D_byhh2")
 
-[editable path="AnimationComponent"]
-[editable path="HurtboxComponent"]
+[editable path="Animations"]
+[editable path="State/Lifetime"]
+[editable path="State/Idle"]
+[editable path="State/Defeat"]
+[editable path="State/Hurt"]
