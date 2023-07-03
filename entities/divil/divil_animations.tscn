@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmvbimh4gdifa"]
+
+[ext_resource type="Script" path="res://entities/divil/divil_animations.gd" id="1_65v0r"]
+[ext_resource type="Texture2D" uid="uid://41qj6c3rwqad" path="res://assets/divil/divil.png" id="2_c2fue"]
+[ext_resource type="AnimationLibrary" uid="uid://cpxl3h3pybhww" path="res://assets/divil/divil.tres" id="3_iv5x4"]
+
+[node name="Animations" type="Node2D"]
+position = Vector2(0, -8)
+script = ExtResource("1_65v0r")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+use_parent_material = true
+texture = ExtResource("2_c2fue")
+hframes = 5
+vframes = 5
+frame = 21
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "munchkin",
+"only_visible": false,
+"op_exp": false,
+"player": "AnimationPlayer",
+"source": "res://skins/munchkin/munchkin.ase"
+}
+
+[node name="Player" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": ExtResource("3_iv5x4")
+}
+
+[connection signal="animation_finished" from="Player" to="." method="_on_animation_player_finished" flags=18]
+[connection signal="animation_started" from="Player" to="." method="_on_animation_player_started" flags=18]

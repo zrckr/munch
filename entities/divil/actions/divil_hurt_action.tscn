@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm3o4rqmciw24"]
+
+[ext_resource type="Script" path="res://entities/divil/actions/divil_hurt_action.gd" id="1_rmae6"]
+[ext_resource type="Script" path="res://entities/collision_box.gd" id="2_hk3q2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w0w13"]
+radius = 6.0
+
+[node name="Hurt" type="Node2D"]
+script = ExtResource("1_rmae6")
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
+[node name="StunTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("2_hk3q2")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_w0w13")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurtbox_area_entered"]

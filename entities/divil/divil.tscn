@@ -1,20 +1,20 @@
 [gd_scene load_steps=12 format=3 uid="uid://dcjrgb0bm2flw"]
 
-[ext_resource type="Texture2D" uid="uid://41qj6c3rwqad" path="res://assets/divil/divil.png" id="1_hhb5v"]
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_iq1x5"]
-[ext_resource type="AnimationLibrary" uid="uid://cpxl3h3pybhww" path="res://assets/divil/divil.tres" id="2_bqd7v"]
 [ext_resource type="Resource" uid="uid://crmtt3wvk7qa5" path="res://entities/divil/divil_properties.tres" id="2_djf61"]
-[ext_resource type="PackedScene" uid="uid://cw51pn12y2q6" path="res://entities/divil/divil_movement_component.tscn" id="3_4yf1g"]
-[ext_resource type="PackedScene" uid="uid://l2d48ke1tab6" path="res://entities/components/animation_component.tscn" id="4_mqibs"]
-[ext_resource type="PackedScene" uid="uid://vntl2dpqvd7j" path="res://entities/components/health_component.tscn" id="5_1nrrc"]
-[ext_resource type="PackedScene" uid="uid://bdmftonryvchu" path="res://entities/components/hitbox_component.tscn" id="6_b4483"]
-[ext_resource type="PackedScene" uid="uid://djg3fqugilgl5" path="res://entities/components/hurtbox_component.tscn" id="7_4doko"]
+[ext_resource type="PackedScene" uid="uid://cmvbimh4gdifa" path="res://entities/divil/divil_animations.tscn" id="3_v7ks5"]
+[ext_resource type="Script" path="res://entities/collision_box.gd" id="6_46v6i"]
+[ext_resource type="Script" path="res://entities/divil/divil_state.gd" id="6_366ab"]
+[ext_resource type="PackedScene" uid="uid://bwt5u2o1yrw54" path="res://entities/divil/actions/divil_idle_action.tscn" id="8_g4m5j"]
+[ext_resource type="PackedScene" uid="uid://cwinckkiaig4o" path="res://entities/divil/actions/divil_chase_action.tscn" id="9_y0rf5"]
+[ext_resource type="PackedScene" uid="uid://cm3o4rqmciw24" path="res://entities/divil/actions/divil_hurt_action.tscn" id="10_au5qr"]
+[ext_resource type="PackedScene" uid="uid://c6wv3c1nhs4yf" path="res://entities/divil/actions/divil_defeat_action.tscn" id="11_2prk4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_or5au"]
 size = Vector2(16, 16)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tt3n7"]
-radius = 32.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_6v475"]
+radius = 6.0
 
 [node name="Divil" type="CharacterBody2D"]
 collision_layer = 8
@@ -28,44 +28,31 @@ properties = ExtResource("2_djf61")
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_or5au")
 
-[node name="MovementComponent" parent="." instance=ExtResource("3_4yf1g")]
+[node name="Animations" parent="." instance=ExtResource("3_v7ks5")]
 
-[node name="AnimationComponent" parent="." instance=ExtResource("4_mqibs")]
-position = Vector2(0, -8)
-
-[node name="Sprite" parent="AnimationComponent" index="0"]
-texture = ExtResource("1_hhb5v")
-hframes = 5
-vframes = 5
-frame = 21
-
-[node name="Player" parent="AnimationComponent" index="1"]
-libraries = {
-"": ExtResource("2_bqd7v")
-}
-
-[node name="HealthComponent" parent="." instance=ExtResource("5_1nrrc")]
-
-[node name="HitboxComponent" parent="." instance=ExtResource("6_b4483")]
+[node name="HitBox" type="Area2D" parent="."]
 position = Vector2(0, -8)
 collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("6_46v6i")
 
-[node name="HurtboxComponent" parent="." instance=ExtResource("7_4doko")]
-position = Vector2(0, -8)
-collision_mask = 4
+[node name="CollisionShape" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_6v475")
+debug_color = Color(0.701961, 0.52549, 0, 0.419608)
 
-[node name="DetectionComponent" type="Area2D" parent="."]
-position = Vector2(0, -8)
-collision_layer = 0
-collision_mask = 2
-monitorable = false
+[node name="State" type="Node2D" parent="."]
+script = ExtResource("6_366ab")
 
-[node name="Collision" type="CollisionShape2D" parent="DetectionComponent"]
-shape = SubResource("CircleShape2D_tt3n7")
-debug_color = Color(0.717647, 0, 1, 0)
+[node name="Idle" parent="State" instance=ExtResource("8_g4m5j")]
 
-[connection signal="body_entered" from="DetectionComponent" to="MovementComponent" method="_on_detection_component_body_entered"]
+[node name="Chase" parent="State" instance=ExtResource("9_y0rf5")]
 
-[editable path="AnimationComponent"]
-[editable path="HitboxComponent"]
-[editable path="HurtboxComponent"]
+[node name="Hurt" parent="State" instance=ExtResource("10_au5qr")]
+
+[node name="Defeat" parent="State" instance=ExtResource("11_2prk4")]
+
+[editable path="State/Idle"]
+[editable path="State/Chase"]
+[editable path="State/Hurt"]
+[editable path="State/Defeat"]
