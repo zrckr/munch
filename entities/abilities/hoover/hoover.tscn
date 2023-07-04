@@ -1,14 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://bml7ddqie1tki"]
+[gd_scene load_steps=13 format=3 uid="uid://bml7ddqie1tki"]
 
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_ijl6m"]
 [ext_resource type="Resource" uid="uid://4xtsxjrlw8rf" path="res://entities/abilities/hoover/hoover_properties.tres" id="2_qurdm"]
-[ext_resource type="PackedScene" uid="uid://b7fmaie8kgdq4" path="res://entities/player/player_movement_component.tscn" id="3_7om0l"]
-[ext_resource type="PackedScene" uid="uid://diuijyx5cti3w" path="res://entities/abilities/hoover/hoover_animation_component.tscn" id="4_pcoj2"]
-[ext_resource type="PackedScene" uid="uid://vntl2dpqvd7j" path="res://entities/components/health_component.tscn" id="7_ukqwn"]
-[ext_resource type="PackedScene" uid="uid://bmjdup2xe0q0x" path="res://entities/components/lifetime_component.tscn" id="8_gsq3g"]
-[ext_resource type="PackedScene" uid="uid://djg3fqugilgl5" path="res://entities/components/hurtbox_component.tscn" id="9_sjaod"]
-[ext_resource type="PackedScene" uid="uid://dc2krc6tt2hq4" path="res://entities/abilities/hoover/hoover_component.tscn" id="10_ylmul"]
-[ext_resource type="PackedScene" uid="uid://bihr48syce6ww" path="res://projectiles/dead_divil_ball/dead_divil_ball.tscn" id="12_mb6uc"]
+[ext_resource type="PackedScene" uid="uid://8sghljq4hnto" path="res://entities/abilities/hoover/hoover_animations.tscn" id="3_vqn8w"]
+[ext_resource type="Script" path="res://entities/abilities/hoover/hoover_state.gd" id="4_eit3x"]
+[ext_resource type="PackedScene" uid="uid://bh5rf1f3knqh8" path="res://entities/player/actions/player_defeat_action.tscn" id="7_tqflb"]
+[ext_resource type="PackedScene" uid="uid://cd3us1gatply4" path="res://entities/player/actions/player_hurt_action.tscn" id="8_w1kuu"]
+[ext_resource type="PackedScene" uid="uid://286q72b8fii1" path="res://entities/player/actions/player_idle_action.tscn" id="9_hle33"]
+[ext_resource type="PackedScene" uid="uid://bn08hptsrcain" path="res://entities/player/actions/player_lifetime_action.tscn" id="10_yepaa"]
+[ext_resource type="PackedScene" uid="uid://b4a12hh3a4ncv" path="res://entities/player/actions/player_move_action.tscn" id="11_cv7tk"]
+[ext_resource type="PackedScene" uid="uid://c8c45h2pq2qok" path="res://entities/abilities/hoover/actions/hoover_suck_action.tscn" id="12_vtuwr"]
+[ext_resource type="PackedScene" uid="uid://sr848ll1q01f" path="res://entities/abilities/hoover/actions/hoover_attack_action.tscn" id="13_6inwa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sctg7"]
 size = Vector2(16, 16)
@@ -24,26 +26,21 @@ position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_sctg7")
 debug_color = Color(0, 0.6, 0.7, 0.2)
 
-[node name="MovementComponent" parent="." instance=ExtResource("3_7om0l")]
+[node name="Animations" parent="." instance=ExtResource("3_vqn8w")]
 
-[node name="HooverComponent" parent="." instance=ExtResource("10_ylmul")]
-position = Vector2(0, -8)
-collision_mask = 8
-projectile_scene = ExtResource("12_mb6uc")
-projectile_collision_layer = 4
-projectile_collision_mask = 8
-suction_time = 0.5
-suction_capacity = 4
+[node name="State" type="Node2D" parent="."]
+script = ExtResource("4_eit3x")
 
-[node name="AnimationComponent" parent="." instance=ExtResource("4_pcoj2")]
-position = Vector2(0, -8)
+[node name="Lifetime" parent="State" instance=ExtResource("10_yepaa")]
 
-[node name="HealthComponent" parent="." instance=ExtResource("7_ukqwn")]
+[node name="Idle" parent="State" instance=ExtResource("9_hle33")]
 
-[node name="LifetimeComponent" parent="." instance=ExtResource("8_gsq3g")]
+[node name="Move" parent="State" instance=ExtResource("11_cv7tk")]
 
-[node name="HurtboxComponent" parent="." instance=ExtResource("9_sjaod")]
-position = Vector2(0, -8)
-collision_mask = 16
+[node name="Attack" parent="State" instance=ExtResource("13_6inwa")]
 
-[editable path="HurtboxComponent"]
+[node name="Suck" parent="State" instance=ExtResource("12_vtuwr")]
+
+[node name="Hurt" parent="State" instance=ExtResource("8_w1kuu")]
+
+[node name="Defeat" parent="State" instance=ExtResource("7_tqflb")]

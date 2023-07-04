@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://sr848ll1q01f"]
+
+[ext_resource type="Script" path="res://entities/abilities/hoover/actions/hoover_attack_action.gd" id="1_cabx2"]
+[ext_resource type="PackedScene" uid="uid://bihr48syce6ww" path="res://projectiles/dead_divil_ball/dead_divil_ball.tscn" id="2_lfj7h"]
+
+[node name="Attack" type="Node2D"]
+script = ExtResource("1_cabx2")
+projectile_scene = ExtResource("2_lfj7h")
+projectile_collision_layer = 4
+projectile_collision_mask = 8
+
+[node name="MuzzleMarker" type="Marker2D" parent="."]
+
+[node name="AttackTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
