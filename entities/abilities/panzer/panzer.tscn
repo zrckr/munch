@@ -1,17 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://mksrxwig7r1t"]
+[gd_scene load_steps=12 format=3 uid="uid://mksrxwig7r1t"]
 
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_mumsa"]
-[ext_resource type="Texture2D" uid="uid://onsvxw17odwc" path="res://assets/panzer/panzer.png" id="2_8i7yx"]
-[ext_resource type="PackedScene" uid="uid://uh2jkp1y03h" path="res://projectiles/bullet/bullet.tscn" id="2_dh7to"]
-[ext_resource type="AnimationLibrary" uid="uid://b5bx6jnb6h613" path="res://assets/panzer/panzer.tres" id="3_01ctt"]
-[ext_resource type="PackedScene" uid="uid://l2d48ke1tab6" path="res://entities/components/animation_component.tscn" id="3_vnep7"]
+[ext_resource type="PackedScene" uid="uid://cl35sudk1ugu0" path="res://entities/abilities/panzer/panzer_animations.tscn" id="3_pmo0t"]
+[ext_resource type="Script" path="res://entities/abilities/panzer/panzer_state.gd" id="4_p82i3"]
 [ext_resource type="Resource" uid="uid://do6k0atg3n35t" path="res://entities/abilities/panzer/panzer_properties.tres" id="4_pmou4"]
-[ext_resource type="PackedScene" uid="uid://g3b70odn6jwv" path="res://entities/abilities/panzer/panzer_movement_component.tscn" id="4_wbjrd"]
-[ext_resource type="PackedScene" uid="uid://vntl2dpqvd7j" path="res://entities/components/health_component.tscn" id="5_dmmax"]
-[ext_resource type="PackedScene" uid="uid://bmjdup2xe0q0x" path="res://entities/components/lifetime_component.tscn" id="6_nlavd"]
-[ext_resource type="PackedScene" uid="uid://djg3fqugilgl5" path="res://entities/components/hurtbox_component.tscn" id="7_i82x3"]
-[ext_resource type="PackedScene" uid="uid://dqbb0erv5gedt" path="res://entities/abilities/panzer/panzer_attack_component.tscn" id="8_wvx0t"]
-[ext_resource type="PackedScene" uid="uid://n3ypwmqhuqe4" path="res://entities/abilities/panzer/panzer_shield_component.tscn" id="9_2adse"]
+[ext_resource type="PackedScene" uid="uid://bn08hptsrcain" path="res://entities/player/actions/player_lifetime_action.tscn" id="8_hr3dv"]
+[ext_resource type="PackedScene" uid="uid://l06ixfr26j0a" path="res://entities/abilities/panzer/actions/panzer_move_action.tscn" id="9_vch88"]
+[ext_resource type="PackedScene" uid="uid://cd3us1gatply4" path="res://entities/player/actions/player_hurt_action.tscn" id="9_ylknx"]
+[ext_resource type="PackedScene" uid="uid://r8f734t63t8e" path="res://entities/abilities/panzer/actions/panzer_attack_action.tscn" id="10_d8swm"]
+[ext_resource type="PackedScene" uid="uid://bh5rf1f3knqh8" path="res://entities/player/actions/player_defeat_action.tscn" id="10_oq7hh"]
+[ext_resource type="PackedScene" uid="uid://cgmfll0vsjr3k" path="res://entities/abilities/panzer/actions/panzer_shield_action.tscn" id="11_0wmvj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_or5au"]
 size = Vector2(16, 16)
@@ -25,43 +23,19 @@ properties = ExtResource("4_pmou4")
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_or5au")
 
-[node name="AnimationComponent" parent="." instance=ExtResource("3_vnep7")]
+[node name="Animations" parent="." instance=ExtResource("3_pmo0t")]
 
-[node name="Sprite" parent="AnimationComponent" index="0"]
-texture = ExtResource("2_8i7yx")
-hframes = 3
-frame = 1
+[node name="State" type="Node2D" parent="."]
+script = ExtResource("4_p82i3")
 
-[node name="Player" parent="AnimationComponent" index="1"]
-autoplay = "default"
-libraries = {
-"": ExtResource("3_01ctt")
-}
+[node name="Lifetime" parent="State" instance=ExtResource("8_hr3dv")]
 
-[node name="Guide" type="Polygon2D" parent="AnimationComponent"]
-modulate = Color(0.00392157, 0.0901961, 0.2, 1)
-position = Vector2(-4, -8)
-polygon = PackedVector2Array(0, 0, 4, -6, 8, 0)
+[node name="Move" parent="State" instance=ExtResource("9_vch88")]
 
-[node name="MovementComponent" parent="." instance=ExtResource("4_wbjrd")]
+[node name="Attack" parent="State" instance=ExtResource("10_d8swm")]
 
-[node name="HealthComponent" parent="." instance=ExtResource("5_dmmax")]
-invincibility_time = 2.0
-stun_time = 0.16
+[node name="Shield" parent="State" instance=ExtResource("11_0wmvj")]
 
-[node name="LifetimeComponent" parent="." instance=ExtResource("6_nlavd")]
+[node name="Hurt" parent="State" instance=ExtResource("9_ylknx")]
 
-[node name="HurtboxComponent" parent="." instance=ExtResource("7_i82x3")]
-collision_mask = 24
-
-[node name="AttackComponent" parent="." instance=ExtResource("8_wvx0t")]
-collision_mask = 8
-bullet_projectile = ExtResource("2_dh7to")
-bullet_collision_layer = 4
-bullet_collision_mask = 8
-
-[node name="ShieldComponent" parent="." instance=ExtResource("9_2adse")]
-collision_layer = 4
-collision_mask = 16
-
-[editable path="AnimationComponent"]
+[node name="Defeat" parent="State" instance=ExtResource("10_oq7hh")]
