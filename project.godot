@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Logger="*res://singletons/logger.gd"
 Inputs="*res://singletons/inputs.gd"
 Events="*res://singletons/events.gd"
 
