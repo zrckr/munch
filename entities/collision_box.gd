@@ -3,7 +3,11 @@ class_name CollisionBox
 extends Area2D
 
 var entity: Entity:
-	get: return owner as Entity
+	get:
+		if owner is EntityAction:
+			return owner.entity
+		else:
+			return owner as Entity
 
 var properties: EntityProperties:
 	get: return entity.properties

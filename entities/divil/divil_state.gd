@@ -12,6 +12,12 @@ var health_points: int:
 		health_points = value
 		Events.enemy_health_updated.emit(entity, value)
 
+var damage_position: Vector2
+
+var damage_value: float
+
+var knockback_velocity: Vector2
+
 
 func _ready() -> void:
 	action = &'Chase'

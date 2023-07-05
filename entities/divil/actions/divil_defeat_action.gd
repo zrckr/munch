@@ -2,7 +2,7 @@ extends EntityAction
 
 
 func _begin() -> void:
-	Events.player_died.emit()
+	Events.enemy_died.emit(entity)
 	animations.defeated()
 
 
