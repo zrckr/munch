@@ -105,6 +105,6 @@ func _on_node_added(node: Node) -> void:
 		Events.player_roll_worn_off.emit(node.properties)
 		return
 	
-	if node is MunchboxComponent:
-		node._munchies_total = abilities.activation_threshold
+	if 'munchies_total' in node:
+		node.munchies_total = abilities.activation_threshold
 		return
