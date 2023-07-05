@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://g3b70odn6jwv"]
-
-[ext_resource type="Script" path="res://entities/abilities/panzer/panzer_movement_component.gd" id="1_bxxy2"]
-
-[node name="PanzerMovementComponent" type="Node"]
-script = ExtResource("1_bxxy2")

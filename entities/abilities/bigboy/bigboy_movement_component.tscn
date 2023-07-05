@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bomuyhrqncppr"]
-
-[ext_resource type="Script" path="res://entities/abilities/bigboy/bigboy_movement_component.gd" id="1_ritx4"]
-
-[node name="BigBoyMovementComponent" type="Node"]
-script = ExtResource("1_ritx4")
-rotation_amount = 2.5
-acceleration_amount = 3.0

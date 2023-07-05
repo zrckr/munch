@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://sa0wurblnvvl"]
-
-[ext_resource type="Script" path="res://entities/abilities/microman/microman_movement_component.gd" id="1_ikf55"]
-
-[node name="MicromanMovementComponent" type="Node"]
-script = ExtResource("1_ikf55")
-movement_ease = 0.25
