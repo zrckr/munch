@@ -1,9 +1,5 @@
 extends EntityAction
 
-var _damage_source: Node
-
-var _knockback_velocity: Vector2
-
 @onready
 var _hurtbox: CollisionBox = $HurtBox
 
@@ -22,31 +18,36 @@ func _on_hurtbox_area_entered(damage_source: Area2D) -> void:
 	var is_projectile = damage_source is Projectile
 	var is_collision_box = damage_source is CollisionBox
 	
-	if is_projectile or is_collision_box:
-		_damage_source = damage_source
-		state.action = &'Hurt'
+	if not (is_projectile or is_collision_box):
+		return
+	
+	state.damage_position = damage_source.global_position
+	if is_projectile:
+		state.damage_value = damage_source.damage
+		damage_source.queue_free()
+	elif is_collision_box:
+		state.damage_value = damage_source.properties.damage
+	
+	state.action = &'Hurt'
 
 
 func _begin() -> void:
-	if _damage_source is Projectile:
-		_damage_source.queue_free()
-	
 	_hurtbox.disable()
 	animations.damaged()
-	state.take_damage(_damage_source.properties.damage)
+	state.take_damage(state.damage_value)
 	
-	var strength = properties.speed * _damage_source.properties.damage
-	var direction = _damage_source.global_position \
+	var strength = properties.speed * state.damage_value
+	var direction = state.damage_position \
 		.direction_to(entity.global_position) \
 		.round()
 	
-	_knockback_velocity = direction * strength
+	state.knockback_velocity = direction * strength
 	_stun_timer.start()
 
 
 func _act(_delta) -> void:
 	if not _stun_timer.is_stopped():
-		entity.velocity = _knockback_velocity
+		entity.velocity = state.knockback_velocity
 		entity.move_and_slide()
 
 

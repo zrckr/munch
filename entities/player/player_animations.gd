@@ -14,6 +14,10 @@ func move(direction := Vector2.DOWN, speed_scale := 1.0) -> void:
 	_animation_player.speed_scale = speed_scale
 
 
+func damaged() -> void:
+	_animation_player.play('damaged')
+
+
 func defeated() -> void:
 	_animation_player.play('defeated')
 

@@ -20,7 +20,18 @@ var munchies_eaten: int:
 		munchies_eaten = value
 		Events.player_munchies_eaten.emit(value, munchies_total)
 
-var munchies_total := MUNCHIES_TOTAL_FALLBACK
+var munchies_total: int
+
+var damage_position: Vector2
+
+var damage_value: float
+
+var knockback_velocity: Vector2
+
+
+func _ready() -> void:
+	if not munchies_total:
+		munchies_total = MUNCHIES_TOTAL_FALLBACK
 
 
 func take_damage(damage_points: int) -> void:
