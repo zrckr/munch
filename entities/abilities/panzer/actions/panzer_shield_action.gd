@@ -21,9 +21,8 @@ func _transition_attempts() -> void:
 
 	match state.action:
 		&'Move', &'Attack':
-			var use_pressed = Input.is_action_just_pressed('use')
 			var wait_stopped = _wait_timer.is_stopped()
-			if use_pressed and wait_stopped:
+			if wait_stopped and Inputs.use.just_pressed:
 				state.shield_active = true
 
 

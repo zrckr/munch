@@ -34,14 +34,12 @@ func _transition_attempts() -> void:
 	match state.action:
 		&'Idle', &'Move':
 			var empty_capacity = state.suction_amount == 0
-			var attack_pressed = Input.is_action_just_pressed('attack')
-			if attack_pressed and empty_capacity:
+			if empty_capacity and Inputs.attack.just_pressed:
 				state.action = &'Suck'
 		
 		&'Suck':
 			var enough_capacity = state.suction_amount >= 0
-			var attack_released = Input.is_action_just_released('attack')
-			if attack_released and enough_capacity:
+			if enough_capacity and Inputs.attack.just_released:
 				state.action = &'Idle'
 
 

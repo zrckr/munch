@@ -6,8 +6,7 @@ var rotation_amount: float
 
 func _transition_attempts() -> void:
 	var not_attacking = state.action != &'Attack'
-	var has_input = not _get_input().is_zero_approx()
-	if not_attacking and has_input:
+	if not_attacking and Inputs.has_movement:
 		state.action = &'Move'
 
 
@@ -18,11 +17,11 @@ func _begin() -> void:
 func _act(_delta: float) -> void:
 	state.facing_direction = Vector2i(-entity.transform.y.round())
 	
-	if not _get_input().is_zero_approx():
-		var target_angle = _get_input().angle() + Math.HALF_PI
+	if Inputs.has_movement:
+		var target_angle = Inputs.movement.angle() + Math.HALF_PI
 		entity.rotation = target_angle
 	
-	var input_amount = _get_input().length_squared()
+	var input_amount = Inputs.movement.length()
 	var target_velocity = -entity.transform.y * input_amount * properties.speed
 	
 	entity.velocity = target_velocity
@@ -31,7 +30,3 @@ func _act(_delta: float) -> void:
 
 func _is_action_active() -> bool:
 	return state.action == &'Move'
-
-
-func _get_input() -> Vector2:
-	return Input.get_vector('left', 'right', 'up', 'down')

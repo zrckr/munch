@@ -13,8 +13,7 @@ var _ears_timer: Timer = $EarsTimer
 func _transition_attempts() -> void:
 	match state.action:
 		&'Move':
-			var input = Input.get_vector('left', 'right', 'up', 'down')
-			if input.is_zero_approx():
+			if not Inputs.has_movement:
 				state.action = &'Idle'
 
 

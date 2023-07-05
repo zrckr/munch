@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Inputs="*res://singletons/inputs.gd"
 Events="*res://singletons/events.gd"
 
 [debug]

@@ -60,9 +60,8 @@ func _rotate_muzzle_marker(target_node: Node2D) -> void:
 func _transition_attempts() -> void:
 	match state.action:
 		&'Move':
-			var attack_pressed = Input.is_action_just_pressed('attack')
 			var not_reloading = _reload_timer.is_stopped()
-			if attack_pressed and not_reloading:
+			if not_reloading and Inputs.attack.just_pressed:
 				state.action = &'Attack'
 
 

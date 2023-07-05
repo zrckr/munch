@@ -24,8 +24,7 @@ func _transition_attempts() -> void:
 	match state.action:
 		&'Idle', &'Move':
 			var can_shoot = state.suction_amount > 0
-			var attack_pressed = Input.is_action_just_pressed('attack')
-			if can_shoot and attack_pressed:
+			if can_shoot and Inputs.attack.just_pressed:
 				state.action = &'Attack'
 
 
