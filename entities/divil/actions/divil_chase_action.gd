@@ -19,7 +19,7 @@ func _act(_delta: float) -> void:
 		return
 	
 	var target_direction = entity.global_position.direction_to(state.target_entity.global_position)
-	var target_velocity = state.facing_direction * properties.speed
+	var target_velocity = target_direction * properties.speed
 	
 	state.facing_direction = Vector2i(target_direction.round())
 	animations.move(state.facing_direction)
