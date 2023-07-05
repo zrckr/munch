@@ -32,6 +32,7 @@ class ExternalSink:
 		"""Flush the buffer, i.e. write its contents to the target external sink."""
 		print("[ERROR] [logger] Using method which has to be overriden in your custom sink")
 
+	@warning_ignore('unused_parameter')
 	func write(output, level):
 		"""Write the string at the end of the sink (append mode), following
 		the queue mode."""
@@ -76,6 +77,7 @@ class Logfile:
 		else:
 			return FileAccess.READ_WRITE  # append
 
+	@warning_ignore('shadowed_variable')
 	func validate_path(path):
 		"""Validate the path given as argument, making it possible to write to
 		the designated file or folder. Returns whether the path is valid."""
@@ -404,6 +406,7 @@ func error(message, module = default_module_name, error_code = -1):
 # -----------------
 
 
+@warning_ignore('shadowed_variable_base_class')
 func add_module(name, output_level = default_output_level, output_strategies = default_output_strategies, logfile = null):
 	"""Add a new module with the given parameter or (by default) the
 	default ones.
