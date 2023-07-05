@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://deqmq6qjlj2ax" path="res://entities/munch/munch_animations.tscn" id="3_prlyh"]
 [ext_resource type="Script" path="res://entities/munch/munch_state.gd" id="6_2xk2u"]
 [ext_resource type="Script" path="res://entities/collision_box.gd" id="6_3dq2a"]
-[ext_resource type="Script" path="res://entities/munch/actions/munch_wait.gd" id="6_fsxfr"]
+[ext_resource type="PackedScene" uid="uid://caods3nj73i70" path="res://entities/munch/actions/munch_wait_action.tscn" id="6_6c308"]
 [ext_resource type="PackedScene" uid="uid://btm8qyvtet2mx" path="res://entities/munch/actions/munch_scatter_action.tscn" id="7_tpcw6"]
 [ext_resource type="PackedScene" uid="uid://b0pkwo1wa4om5" path="res://entities/munch/actions/munch_frightened_action.tscn" id="10_01q51"]
 
@@ -26,9 +26,6 @@ shape = SubResource("RectangleShape2D_svj2w")
 
 [node name="Animations" parent="." instance=ExtResource("3_prlyh")]
 
-[node name="Player" parent="Animations" index="1"]
-autoplay = ""
-
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 32
 collision_mask = 0
@@ -42,22 +39,8 @@ debug_color = Color(0.701961, 0.52549, 0, 0.419608)
 [node name="State" type="Node2D" parent="."]
 script = ExtResource("6_2xk2u")
 
-[node name="Wait" type="Node2D" parent="State"]
-script = ExtResource("6_fsxfr")
-
-[node name="WaitTimer" type="Timer" parent="State/Wait"]
-process_callback = 0
-one_shot = true
+[node name="Wait" parent="State" instance=ExtResource("6_6c308")]
 
 [node name="Scatter" parent="State" instance=ExtResource("7_tpcw6")]
 
 [node name="Frightened" parent="State" instance=ExtResource("10_01q51")]
-acceleration_weight = 0.25
-mininum_deviation_angle = -5
-maximum_deviation_angle = 5
-
-[connection signal="timeout" from="State/Wait/WaitTimer" to="State/Wait" method="_on_wait_timer_timeout"]
-
-[editable path="Animations"]
-[editable path="State/Scatter"]
-[editable path="State/Frightened"]

@@ -1,16 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://0vbq1jwwb685"]
+[gd_scene load_steps=12 format=3 uid="uid://0vbq1jwwb685"]
 
-[ext_resource type="PackedScene" uid="uid://ymqfi2vgtjim" path="res://entities/player/player.tscn" id="1_xp1mg"]
+[ext_resource type="Script" path="res://entities/entity.gd" id="1_wxi7j"]
 [ext_resource type="Resource" uid="uid://copwsigj5n0rs" path="res://entities/abilities/blackout/blackout_properties.tres" id="2_k7kkl"]
+[ext_resource type="PackedScene" uid="uid://bsxy1fufjhh6e" path="res://entities/player/player_animations.tscn" id="3_3qxmq"]
+[ext_resource type="Script" path="res://entities/player/player_state.gd" id="5_5py57"]
 [ext_resource type="Texture2D" uid="uid://bde1ekegrd3km" path="res://entities/abilities/blackout/blackout.png" id="6_admrw"]
+[ext_resource type="PackedScene" uid="uid://bn08hptsrcain" path="res://entities/player/actions/player_lifetime_action.tscn" id="6_b4ui2"]
+[ext_resource type="PackedScene" uid="uid://286q72b8fii1" path="res://entities/player/actions/player_idle_action.tscn" id="7_cs00q"]
+[ext_resource type="PackedScene" uid="uid://b4a12hh3a4ncv" path="res://entities/player/actions/player_move_action.tscn" id="8_d6tc3"]
+[ext_resource type="PackedScene" uid="uid://bh5rf1f3knqh8" path="res://entities/player/actions/player_defeat_action.tscn" id="9_ojcc7"]
+[ext_resource type="PackedScene" uid="uid://cd3us1gatply4" path="res://entities/player/actions/player_hurt_action.tscn" id="10_ol2ci"]
 
-[node name="Blackout" instance=ExtResource("1_xp1mg")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sctg7"]
+size = Vector2(8, 8)
+
+[node name="Blackout" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_wxi7j")
 properties = ExtResource("2_k7kkl")
 
-[node name="Effect" type="Node2D" parent="." index="2"]
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_sctg7")
+debug_color = Color(0, 0.6, 0.7, 0.2)
+
+[node name="Animations" parent="." instance=ExtResource("3_3qxmq")]
+
+[node name="Effect" type="Node2D" parent="."]
 position = Vector2(0, -8)
 
-[node name="PointLight" type="PointLight2D" parent="Effect" index="0"]
+[node name="PointLight" type="PointLight2D" parent="Effect"]
 z_index = 100
 z_as_relative = false
 texture_filter = 1
@@ -20,14 +40,19 @@ blend_mode = 2
 texture = ExtResource("6_admrw")
 texture_scale = 0.5
 
-[node name="DirectionalLight" type="DirectionalLight2D" parent="Effect" index="1"]
+[node name="DirectionalLight" type="DirectionalLight2D" parent="Effect"]
 color = Color(0, 0, 0, 1)
 blend_mode = 2
 
-[editable path="Animations"]
-[editable path="State/Lifetime"]
-[editable path="State/Idle"]
-[editable path="State/Move"]
-[editable path="State/Defeat"]
-[editable path="State/Hurt"]
-[editable path="State/Eat"]
+[node name="State" type="Node2D" parent="."]
+script = ExtResource("5_5py57")
+
+[node name="Lifetime" parent="State" instance=ExtResource("6_b4ui2")]
+
+[node name="Idle" parent="State" instance=ExtResource("7_cs00q")]
+
+[node name="Move" parent="State" instance=ExtResource("8_d6tc3")]
+
+[node name="Defeat" parent="State" instance=ExtResource("9_ojcc7")]
+
+[node name="Hurt" parent="State" instance=ExtResource("10_ol2ci")]

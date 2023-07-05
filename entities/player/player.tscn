@@ -41,11 +41,3 @@ script = ExtResource("6_4c3s3")
 [node name="Hurt" parent="State" instance=ExtResource("9_e48ia")]
 
 [node name="Eat" parent="State" instance=ExtResource("10_ce2p4")]
-
-[editable path="Animations"]
-[editable path="State/Lifetime"]
-[editable path="State/Idle"]
-[editable path="State/Move"]
-[editable path="State/Defeat"]
-[editable path="State/Hurt"]
-[editable path="State/Eat"]

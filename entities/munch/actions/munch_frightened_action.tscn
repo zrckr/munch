@@ -8,6 +8,9 @@ radius = 32.0
 
 [node name="Frightened" type="Node2D"]
 script = ExtResource("1_4gyju")
+acceleration_weight = 0.25
+mininum_deviation_angle = -5
+maximum_deviation_angle = 5
 
 [node name="DetectionBox" type="Area2D" parent="."]
 collision_layer = 0
