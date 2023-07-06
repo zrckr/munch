@@ -1,7 +1,7 @@
 Project MUNCH
 =============
 
-![](.github/assets/hoover.gif) ![](.github/assets/blackout.gif)
+![](public/hoover.gif) ![](public/blackout.gif)
 
 Introduction
 ------------
