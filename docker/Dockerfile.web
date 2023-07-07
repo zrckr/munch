@@ -1,0 +1,9 @@
+ARG GODOT_VERSION="4.1"
+ARG GODOT_RELEASE="stable"
+ARG BASE_IMAGE="godot:${GODOT_VERSION}-${GODOT_RELEASE}"
+
+FROM $BASE_IMAGE
+
+# Remove unnecessary export templates
+RUN find /usr/local/share/godot/export_templates/${GODOT_VERSION}.${GODOT_RELEASE}/ \
+	-type f ! -name 'web_*' -delete

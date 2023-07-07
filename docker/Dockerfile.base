@@ -1,0 +1,36 @@
+FROM ubuntu:22.04
+
+ARG GODOT_VERSION="4.1"
+ARG GODOT_RELEASE="stable"
+ARG GODOT_PLATFORM="linux.x86_64"
+ARG GODOT_RELEASES_DOWNLOAD="https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-${GODOT_RELEASE}"
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install --yes --no-install-recommends \
+	adb \
+	ca-certificates \
+	curl \
+	git \
+	git-lfs \
+	libfontconfig1 \
+	openjdk-11-jdk-headless \
+	rsync \
+	unzip \
+	zip \
+	&& update-ca-certificates \
+	&& rm -rf /var/lib/apt/lists/*
+
+## Download the Godot executable
+RUN mkdir /tmp/godot && cd /tmp/godot \
+	&& curl -fsSL "${GODOT_RELEASES_DOWNLOAD}/Godot_v${GODOT_VERSION}-${GODOT_RELEASE}_${GODOT_PLATFORM}.zip" -o godot.zip \
+	&& unzip godot.zip \
+	&& mv "Godot_v${GODOT_VERSION}-${GODOT_RELEASE}_${GODOT_PLATFORM}" /usr/local/bin/godot \
+	&& chmod +x /usr/local/bin/godot \
+	&& rm -rf godot.zip
+
+## Download the Godot templates
+RUN curl -fsSL "${GODOT_RELEASES_DOWNLOAD}/Godot_v${GODOT_VERSION}-${GODOT_RELEASE}_export_templates.tpz" -o tpl.tpz \
+	&& unzip tpl.tpz \
+	&& mkdir -p /usr/local/share/godot/export_templates/${GODOT_VERSION}.${GODOT_RELEASE}/ \
+	&& mv templates/* /usr/local/share/godot/export_templates/${GODOT_VERSION}.${GODOT_RELEASE}/ \
+	&& rm -rf tpl.tpz templates
