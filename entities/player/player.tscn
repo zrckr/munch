@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://ymqfi2vgtjim"]
 
-[ext_resource type="Script" path="res://entities/entity.gd" id="1_ottf0"]
+[ext_resource type="Script" path="res://entities/entity.gd" id="1_gan4w"]
 [ext_resource type="Resource" uid="uid://bymi512knjeag" path="res://entities/player/player_properties.tres" id="2_5blxn"]
 [ext_resource type="PackedScene" uid="uid://bsxy1fufjhh6e" path="res://entities/player/player_animations.tscn" id="3_l0s0p"]
 [ext_resource type="PackedScene" uid="uid://bn08hptsrcain" path="res://entities/player/actions/player_lifetime_action.tscn" id="5_iotc0"]
@@ -17,7 +17,7 @@ size = Vector2(8, 8)
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 motion_mode = 1
-script = ExtResource("1_ottf0")
+script = ExtResource("1_gan4w")
 properties = ExtResource("2_5blxn")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
@@ -27,8 +27,9 @@ debug_color = Color(0, 0.6, 0.7, 0.2)
 
 [node name="Animations" parent="." instance=ExtResource("3_l0s0p")]
 
-[node name="State" type="Node2D" parent="."]
+[node name="State" type="Node2D" parent="." node_paths=PackedStringArray("initial_action")]
 script = ExtResource("6_4c3s3")
+initial_action = NodePath("Idle")
 
 [node name="Lifetime" parent="State" instance=ExtResource("5_iotc0")]
 

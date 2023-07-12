@@ -30,6 +30,7 @@ var knockback_velocity: Vector2
 
 
 func _ready() -> void:
+	super._ready()
 	if not munchies_total:
 		munchies_total = MUNCHIES_TOTAL_FALLBACK
 
