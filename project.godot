@@ -36,7 +36,10 @@ window/stretch/mode="canvas_items"
 [editor]
 
 movie_writer/movie_file="/tmp/movie.avi"
-script/templates_search_path="res://templates"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/fsm/plugin.cfg")
 
 [input]
 
