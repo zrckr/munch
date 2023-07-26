@@ -1,45 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://tdiomsggppti"]
+[gd_scene load_steps=5 format=3 uid="uid://csti5ni2w45fc"]
 
-[ext_resource type="Script" path="res://entities/entity.gd" id="1_sp2vc"]
+[ext_resource type="PackedScene" uid="uid://c6bej2hdspp8d" path="res://entities/player/player_base.tscn" id="1_4q6re"]
+[ext_resource type="Script" path="res://entities/abilities/inverted/states/inverted_state.gd" id="2_lq8oq"]
 [ext_resource type="Resource" uid="uid://cqi6q3e164kud" path="res://entities/abilities/inverted/inverted_properties.tres" id="2_s6jkk"]
-[ext_resource type="PackedScene" uid="uid://bsxy1fufjhh6e" path="res://entities/player/player_animations.tscn" id="3_qcqhw"]
-[ext_resource type="PackedScene" uid="uid://djlaovks4jc2i" path="res://entities/abilities/inverted/action/inverted_action.tscn" id="3_ygkp8"]
-[ext_resource type="Material" uid="uid://dtd5x0kf5251u" path="res://entities/abilities/inverted/inverted_material.tres" id="4_s8ldp"]
-[ext_resource type="Script" path="res://entities/player/player_state.gd" id="5_nc8pq"]
-[ext_resource type="PackedScene" uid="uid://bn08hptsrcain" path="res://entities/player/actions/player_lifetime_action.tscn" id="7_2bkyr"]
-[ext_resource type="PackedScene" uid="uid://286q72b8fii1" path="res://entities/player/actions/player_idle_action.tscn" id="8_do1gf"]
-[ext_resource type="PackedScene" uid="uid://b4a12hh3a4ncv" path="res://entities/player/actions/player_move_action.tscn" id="9_iqjlj"]
-[ext_resource type="PackedScene" uid="uid://bh5rf1f3knqh8" path="res://entities/player/actions/player_defeat_action.tscn" id="10_l4spx"]
-[ext_resource type="PackedScene" uid="uid://cd3us1gatply4" path="res://entities/player/actions/player_hurt_action.tscn" id="11_akuu3"]
+[ext_resource type="Material" uid="uid://dtd5x0kf5251u" path="res://entities/abilities/inverted/assets/inverted.tres" id="3_1jnb1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sctg7"]
-size = Vector2(8, 8)
-
-[node name="Inverted" type="CharacterBody2D"]
-collision_layer = 2
-motion_mode = 1
-script = ExtResource("1_sp2vc")
+[node name="Inverted" instance=ExtResource("1_4q6re")]
 properties = ExtResource("2_s6jkk")
 
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_sctg7")
-debug_color = Color(0, 0.6, 0.7, 0.2)
+[node name="Animations" parent="." index="1"]
+material = ExtResource("3_1jnb1")
 
-[node name="Animations" parent="." instance=ExtResource("3_qcqhw")]
-material = ExtResource("4_s8ldp")
-
-[node name="State" type="Node2D" parent="."]
-script = ExtResource("5_nc8pq")
-
-[node name="Inverted" parent="State" instance=ExtResource("3_ygkp8")]
-
-[node name="Lifetime" parent="State" instance=ExtResource("7_2bkyr")]
-
-[node name="Idle" parent="State" instance=ExtResource("8_do1gf")]
-
-[node name="Move" parent="State" instance=ExtResource("9_iqjlj")]
-
-[node name="Defeat" parent="State" instance=ExtResource("10_l4spx")]
-
-[node name="Hurt" parent="State" instance=ExtResource("11_akuu3")]
+[node name="Inverted" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("inverted")]
+script = ExtResource("2_lq8oq")
+inverted = NodePath("../..")
