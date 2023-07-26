@@ -1,46 +1,85 @@
-[gd_scene load_steps=13 format=3 uid="uid://bml7ddqie1tki"]
+[gd_scene load_steps=12 format=3 uid="uid://b6mj5ys62qxse"]
 
-[ext_resource type="Script" path="res://entities/entity.gd" id="1_ijl6m"]
+[ext_resource type="PackedScene" uid="uid://c6bej2hdspp8d" path="res://entities/player/player_base.tscn" id="1_88557"]
+[ext_resource type="PackedScene" uid="uid://bihr48syce6ww" path="res://projectiles/dead_divil_ball/dead_divil_ball.tscn" id="2_lfj7h"]
 [ext_resource type="Resource" uid="uid://4xtsxjrlw8rf" path="res://entities/abilities/hoover/hoover_properties.tres" id="2_qurdm"]
-[ext_resource type="PackedScene" uid="uid://8sghljq4hnto" path="res://entities/abilities/hoover/hoover_animations.tscn" id="3_vqn8w"]
-[ext_resource type="Script" path="res://entities/abilities/hoover/hoover_state.gd" id="4_eit3x"]
-[ext_resource type="PackedScene" uid="uid://bh5rf1f3knqh8" path="res://entities/player/actions/player_defeat_action.tscn" id="7_tqflb"]
-[ext_resource type="PackedScene" uid="uid://cd3us1gatply4" path="res://entities/player/actions/player_hurt_action.tscn" id="8_w1kuu"]
-[ext_resource type="PackedScene" uid="uid://286q72b8fii1" path="res://entities/player/actions/player_idle_action.tscn" id="9_hle33"]
-[ext_resource type="PackedScene" uid="uid://bn08hptsrcain" path="res://entities/player/actions/player_lifetime_action.tscn" id="10_yepaa"]
-[ext_resource type="PackedScene" uid="uid://b4a12hh3a4ncv" path="res://entities/player/actions/player_move_action.tscn" id="11_cv7tk"]
-[ext_resource type="PackedScene" uid="uid://c8c45h2pq2qok" path="res://entities/abilities/hoover/actions/hoover_suck_action.tscn" id="12_vtuwr"]
-[ext_resource type="PackedScene" uid="uid://sr848ll1q01f" path="res://entities/abilities/hoover/actions/hoover_attack_action.tscn" id="13_6inwa"]
+[ext_resource type="PackedScene" uid="uid://x2hlj5hfconk" path="res://entities/abilities/hoover/particle_attractor.tscn" id="2_tmg3j"]
+[ext_resource type="Script" path="res://entities/abilities/hoover/hoover_blackboard.gd" id="3_45i4t"]
+[ext_resource type="Script" path="res://entities/abilities/hoover/states/hoover_attack_state.gd" id="3_hu3s8"]
+[ext_resource type="Script" path="res://entities/collision_box.gd" id="3_q8u4j"]
+[ext_resource type="AnimationLibrary" uid="uid://n7eqhsgy7kxq" path="res://entities/player/assets/munchkin.tres" id="3_t0hb1"]
+[ext_resource type="Theme" uid="uid://br7rkp2l10vsp" path="res://ui/hud/hud.tres" id="4_fn5ar"]
+[ext_resource type="AnimationLibrary" uid="uid://0qxrn2fpxblq" path="res://entities/abilities/hoover/assets/hoover.tres" id="4_npdpa"]
+[ext_resource type="Script" path="res://entities/abilities/hoover/states/hoover_suck_state.gd" id="4_sp788"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sctg7"]
-size = Vector2(16, 16)
-
-[node name="Hoover" type="CharacterBody2D"]
-collision_layer = 2
-motion_mode = 1
-script = ExtResource("1_ijl6m")
+[node name="Hoover" instance=ExtResource("1_88557")]
 properties = ExtResource("2_qurdm")
 
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
+[node name="Blackboard" type="Node2D" parent="." index="1" node_paths=PackedStringArray("hoover", "state_machine")]
+script = ExtResource("3_45i4t")
+hoover = NodePath("..")
+state_machine = NodePath("../StateMachine")
+
+[node name="ParticleAttractor" parent="Blackboard" index="0" instance=ExtResource("2_tmg3j")]
+position = Vector2(0, -4)
+min_spawn_position = Vector2i(-16, 20)
+max_spawn_position = Vector2i(16, 28)
+spawn_max_delay = 0.9
+attraction_time = 0.66
+
+[node name="CapacityLabel" type="Label" parent="Blackboard" index="1"]
+texture_filter = 1
+custom_minimum_size = Vector2(8, 8)
+offset_left = -4.0
+offset_top = -28.0
+offset_right = 4.0
+offset_bottom = -20.0
+theme = ExtResource("4_fn5ar")
+text = "0"
+
+[node name="MuzzleMarker" type="Marker2D" parent="Blackboard" index="2"]
+
+[node name="AnimationPlayer" parent="Animations" index="1"]
+libraries = {
+"": ExtResource("3_t0hb1"),
+"hoover": ExtResource("4_npdpa")
+}
+
+[node name="SuckBox" type="Area2D" parent="." index="4"]
+texture_filter = 1
 position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_sctg7")
-debug_color = Color(0, 0.6, 0.7, 0.2)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+script = ExtResource("3_q8u4j")
 
-[node name="Animations" parent="." instance=ExtResource("3_vqn8w")]
+[node name="CollisionShape" type="CollisionPolygon2D" parent="SuckBox" index="0"]
+polygon = PackedVector2Array(0, 0, 16, 32, -16, 32)
+disabled = true
 
-[node name="State" type="Node2D" parent="."]
-script = ExtResource("4_eit3x")
+[node name="Attack" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("muzzle_marker", "attack_timer", "hoover", "hoover_animations", "hoover_blackboard")]
+script = ExtResource("3_hu3s8")
+projectile_scene = ExtResource("2_lfj7h")
+projectile_collision_layer = 4
+projectile_collision_mask = 8
+muzzle_marker = NodePath("../../Blackboard/MuzzleMarker")
+attack_timer = NodePath("AttackTimer")
+hoover = NodePath("../..")
+hoover_animations = NodePath("../../Animations")
+hoover_blackboard = NodePath("../../Blackboard")
 
-[node name="Lifetime" parent="State" instance=ExtResource("10_yepaa")]
+[node name="AttackTimer" type="Timer" parent="StateMachine/Attack" index="0"]
+process_callback = 0
+wait_time = 0.5
+one_shot = true
 
-[node name="Idle" parent="State" instance=ExtResource("9_hle33")]
-
-[node name="Move" parent="State" instance=ExtResource("11_cv7tk")]
-
-[node name="Attack" parent="State" instance=ExtResource("13_6inwa")]
-
-[node name="Suck" parent="State" instance=ExtResource("12_vtuwr")]
-
-[node name="Hurt" parent="State" instance=ExtResource("8_w1kuu")]
-
-[node name="Defeat" parent="State" instance=ExtResource("7_tqflb")]
+[node name="Suck" type="Node" parent="StateMachine" index="4" node_paths=PackedStringArray("particle_attractor", "suck_box", "capacity_label", "hoover", "hoover_animations", "hoover_blackboard")]
+script = ExtResource("4_sp788")
+suction_time = 0.5
+suction_capacity = 4
+particle_attractor = NodePath("../../Blackboard/ParticleAttractor")
+suck_box = NodePath("../../SuckBox")
+capacity_label = NodePath("../../Blackboard/CapacityLabel")
+hoover = NodePath("../..")
+hoover_animations = NodePath("../../Animations")
+hoover_blackboard = NodePath("../../Blackboard")
