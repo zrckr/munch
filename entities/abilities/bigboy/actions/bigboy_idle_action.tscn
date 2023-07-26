@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://mvsgnc4wuj3h"]
-
-[ext_resource type="Script" path="res://entities/abilities/bigboy/actions/bigboy_idle_action.gd" id="1_xtrpt"]
-
-[node name="Idle" type="Node2D"]
-script = ExtResource("1_xtrpt")

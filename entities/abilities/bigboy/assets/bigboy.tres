@@ -1,6 +1,6 @@
 [gd_resource type="AnimationLibrary" load_steps=3 format=3 uid="uid://bebt05yg0uyt8"]
 
-[ext_resource type="Texture2D" uid="uid://dvqn8vbo733rw" path="res://assets/munchkin/munchkin_rotations.png" id="1_v1umy"]
+[ext_resource type="Texture2D" uid="uid://dvqn8vbo733rw" path="res://entities/player/assets/munchkin_rotations.png" id="1_v1umy"]
 
 [sub_resource type="Animation" id="Animation_8vebj"]
 resource_name = "rolling"
