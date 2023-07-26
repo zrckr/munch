@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://12snf7se5pww"
-path="res://.godot/imported/munch.png-53b6a1494791e303377d55b2361d4f98.ctex"
+path="res://.godot/imported/munch.png-dbe32e4ddbc184c19bf297b6838b6695.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/munch/munch.png"
-dest_files=["res://.godot/imported/munch.png-53b6a1494791e303377d55b2361d4f98.ctex"]
+source_file="res://entities/munch/assets/munch.png"
+dest_files=["res://.godot/imported/munch.png-dbe32e4ddbc184c19bf297b6838b6695.ctex"]
 
 [params]
 

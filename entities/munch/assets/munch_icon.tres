@@ -1,6 +1,6 @@
 [gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cq7vkeoywxc28"]
 
-[ext_resource type="Texture2D" uid="uid://12snf7se5pww" path="res://assets/munch/munch.png" id="1_135k1"]
+[ext_resource type="Texture2D" uid="uid://12snf7se5pww" path="res://entities/munch/assets/munch.png" id="1_135k1"]
 
 [resource]
 atlas = ExtResource("1_135k1")

@@ -1,12 +1,14 @@
-extends EntityState
+@icon('res://editor/icons/node.png')
+class_name MunchBlackboard
+extends Node2D
 
-# @injectable
+@export_group('Munch Dependencies')
+@export var munch: Entity
+@export var munch_animations: EntityAnimations
+
 var random_positioner: RandomPositioner
 
-# @injectable
 var noise_positioner: NoisePositioner
-
-var facing_direction := Vector2.RIGHT
 
 var target_position := Vector2.ZERO
 
@@ -15,7 +17,6 @@ var chasing_entities: Array[Entity] = []
 
 func _ready() -> void:
 	_init_positioners_with_fallbacks()
-	action = &'Scatter'
 
 
 func _process(_delta: float) -> void:
@@ -25,8 +26,8 @@ func _process(_delta: float) -> void:
 
 func _draw() -> void:
 	if get_tree().debug_collisions_hint:
-		draw_set_transform_matrix(entity.global_transform.affine_inverse())
-		draw_line(entity.global_position, target_position, Color.RED)
+		draw_set_transform_matrix(munch.global_transform.affine_inverse())
+		draw_line(munch.global_position, target_position, Color.RED)
 
 
 func generate_random_target_position():
