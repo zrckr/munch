@@ -1,7 +1,7 @@
 [gd_resource type="AnimationLibrary" load_steps=21 format=3 uid="uid://n7eqhsgy7kxq"]
 
-[ext_resource type="Texture2D" uid="uid://d2isyc0t8sklm" path="res://assets/munchkin/munchkin.png" id="1_h523p"]
-[ext_resource type="Texture2D" uid="uid://dvqn8vbo733rw" path="res://assets/munchkin/munchkin_rotations.png" id="2_e3bp1"]
+[ext_resource type="Texture2D" uid="uid://d2isyc0t8sklm" path="res://entities/player/assets/munchkin.png" id="1_h523p"]
+[ext_resource type="Texture2D" uid="uid://dvqn8vbo733rw" path="res://entities/player/assets/munchkin_rotations.png" id="2_e3bp1"]
 
 [sub_resource type="Animation" id="Animation_ermjg"]
 length = 0.1

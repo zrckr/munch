@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvqn8vbo733rw"
-path="res://.godot/imported/munchkin_rotations.png-3ad12799259c281a23ab7949940e1cee.ctex"
+path="res://.godot/imported/munchkin_rotations.png-7caa41513cafe969f14426f9a3b9be95.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/munchkin/munchkin_rotations.png"
-dest_files=["res://.godot/imported/munchkin_rotations.png-3ad12799259c281a23ab7949940e1cee.ctex"]
+source_file="res://entities/player/assets/munchkin_rotations.png"
+dest_files=["res://.godot/imported/munchkin_rotations.png-7caa41513cafe969f14426f9a3b9be95.ctex"]
 
 [params]
 

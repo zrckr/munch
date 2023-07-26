@@ -1,3 +1,4 @@
+@tool
 @icon('res://editor/icons/entity.png')
 class_name Entity
 extends CharacterBody2D
@@ -18,17 +19,26 @@ const Group := {
 @export
 var properties: EntityProperties
 
-@onready
-var animations: EntityAnimations = $Animations:
-	get: return animations
 
-@onready
-var state: EntityState = $State:
-	get: return state
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings: PackedStringArray = []
+	
+	if not properties:
+		warnings.append("The properties resource for this entity is not defined.")
+	
+	if motion_mode != MOTION_MODE_FLOATING:
+		warnings.append("Set the motion mode to 'Floating'.")
+	
+	return warnings
 
 
-func _enter_tree() -> void:
-	add_to_group(properties.entity_group)
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	
+	if properties:
+		add_to_group(properties.entity_group)
+	
 	if not _is_any_group():
 		push_error('You forgot to add [%s] to one of these groups: %s' % \
 			[get_path(), str(Group.values())])

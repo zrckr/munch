@@ -1,43 +1,29 @@
-[gd_scene load_steps=12 format=3 uid="uid://ymqfi2vgtjim"]
+[gd_scene load_steps=6 format=3 uid="uid://dsbouvu3xf32r"]
 
-[ext_resource type="Script" path="res://entities/entity.gd" id="1_ottf0"]
-[ext_resource type="Resource" uid="uid://bymi512knjeag" path="res://entities/player/player_properties.tres" id="2_5blxn"]
-[ext_resource type="PackedScene" uid="uid://bsxy1fufjhh6e" path="res://entities/player/player_animations.tscn" id="3_l0s0p"]
-[ext_resource type="PackedScene" uid="uid://bn08hptsrcain" path="res://entities/player/actions/player_lifetime_action.tscn" id="5_iotc0"]
-[ext_resource type="Script" path="res://entities/player/player_state.gd" id="6_4c3s3"]
-[ext_resource type="PackedScene" uid="uid://286q72b8fii1" path="res://entities/player/actions/player_idle_action.tscn" id="6_7ikci"]
-[ext_resource type="PackedScene" uid="uid://b4a12hh3a4ncv" path="res://entities/player/actions/player_move_action.tscn" id="7_7s2sw"]
-[ext_resource type="PackedScene" uid="uid://cd3us1gatply4" path="res://entities/player/actions/player_hurt_action.tscn" id="9_e48ia"]
-[ext_resource type="PackedScene" uid="uid://bh5rf1f3knqh8" path="res://entities/player/actions/player_defeat_action.tscn" id="9_tn6wh"]
-[ext_resource type="PackedScene" uid="uid://cj8f7o1o4isgl" path="res://entities/player/actions/player_eat_action.tscn" id="10_ce2p4"]
+[ext_resource type="PackedScene" uid="uid://c6bej2hdspp8d" path="res://entities/player/player_base.tscn" id="1_m6s0q"]
+[ext_resource type="Script" path="res://entities/collision_box.gd" id="2_psgtx"]
+[ext_resource type="Resource" uid="uid://bymi512knjeag" path="res://entities/player/player_properties.tres" id="2_ukobv"]
+[ext_resource type="Script" path="res://entities/player/states/player_eat_state.gd" id="3_6egqt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sctg7"]
-size = Vector2(8, 8)
+[sub_resource type="CircleShape2D" id="CircleShape2D_1bw51"]
+radius = 9.5
 
-[node name="Player" type="CharacterBody2D"]
-collision_layer = 2
-motion_mode = 1
-script = ExtResource("1_ottf0")
-properties = ExtResource("2_5blxn")
+[node name="Player" instance=ExtResource("1_m6s0q")]
+properties = ExtResource("2_ukobv")
 
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
+[node name="MunchBox" type="Area2D" parent="." index="3"]
 position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_sctg7")
-debug_color = Color(0, 0.6, 0.7, 0.2)
+collision_layer = 0
+collision_mask = 32
+monitorable = false
+script = ExtResource("2_psgtx")
 
-[node name="Animations" parent="." instance=ExtResource("3_l0s0p")]
+[node name="CollisionShape" type="CollisionShape2D" parent="MunchBox" index="0"]
+shape = SubResource("CircleShape2D_1bw51")
+debug_color = Color(0.701961, 0.701961, 0.701961, 0.419608)
 
-[node name="State" type="Node2D" parent="."]
-script = ExtResource("6_4c3s3")
-
-[node name="Lifetime" parent="State" instance=ExtResource("5_iotc0")]
-
-[node name="Idle" parent="State" instance=ExtResource("6_7ikci")]
-
-[node name="Move" parent="State" instance=ExtResource("7_7s2sw")]
-
-[node name="Defeat" parent="State" instance=ExtResource("9_tn6wh")]
-
-[node name="Hurt" parent="State" instance=ExtResource("9_e48ia")]
-
-[node name="Eat" parent="State" instance=ExtResource("10_ce2p4")]
+[node name="Eat" type="Node" parent="StateMachine" index="5" node_paths=PackedStringArray("munchbox", "player", "player_animations")]
+script = ExtResource("3_6egqt")
+munchbox = NodePath("../../MunchBox")
+player = NodePath("../..")
+player_animations = NodePath("../../Animations")

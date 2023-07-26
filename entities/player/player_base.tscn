@@ -1,0 +1,129 @@
+[gd_scene load_steps=14 format=3 uid="uid://c6bej2hdspp8d"]
+
+[ext_resource type="Script" path="res://entities/entity.gd" id="1_2jqah"]
+[ext_resource type="Script" path="res://entities/entity_animations.gd" id="3_f7eed"]
+[ext_resource type="Texture2D" uid="uid://d2isyc0t8sklm" path="res://entities/player/assets/munchkin.png" id="3_k4jn3"]
+[ext_resource type="AnimationLibrary" uid="uid://n7eqhsgy7kxq" path="res://entities/player/assets/munchkin.tres" id="4_siw53"]
+[ext_resource type="Script" path="res://entities/collision_box.gd" id="6_wow43"]
+[ext_resource type="Script" path="res://addons/fsm/nodes/state_machine.gd" id="7_e38s4"]
+[ext_resource type="Script" path="res://entities/player/states/player_lifetime_state.gd" id="8_ks5iq"]
+[ext_resource type="Script" path="res://entities/player/states/player_idle_state.gd" id="9_vr7fk"]
+[ext_resource type="Script" path="res://entities/player/states/player_move_state.gd" id="10_d571b"]
+[ext_resource type="Script" path="res://entities/player/states/player_defeat_state.gd" id="11_csdan"]
+[ext_resource type="Script" path="res://entities/player/states/player_hurt_state.gd" id="12_2f81r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sctg7"]
+size = Vector2(8, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w0w13"]
+radius = 6.0
+
+[node name="PlayerBase" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_2jqah")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_sctg7")
+debug_color = Color(0, 0.6, 0.7, 0.2)
+
+[node name="Animations" type="Node2D" parent="."]
+position = Vector2(0, -8)
+script = ExtResource("3_f7eed")
+
+[node name="Sprite" type="Sprite2D" parent="Animations"]
+texture_filter = 1
+use_parent_material = true
+texture = ExtResource("3_k4jn3")
+hframes = 7
+vframes = 6
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "munchkin",
+"only_visible": false,
+"op_exp": false,
+"player": "AnimationPlayer",
+"source": "res://skins/munchkin/munchkin.ase"
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animations"]
+autoplay = "idle"
+libraries = {
+"": ExtResource("4_siw53")
+}
+
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+script = ExtResource("6_wow43")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_w0w13")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("7_e38s4")
+initial_state = NodePath("Idle")
+
+[node name="Lifetime" type="Node" parent="StateMachine" node_paths=PackedStringArray("duration_timer", "player")]
+script = ExtResource("8_ks5iq")
+duration_timer = NodePath("DurationTimer")
+player = NodePath("../..")
+
+[node name="DurationTimer" type="Timer" parent="StateMachine/Lifetime"]
+editor_description = "The `wait_time` property is controlled by the script."
+process_callback = 0
+one_shot = true
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("wait_timer", "ears_timer", "player", "player_animations")]
+script = ExtResource("9_vr7fk")
+deceleration_speed = 10.0
+wait_timer = NodePath("WaitTimer")
+ears_timer = NodePath("EarsTimer")
+player = NodePath("../..")
+player_animations = NodePath("../../Animations")
+
+[node name="WaitTimer" type="Timer" parent="StateMachine/Idle"]
+wait_time = 10.0
+one_shot = true
+
+[node name="EarsTimer" type="Timer" parent="StateMachine/Idle"]
+wait_time = 2.7
+one_shot = true
+
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "player_animations")]
+script = ExtResource("10_d571b")
+acceleration_speed = 15.0
+player = NodePath("../..")
+player_animations = NodePath("../../Animations")
+
+[node name="Hurt" type="Node" parent="StateMachine" node_paths=PackedStringArray("hurtbox", "invincibility_timer", "stun_timer", "player", "player_animations")]
+script = ExtResource("12_2f81r")
+hurtbox = NodePath("../../HurtBox")
+invincibility_timer = NodePath("InvincibilityTimer")
+stun_timer = NodePath("StunTimer")
+player = NodePath("../..")
+player_animations = NodePath("../../Animations")
+
+[node name="InvincibilityTimer" type="Timer" parent="StateMachine/Hurt"]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
+[node name="StunTimer" type="Timer" parent="StateMachine/Hurt"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="Defeat" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "player_animations")]
+script = ExtResource("11_csdan")
+player = NodePath("../..")
+player_animations = NodePath("../../Animations")
+
+[connection signal="animation_finished" from="Animations/AnimationPlayer" to="Animations" method="_on_animation_player_finished" flags=18]
+[connection signal="animation_started" from="Animations/AnimationPlayer" to="Animations" method="_on_animation_player_started" flags=18]

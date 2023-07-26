@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4a12hh3a4ncv"]
-
-[ext_resource type="Script" path="res://entities/player/actions/player_move_action.gd" id="1_xyxil"]
-
-[node name="Move" type="Node2D"]
-script = ExtResource("1_xyxil")
-acceleration_weight = 0.334
