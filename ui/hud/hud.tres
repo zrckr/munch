@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://br7rkp2l10vsp"]
 
-[ext_resource type="FontFile" uid="uid://ba7ebxw676fr2" path="res://assets/fonts/half_eighties.ttf" id="1_iqod6"]
+[ext_resource type="FontFile" uid="uid://ba7ebxw676fr2" path="res://ui/fonts/half_eighties.ttf" id="1_iqod6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlaeg"]
 bg_color = Color(0.00392157, 0.0901961, 0.2, 1)
