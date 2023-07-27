@@ -1,6 +1,6 @@
 [gd_resource type="AnimationLibrary" load_steps=17 format=3 uid="uid://cpxl3h3pybhww"]
 
-[ext_resource type="Texture2D" uid="uid://41qj6c3rwqad" path="res://assets/divil/divil.png" id="1_1idd6"]
+[ext_resource type="Texture2D" uid="uid://41qj6c3rwqad" path="res://entities/divil/assets/divil.png" id="1_buj1v"]
 
 [sub_resource type="Animation" id="Animation_vm1me"]
 length = 0.15
@@ -15,7 +15,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -79,7 +79,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -143,7 +143,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -207,7 +207,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -272,7 +272,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -335,7 +335,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -398,7 +398,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -461,7 +461,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -525,7 +525,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -589,7 +589,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -653,7 +653,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -717,7 +717,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -781,7 +781,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -845,7 +845,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -909,7 +909,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_1idd6")]
+"values": [ExtResource("1_buj1v")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false

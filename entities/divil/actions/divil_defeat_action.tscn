@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6wv3c1nhs4yf"]
-
-[ext_resource type="Script" path="res://entities/divil/actions/divil_defeat_action.gd" id="1_herws"]
-
-[node name="Defeat" type="Node2D"]
-script = ExtResource("1_herws")

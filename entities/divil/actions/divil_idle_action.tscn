@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwt5u2o1yrw54"]
-
-[ext_resource type="Script" path="res://entities/divil/actions/divil_idle_action.gd" id="1_pm2ss"]
-
-[node name="Idle" type="Node2D"]
-script = ExtResource("1_pm2ss")
