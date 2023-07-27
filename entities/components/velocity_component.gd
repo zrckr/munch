@@ -11,6 +11,10 @@ var acceleration_speed: float
 @export
 var debug_mode: bool = false
 
+var acceleration_multiplier := 1.0:
+	get: return acceleration_multiplier
+	set(value): acceleration_multiplier = clampf(value, 0.0, 1.0)
+
 var velocity: Vector2
 
 
@@ -32,7 +36,7 @@ func move() -> void:
 
 func accelerate_to_velocity(target_velocity: Vector2) -> void:
 	var delta = get_physics_process_delta_time()
-	var weight =  1.0 - exp(-acceleration_speed * delta)
+	var weight =  1.0 - exp(-acceleration_speed * acceleration_multiplier * delta)
 	velocity = velocity.lerp(target_velocity, weight)
 
 
