@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://x2hlj5hfconk"]
 
 [ext_resource type="Script" path="res://entities/abilities/hoover/particle_attractor.gd" id="1_glbex"]
-[ext_resource type="Texture2D" uid="uid://bas41pi83hg2w" path="res://assets/square/square.png" id="2_c5niy"]
+[ext_resource type="Texture2D" uid="uid://bas41pi83hg2w" path="res://entities/abilities/panzer/assets/square.png" id="2_c5niy"]
 
 [node name="ParticleAttractor" type="Node2D"]
 script = ExtResource("1_glbex")

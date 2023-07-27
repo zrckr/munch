@@ -1,41 +1,192 @@
-[gd_scene load_steps=12 format=3 uid="uid://mksrxwig7r1t"]
+[gd_scene load_steps=20 format=3 uid="uid://bbsheqbbsjbbn"]
 
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_mumsa"]
-[ext_resource type="PackedScene" uid="uid://cl35sudk1ugu0" path="res://entities/abilities/panzer/panzer_animations.tscn" id="3_pmo0t"]
-[ext_resource type="Script" path="res://entities/abilities/panzer/panzer_state.gd" id="4_p82i3"]
-[ext_resource type="Resource" uid="uid://do6k0atg3n35t" path="res://entities/abilities/panzer/panzer_properties.tres" id="4_pmou4"]
-[ext_resource type="PackedScene" uid="uid://bn08hptsrcain" path="res://entities/player/actions/player_lifetime_action.tscn" id="8_hr3dv"]
-[ext_resource type="PackedScene" uid="uid://l06ixfr26j0a" path="res://entities/abilities/panzer/actions/panzer_move_action.tscn" id="9_vch88"]
-[ext_resource type="PackedScene" uid="uid://cd3us1gatply4" path="res://entities/player/actions/player_hurt_action.tscn" id="9_ylknx"]
-[ext_resource type="PackedScene" uid="uid://r8f734t63t8e" path="res://entities/abilities/panzer/actions/panzer_attack_action.tscn" id="10_d8swm"]
-[ext_resource type="PackedScene" uid="uid://bh5rf1f3knqh8" path="res://entities/player/actions/player_defeat_action.tscn" id="10_oq7hh"]
-[ext_resource type="PackedScene" uid="uid://cgmfll0vsjr3k" path="res://entities/abilities/panzer/actions/panzer_shield_action.tscn" id="11_0wmvj"]
+[ext_resource type="Resource" uid="uid://do6k0atg3n35t" path="res://entities/abilities/panzer/panzer_properties.tres" id="2_eqf1t"]
+[ext_resource type="Script" path="res://entities/entity_animations.gd" id="2_u0fod"]
+[ext_resource type="Script" path="res://entities/abilities/panzer/panzer_blackboard.gd" id="2_wnnnd"]
+[ext_resource type="Texture2D" uid="uid://onsvxw17odwc" path="res://entities/abilities/panzer/assets/panzer.png" id="3_r80jh"]
+[ext_resource type="AnimationLibrary" uid="uid://b5bx6jnb6h613" path="res://entities/abilities/panzer/assets/panzer.tres" id="4_ficlx"]
+[ext_resource type="Script" path="res://entities/collision_box.gd" id="5_njda7"]
+[ext_resource type="Script" path="res://addons/fsm/nodes/state_machine.gd" id="6_7idbl"]
+[ext_resource type="PackedScene" uid="uid://cmv8lin1i0e4s" path="res://entities/abilities/panzer/panzer_shield.tscn" id="6_px4r7"]
+[ext_resource type="Script" path="res://entities/player/states/player_lifetime_state.gd" id="7_ayrly"]
+[ext_resource type="Script" path="res://entities/player/states/player_hurt_state.gd" id="10_5wxct"]
+[ext_resource type="Script" path="res://entities/abilities/panzer/states/panzer_move_state.gd" id="10_rj3qd"]
+[ext_resource type="Script" path="res://entities/abilities/panzer/states/panzer_attack_state.gd" id="11_1evji"]
+[ext_resource type="Script" path="res://entities/player/states/player_defeat_state.gd" id="11_6c7fn"]
+[ext_resource type="Script" path="res://entities/abilities/panzer/states/panzer_shield_state.gd" id="12_bt5yt"]
+[ext_resource type="PackedScene" uid="uid://uh2jkp1y03h" path="res://projectiles/bullet/bullet.tscn" id="12_uxy7h"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_or5au"]
-size = Vector2(16, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sctg7"]
+size = Vector2(8, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w0w13"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pt01u"]
+radius = 72.0
 
 [node name="Panzer" type="CharacterBody2D"]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_mumsa")
-properties = ExtResource("4_pmou4")
+properties = ExtResource("2_eqf1t")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_or5au")
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_sctg7")
+debug_color = Color(0, 0.6, 0.7, 0.2)
 
-[node name="Animations" parent="." instance=ExtResource("3_pmo0t")]
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("2_wnnnd")
 
-[node name="State" type="Node2D" parent="."]
-script = ExtResource("4_p82i3")
+[node name="Animations" type="Node2D" parent="."]
+position = Vector2(0, -8)
+script = ExtResource("2_u0fod")
 
-[node name="Lifetime" parent="State" instance=ExtResource("8_hr3dv")]
+[node name="Sprite" type="Sprite2D" parent="Animations"]
+texture_filter = 1
+use_parent_material = true
+texture = ExtResource("3_r80jh")
+hframes = 3
 
-[node name="Move" parent="State" instance=ExtResource("9_vch88")]
+[node name="TurretSprite" type="Sprite2D" parent="Animations"]
+texture_filter = 1
+use_parent_material = true
+position = Vector2(0, -1)
+texture = ExtResource("3_r80jh")
+hframes = 3
+frame = 2
 
-[node name="Attack" parent="State" instance=ExtResource("10_d8swm")]
+[node name="MuzzleMarker" type="Marker2D" parent="Animations/TurretSprite"]
+position = Vector2(0, -8)
 
-[node name="Shield" parent="State" instance=ExtResource("11_0wmvj")]
+[node name="GuideArrow" type="Polygon2D" parent="Animations"]
+modulate = Color(0.00784314, 0.160784, 0.360784, 1)
+position = Vector2(-4, -8)
+polygon = PackedVector2Array(0, 0, 4, -6, 8, 0)
 
-[node name="Hurt" parent="State" instance=ExtResource("9_ylknx")]
+[node name="PanzerShield" parent="Animations" instance=ExtResource("6_px4r7")]
+position = Vector2(0, 8)
 
-[node name="Defeat" parent="State" instance=ExtResource("10_oq7hh")]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animations"]
+autoplay = "idle"
+libraries = {
+"": ExtResource("4_ficlx")
+}
+
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+script = ExtResource("5_njda7")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_w0w13")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[node name="AttackBox" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+script = ExtResource("5_njda7")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="AttackBox"]
+shape = SubResource("CircleShape2D_pt01u")
+debug_color = Color(1, 0, 0, 0)
+
+[node name="ShieldBox" type="Area2D" parent="."]
+show_behind_parent = true
+collision_layer = 4
+collision_mask = 16
+monitoring = false
+script = ExtResource("5_njda7")
+
+[node name="CollisionShape" type="CollisionPolygon2D" parent="ShieldBox"]
+build_mode = 1
+polygon = PackedVector2Array(32, 0, 32, -4, 28, -16, 20, -24, 16, -28, 4, -32, -4, -32, -16, -28, -20, -24, -28, -16, -32, -4, -32, 0, -24, 0, -24, -4, -20, -12, -12, -20, -4, -24, 4, -24, 12, -20, 20, -12, 24, -4, 24, 0)
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("6_7idbl")
+initial_state = NodePath("Move")
+
+[node name="Lifetime" type="Node" parent="StateMachine" node_paths=PackedStringArray("duration_timer", "player")]
+script = ExtResource("7_ayrly")
+duration_timer = NodePath("DurationTimer")
+player = NodePath("../..")
+
+[node name="DurationTimer" type="Timer" parent="StateMachine/Lifetime"]
+editor_description = "The `wait_time` property is controlled by the script."
+process_callback = 0
+one_shot = true
+
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("panzer", "panzer_animations")]
+script = ExtResource("10_rj3qd")
+panzer = NodePath("../..")
+panzer_animations = NodePath("../../Animations")
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("turret_sprite", "muzzle_marker", "reload_timer", "attack_box", "panzer", "panzer_animations", "panzer_blackboard")]
+script = ExtResource("11_1evji")
+bullet_projectile = ExtResource("12_uxy7h")
+bullet_collision_layer = 4
+bullet_collision_mask = 8
+turret_sprite = NodePath("../../Animations/TurretSprite")
+muzzle_marker = NodePath("../../Animations/TurretSprite/MuzzleMarker")
+reload_timer = NodePath("ReloadTimer")
+attack_box = NodePath("../../AttackBox")
+panzer = NodePath("../..")
+panzer_animations = NodePath("../../Animations")
+panzer_blackboard = NodePath("../../Blackboard")
+
+[node name="ReloadTimer" type="Timer" parent="StateMachine/Attack"]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
+[node name="Shield" type="Node" parent="StateMachine" node_paths=PackedStringArray("shield", "shield_box", "duration_timer", "wait_timer", "panzer", "panzer_animations", "panzer_blackboard")]
+script = ExtResource("12_bt5yt")
+shield = NodePath("../../Animations/PanzerShield")
+shield_box = NodePath("../../ShieldBox")
+duration_timer = NodePath("DurationTimer")
+wait_timer = NodePath("WaitTimer")
+panzer = NodePath("../..")
+panzer_animations = NodePath("../../Animations")
+panzer_blackboard = NodePath("../../Blackboard")
+
+[node name="DurationTimer" type="Timer" parent="StateMachine/Shield"]
+process_callback = 0
+wait_time = 4.0
+one_shot = true
+
+[node name="WaitTimer" type="Timer" parent="StateMachine/Shield"]
+process_callback = 0
+wait_time = 6.0
+one_shot = true
+
+[node name="Hurt" type="Node" parent="StateMachine" node_paths=PackedStringArray("hurtbox", "invincibility_timer", "stun_timer", "player", "player_animations")]
+script = ExtResource("10_5wxct")
+hurtbox = NodePath("../../HurtBox")
+invincibility_timer = NodePath("InvincibilityTimer")
+stun_timer = NodePath("StunTimer")
+player = NodePath("../..")
+player_animations = NodePath("../../Animations")
+
+[node name="InvincibilityTimer" type="Timer" parent="StateMachine/Hurt"]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
+[node name="StunTimer" type="Timer" parent="StateMachine/Hurt"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="Defeat" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "player_animations")]
+script = ExtResource("11_6c7fn")
+player = NodePath("../..")
+player_animations = NodePath("../../Animations")
+
+[connection signal="animation_finished" from="Animations/AnimationPlayer" to="Animations" method="_on_animation_player_finished" flags=18]
+[connection signal="animation_started" from="Animations/AnimationPlayer" to="Animations" method="_on_animation_player_started" flags=18]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bas41pi83hg2w"
-path="res://.godot/imported/square.png-2cd39b17043497068fb6fb78ea5f2153.ctex"
+uid="uid://onsvxw17odwc"
+path="res://.godot/imported/panzer.png-0c3240a9dd06b320e51a01f463dd7bd4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/square/square.png"
-dest_files=["res://.godot/imported/square.png-2cd39b17043497068fb6fb78ea5f2153.ctex"]
+source_file="res://entities/abilities/panzer/assets/panzer.png"
+dest_files=["res://.godot/imported/panzer.png-0c3240a9dd06b320e51a01f463dd7bd4.ctex"]
 
 [params]
 

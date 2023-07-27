@@ -1,6 +1,6 @@
 [gd_resource type="AnimationLibrary" load_steps=3 format=3 uid="uid://b5bx6jnb6h613"]
 
-[ext_resource type="Texture2D" uid="uid://onsvxw17odwc" path="res://assets/panzer/panzer.png" id="1_iqasv"]
+[ext_resource type="Texture2D" uid="uid://onsvxw17odwc" path="res://entities/abilities/panzer/assets/panzer.png" id="1_iqasv"]
 
 [sub_resource type="Animation" id="Animation_eik0l"]
 resource_name = "default"
@@ -69,5 +69,5 @@ tracks/4/keys = {
 
 [resource]
 _data = {
-"default": SubResource("Animation_eik0l")
+"move": SubResource("Animation_eik0l")
 }

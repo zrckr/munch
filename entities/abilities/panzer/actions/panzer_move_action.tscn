@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://l06ixfr26j0a"]
-
-[ext_resource type="Script" path="res://entities/abilities/panzer/actions/panzer_move_action.gd" id="1_dvuik"]
-
-[node name="Move" type="Node2D"]
-script = ExtResource("1_dvuik")
-rotation_amount = 2.5
