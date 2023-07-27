@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dxgea0csu46c7"]
 
-[ext_resource type="Shader" path="res://entities/spawner/pixelate.gdshader" id="1_po871"]
+[ext_resource type="Shader" path="res://entities/spawner/assets/pixelate.gdshader" id="1_po871"]
 
 [resource]
 shader = ExtResource("1_po871")
