@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bbsheqbbsjbbn"]
+[gd_scene load_steps=19 format=3 uid="uid://bbsheqbbsjbbn"]
 
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_mumsa"]
 [ext_resource type="Resource" uid="uid://do6k0atg3n35t" path="res://entities/abilities/panzer/panzer_properties.tres" id="2_eqf1t"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" path="res://entities/collision_box.gd" id="5_njda7"]
 [ext_resource type="Script" path="res://addons/fsm/nodes/state_machine.gd" id="6_7idbl"]
 [ext_resource type="PackedScene" uid="uid://cmv8lin1i0e4s" path="res://entities/abilities/panzer/panzer_shield.tscn" id="6_px4r7"]
-[ext_resource type="Script" path="res://entities/player/states/player_lifetime_state.gd" id="7_ayrly"]
 [ext_resource type="Script" path="res://entities/player/states/player_hurt_state.gd" id="10_5wxct"]
 [ext_resource type="Script" path="res://entities/abilities/panzer/states/panzer_move_state.gd" id="10_rj3qd"]
 [ext_resource type="Script" path="res://entities/abilities/panzer/states/panzer_attack_state.gd" id="11_1evji"]
@@ -111,16 +110,6 @@ polygon = PackedVector2Array(32, 0, 32, -4, 28, -16, 20, -24, 16, -28, 4, -32, -
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("6_7idbl")
 initial_state = NodePath("Move")
-
-[node name="Lifetime" type="Node" parent="StateMachine" node_paths=PackedStringArray("duration_timer", "player")]
-script = ExtResource("7_ayrly")
-duration_timer = NodePath("DurationTimer")
-player = NodePath("../..")
-
-[node name="DurationTimer" type="Timer" parent="StateMachine/Lifetime"]
-editor_description = "The `wait_time` property is controlled by the script."
-process_callback = 0
-one_shot = true
 
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("panzer", "panzer_animations")]
 script = ExtResource("10_rj3qd")

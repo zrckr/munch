@@ -1,6 +1,7 @@
 extends State
 
-@export_range(1, 400, 1, 'suffix:px/s') var acceleration_speed: float
+@export
+var velocity_component: VelocityComponent
 
 @export_group('Player Dependencies')
 @export var player: Entity
@@ -14,10 +15,9 @@ func transition_attempts() -> void:
 				state_machine.transition_to(&'Move')
 
 
-func act(delta: float) -> void:
-	var target_velocity = Inputs.movement * player.properties.speed
-	player.velocity = player.velocity.lerp(target_velocity, acceleration_speed * delta)
-	player.move_and_slide()
-
+func act(_delta: float) -> void:
+	velocity_component.accelerate_to_direction(Inputs.movement)
+	velocity_component.move()
+	
 	player_animations.direction = Inputs.movement
 	player_animations.play('move')

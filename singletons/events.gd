@@ -28,7 +28,7 @@ signal player_wasted_the_roll(properties)
 
 signal player_roll_worn_off()
 
-signal player_damaged()
+signal player_damaged(damage)
 
 signal player_died()
 

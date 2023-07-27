@@ -5,7 +5,6 @@ extends Resource
 enum HealthType {
 	SET_HEALTH_FOR_NEW_ABILITY,
 	USE_HEALTH_FROM_PREVIOUS_ABILITY,
-	INVULNERABLE_TO_ATTACKS,
 }
 
 @export
@@ -32,3 +31,6 @@ var speed := 4.0
 
 @export
 var extra := {}
+
+##
+var previous_health_points: int

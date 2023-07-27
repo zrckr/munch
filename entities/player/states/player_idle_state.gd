@@ -1,17 +1,15 @@
 extends State
 
-@export_range(1, 400, 1, 'suffix:px/s') var deceleration_speed: float
+@export
+var velocity_component: VelocityComponent
+
+@export_group('State Dependencies')
 @export var wait_timer: Timer
 @export var ears_timer: Timer
 
 @export_group('Player Dependencies')
 @export var player: Entity
 @export var player_animations: EntityAnimations
-
-
-func _ready() -> void:
-	wait_timer.timeout.connect(on_wait_timer_timeout)
-	ears_timer.timeout.connect(on_ears_timer_timeout)
 
 
 func transition_attempts() -> void:
@@ -22,12 +20,12 @@ func transition_attempts() -> void:
 
 
 func begin(_kwargs := {}) -> void:
-	on_ears_timer_timeout()
+	_on_ears_timer_timeout()
 
 
-func act(delta: float) -> void:
-	player.velocity = player.velocity.lerp(Vector2.ZERO, deceleration_speed * delta)
-	player.move_and_slide()
+func act(_delta: float) -> void:
+	velocity_component.decelerate_to_zero()
+	velocity_component.move()
 
 
 func end() -> void:
@@ -35,12 +33,12 @@ func end() -> void:
 	ears_timer.stop()
 
 
-func on_wait_timer_timeout() -> void:
+func _on_wait_timer_timeout() -> void:
 	player_animations.play('idle_ears');
 	ears_timer.start()
 
 
-func on_ears_timer_timeout() -> void:
+func _on_ears_timer_timeout() -> void:
 	player_animations.direction = (
 		player.velocity if not player.velocity.is_zero_approx()
 		else Vector2.DOWN
