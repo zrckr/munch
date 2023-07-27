@@ -1,6 +1,6 @@
 [gd_resource type="AnimationLibrary" load_steps=3 format=3 uid="uid://dx7osfpkdnkp3"]
 
-[ext_resource type="Texture2D" uid="uid://qyelvt8x3n8o" path="res://assets/dummy/dummy.png" id="1_8ff6d"]
+[ext_resource type="Texture2D" uid="uid://qyelvt8x3n8o" path="res://entities/dummy/assets/dummy.png" id="1_8ff6d"]
 
 [sub_resource type="Animation" id="Animation_2p2v6"]
 length = 0.1

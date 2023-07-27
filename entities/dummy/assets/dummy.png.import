@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jk17b3rs1mjk"
-path="res://.godot/imported/dacreep.png-4e9ab865f3a2da42f3fb082905e2b64c.ctex"
+uid="uid://qyelvt8x3n8o"
+path="res://.godot/imported/dummy.png-73c5456dccb6c357101ab92172bb98f1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/dacreep/dacreep.png"
-dest_files=["res://.godot/imported/dacreep.png-4e9ab865f3a2da42f3fb082905e2b64c.ctex"]
+source_file="res://entities/dummy/assets/dummy.png"
+dest_files=["res://.godot/imported/dummy.png-73c5456dccb6c357101ab92172bb98f1.ctex"]
 
 [params]
 

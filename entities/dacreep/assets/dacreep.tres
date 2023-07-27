@@ -1,6 +1,6 @@
 [gd_resource type="AnimationLibrary" load_steps=13 format=3 uid="uid://blmd4vx456fnh"]
 
-[ext_resource type="Texture2D" uid="uid://jk17b3rs1mjk" path="res://assets/dacreep/dacreep.png" id="1_3abcx"]
+[ext_resource type="Texture2D" uid="uid://jk17b3rs1mjk" path="res://entities/dacreep/assets/dacreep.png" id="1_3abcx"]
 
 [sub_resource type="Animation" id="Animation_5tsvu"]
 length = 0.15
