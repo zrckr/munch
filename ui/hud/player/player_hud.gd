@@ -1,9 +1,9 @@
 extends Control
 
 const HeartTexture := {
-	EMPTY = preload('res://assets/icons/misc/empty_heart.tres'),
-	HALF = preload('res://assets/icons/misc/half_heart.tres'),
-	FULL = preload('res://assets/icons/misc/full_heart.tres'),
+	EMPTY = preload('res://ui/icons/misc/empty_heart.tres'),
+	HALF = preload('res://ui/icons/misc/half_heart.tres'),
+	FULL = preload('res://ui/icons/misc/full_heart.tres'),
 }
 
 var _default_display_name := Strings.UI_PLAYER_RTD_DEFAULT
