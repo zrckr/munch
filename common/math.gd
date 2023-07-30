@@ -98,3 +98,13 @@ static func smooth_stepv(from: Vector2, to: Vector2, t: float) -> Vector2:
 	return Vector2(
 		smooth_step(from.x, to.x, t),
 		smooth_step(from.y, to.y, t))
+
+
+static func rotate_to_angle(from: float, to: float, amount: float) -> float:
+	var angle_distance = wrapf(to - from, -PI, PI)
+	var rotation_amount = signf(angle_distance) * amount
+	
+	if absf(rotation_amount) >= absf(angle_distance):
+		return to
+	else:
+		return from + rotation_amount

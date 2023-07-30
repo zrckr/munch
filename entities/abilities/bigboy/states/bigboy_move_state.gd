@@ -1,7 +1,12 @@
 extends State
 
-@export_range(0.1, 10.0, 0.1) var rotation_speed: float
-@export_range(1, 400, 1, 'suffix:px/s') var acceleration_speed: float
+@export_range(0.1, 10.0, 0.1)
+var rotation_speed: float
+
+@export_range(1, 400, 1, 'suffix:px/s')
+var acceleration_speed: float
+
+@export_group('State Dependencies')
 @export var hitbox: CollisionBox
 
 @export_group('BigBoy Dependencies')
@@ -21,7 +26,9 @@ func begin(_kwargs := {}) -> void:
 
 
 func act(delta: float) -> void:
-	rotate_to_target_angle(delta)
+	if Inputs.has_movement:
+		var target_rotation = Inputs.movement.angle() - Math.HALF_PI
+		bigboy.rotation = Math.rotate_to_angle(bigboy.rotation, target_rotation, rotation_speed * delta)
 	
 	var input_amount = Inputs.movement.length_squared()
 	var target_velocity = bigboy.transform.y * input_amount * bigboy.properties.speed
@@ -36,12 +43,3 @@ func act(delta: float) -> void:
 
 func end() -> void:
 	hitbox.disable()
-
-
-func rotate_to_target_angle(delta: float) -> void:
-	if not Inputs.has_movement:
-		return
-	
-	var from = bigboy.rotation
-	var to = Inputs.movement.angle() - Math.HALF_PI
-	bigboy.rotation = lerp_angle(from, to, rotation_speed * delta)

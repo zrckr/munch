@@ -113,6 +113,7 @@ initial_state = NodePath("Move")
 
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("panzer", "panzer_animations")]
 script = ExtResource("10_rj3qd")
+rotation_speed = 2.0
 panzer = NodePath("../..")
 panzer_animations = NodePath("../../Animations")
 

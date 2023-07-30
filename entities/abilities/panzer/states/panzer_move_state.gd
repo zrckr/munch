@@ -1,5 +1,8 @@
 extends State
 
+@export_range(0.1, 10.0, 0.1)
+var rotation_speed: float
+
 @export_group('Panzer Dependencies')
 @export var panzer: Entity
 @export var panzer_animations: EntityAnimations
@@ -15,10 +18,10 @@ func begin(_kwargs := {}) -> void:
 	panzer_animations.play('move')
 
 
-func act(_delta: float) -> void:
+func act(delta: float) -> void:
 	if Inputs.has_movement:
-		var target_angle = Inputs.movement.angle() + Math.HALF_PI
-		panzer.rotation = target_angle
+		var target_rotation = Inputs.movement.angle() + Math.HALF_PI
+		panzer.rotation = Math.rotate_to_angle(panzer.rotation, target_rotation, rotation_speed * delta)
 	
 	var input_amount = Inputs.movement.length()
 	var target_velocity = -panzer.transform.y * input_amount * panzer.properties.speed

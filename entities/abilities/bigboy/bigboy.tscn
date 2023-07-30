@@ -48,12 +48,12 @@ script = ExtResource("3_mk1sq")
 shape = SubResource("CircleShape2D_i6u0v")
 debug_color = Color(0.701961, 0.466667, 0, 0.419608)
 
-[node name="Idle" parent="StateMachine" index="1" node_paths=PackedStringArray("bigboy", "bigboy_animations")]
+[node name="Idle" parent="StateMachine" index="0" node_paths=PackedStringArray("bigboy", "bigboy_animations")]
 script = ExtResource("3_6u3kl")
 bigboy = NodePath("../..")
 bigboy_animations = NodePath("../../Animations")
 
-[node name="Move" parent="StateMachine" index="2" node_paths=PackedStringArray("hitbox", "bigboy", "bigboy_animations")]
+[node name="Move" parent="StateMachine" index="1" node_paths=PackedStringArray("hitbox", "bigboy", "bigboy_animations")]
 script = ExtResource("4_5xidt")
 rotation_speed = 2.5
 acceleration_speed = 21.0
@@ -61,8 +61,8 @@ hitbox = NodePath("../../HitBox")
 bigboy = NodePath("../..")
 bigboy_animations = NodePath("../../Animations")
 
-[node name="Hurt" parent="StateMachine" index="3"]
+[node name="Hurt" parent="StateMachine" index="2"]
 disabled = true
 
-[node name="Defeat" parent="StateMachine" index="4"]
+[node name="Defeat" parent="StateMachine" index="3"]
 disabled = true
