@@ -47,7 +47,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://skins/munchkin/munchkin.ase"
 }
 
-[node name="Player" type="AnimationPlayer" parent="Animations"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animations"]
 autoplay = "idle"
 libraries = {
 "": ExtResource("5_vwhhi")
@@ -64,5 +64,5 @@ script = ExtResource("6_46v6i")
 shape = SubResource("CircleShape2D_6v475")
 debug_color = Color(0.701961, 0.52549, 0, 0.419608)
 
-[connection signal="animation_finished" from="Animations/Player" to="Animations" method="_on_animation_player_finished" flags=18]
-[connection signal="animation_started" from="Animations/Player" to="Animations" method="_on_animation_player_started" flags=18]
+[connection signal="animation_finished" from="Animations/AnimationPlayer" to="Animations" method="_on_animation_player_finished" flags=18]
+[connection signal="animation_started" from="Animations/AnimationPlayer" to="Animations" method="_on_animation_player_started" flags=18]
