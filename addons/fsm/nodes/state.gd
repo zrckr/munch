@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_active:
 		if not _was_active:
-			var kwargs = state_machine.consume_kwargs(self)
+			var kwargs = state_machine.consume_kwargs(name)
 			begin(kwargs)
 		else:
 			act(delta)

@@ -61,12 +61,12 @@ func _ready() -> void:
 
 
 ## Provides kwargs for provided state to consume.
-func consume_kwargs(state: State) -> Dictionary:
-	if not _state_kwargs.has(state):
+func consume_kwargs(state_name: StringName) -> Dictionary:
+	if not _state_kwargs.has(state_name):
 		return {}
 	
-	var kwargs = _state_kwargs[state.name]
-	_state_kwargs.erase(state.name)
+	var kwargs = _state_kwargs[state_name]
+	_state_kwargs.erase(state_name)
 	return kwargs
 
 
@@ -104,9 +104,10 @@ func transition_back(kwargs := {}) -> void:
 	
 	var previous_state_name = current_state.name
 	states.pop_front()
+	var current_state_name = current_state.name
 	
-	transitioned.emit(previous_state_name, current_state.name)
-	_state_kwargs[current_state.name] = kwargs
+	transitioned.emit(previous_state_name, current_state_name)
+	_state_kwargs[current_state_name] = kwargs
 
 
 ## Resets the state machine.
