@@ -3,6 +3,9 @@ extends State
 @export
 var health_component: HealthComponent
 
+@export
+var velocity_component: VelocityComponent
+
 @export_group('State Dependencies')
 @export var hurtbox: CollisionBox
 @export var invincibility_timer: Timer
@@ -59,8 +62,7 @@ func begin(kwargs := {}) -> void:
 
 func act(_delta: float) -> void:
 	if not stun_timer.is_stopped():
-		player.velocity = knockback_velocity
-		player.move_and_slide()
+		velocity_component.move(knockback_velocity)
 
 
 func _on_stun_timer_timeout() -> void:
@@ -70,7 +72,7 @@ func _on_stun_timer_timeout() -> void:
 	
 	invincibility_timer.start()
 	player_animations.blink(invincibility_timer.wait_time)
-	state_machine.transition_to(&'Move')
+	state_machine.transition_to(&'Idle')
 
 
 func _on_invincibility_timer_timeout() -> void:

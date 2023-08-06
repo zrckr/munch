@@ -3,7 +3,7 @@ class_name VelocityComponent
 extends Node
 
 @export
-var entity: Entity
+var entity: CharacterBody2D
 
 @export_range(1, 400, 1, 'suffix:px/s')
 var acceleration_speed: float
@@ -15,7 +15,10 @@ var acceleration_multiplier := 1.0:
 	get: return acceleration_multiplier
 	set(value): acceleration_multiplier = clampf(value, 0.0, 1.0)
 
-var velocity: Vector2
+var velocity: Vector2:
+	get: return _velocity
+
+var _velocity := Vector2.ZERO
 
 
 func _notification(what: int) -> void:
@@ -29,15 +32,15 @@ func _notification(what: int) -> void:
 			entity.queue_redraw()
 
 
-func move() -> void:
-	entity.velocity = velocity
+func move(forced_velocity := Vector2.ZERO) -> void:
+	entity.velocity = forced_velocity if forced_velocity else _velocity
 	entity.move_and_slide()
 
 
 func accelerate_to_velocity(target_velocity: Vector2) -> void:
 	var delta = get_physics_process_delta_time()
 	var weight =  1.0 - exp(-acceleration_speed * acceleration_multiplier * delta)
-	velocity = velocity.lerp(target_velocity, weight)
+	_velocity = _velocity.lerp(target_velocity, weight)
 
 
 func accelerate_to_direction(target_direction: Vector2) -> void:
@@ -50,19 +53,19 @@ func decelerate_to_zero() -> void:
 
 func apply_gravity(gravity: float) -> void:
 	var delta = get_physics_process_delta_time()
-	velocity = Vector2(velocity.x, velocity.y + gravity * delta)
+	_velocity = Vector2(_velocity.x, _velocity.y + gravity * delta)
 
 
 func predict_intersection(source_node: Node2D, target_node: Node2D, source_speed: float) -> Vector2:
-	var speed = velocity.length()
+	var speed = _velocity.length()
 	var amount = source_speed / speed
 	
 	if absf(speed) < 1.0:
 		return target_node.global_position
 	
 	var diff_amount = (source_node.global_position - target_node.global_position).length() / source_speed
-	return target_node.global_position + velocity * diff_amount * amount
+	return target_node.global_position + _velocity * diff_amount * amount
 
 
 func _on_debug_draw() -> void:
-	entity.draw_line(Vector2.ZERO, velocity, Color.CYAN, 2.0)
+	entity.draw_line(Vector2.ZERO, _velocity, Color.CYAN, 2.0)

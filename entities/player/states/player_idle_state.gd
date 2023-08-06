@@ -39,10 +39,9 @@ func _on_wait_timer_timeout() -> void:
 
 
 func _on_ears_timer_timeout() -> void:
-	player_animations.direction = (
-		player.velocity if not player.velocity.is_zero_approx()
-		else Vector2.DOWN
-	)
+	player_animations.direction = velocity_component.velocity
+	if not player_animations.direction:
+		player_animations.direction = Vector2.DOWN
 	
 	player_animations.play('idle')
 	wait_timer.start()

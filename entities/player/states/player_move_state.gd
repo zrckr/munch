@@ -19,5 +19,5 @@ func act(_delta: float) -> void:
 	velocity_component.accelerate_to_direction(Inputs.movement)
 	velocity_component.move()
 	
-	player_animations.direction = Inputs.movement
+	player_animations.direction = velocity_component.velocity
 	player_animations.play('move')

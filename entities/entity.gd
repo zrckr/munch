@@ -1,7 +1,7 @@
 @tool
 @icon('res://editor/icons/entity.png')
 class_name Entity
-extends CharacterBody2D
+extends Node2D
 
 const Group := {
 	# Common
@@ -26,7 +26,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if not properties:
 		warnings.append("The properties resource for this entity is not defined.")
 	
-	if motion_mode != MOTION_MODE_FLOATING:
+	if get('motion_mode') != CharacterBody2D.MOTION_MODE_FLOATING:
 		warnings.append("Set the motion mode to 'Floating'.")
 	
 	return warnings

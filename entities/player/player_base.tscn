@@ -109,9 +109,10 @@ velocity_component = NodePath("../../Components/Velocity")
 player = NodePath("../..")
 player_animations = NodePath("../../Animations")
 
-[node name="Hurt" type="Node" parent="StateMachine" node_paths=PackedStringArray("health_component", "hurtbox", "invincibility_timer", "stun_timer", "player", "player_animations")]
+[node name="Hurt" type="Node" parent="StateMachine" node_paths=PackedStringArray("health_component", "velocity_component", "hurtbox", "invincibility_timer", "stun_timer", "player", "player_animations")]
 script = ExtResource("12_2f81r")
 health_component = NodePath("../../Components/Health")
+velocity_component = NodePath("../../Components/Velocity")
 hurtbox = NodePath("../../HurtBox")
 invincibility_timer = NodePath("InvincibilityTimer")
 stun_timer = NodePath("StunTimer")
