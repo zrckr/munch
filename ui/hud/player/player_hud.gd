@@ -60,7 +60,7 @@ func _on_player_health_updated(current_health: int) -> void:
 			break
 
 
-func _on_player_damaged() -> void:
+func _on_player_damaged(_damage: int) -> void:
 	var icon := _health_icons[_current_health_index] as Control
 	_shake_control(icon, 2.0, 0.25)
 	

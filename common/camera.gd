@@ -45,5 +45,5 @@ func shake(intensity: float, duration: float) -> void:
 	offset = Vector2.ZERO
 
 
-func _on_player_damaged() -> void:
+func _on_player_damaged(_damage: int) -> void:
 	shake(shake_damage_intensity, shake_damage_duration)

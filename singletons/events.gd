@@ -84,8 +84,8 @@ func _ready() -> void:
 		print('RTD: Player\'s roll has worn off')
 	)
 	
-	Events.player_damaged.connect(func():
-		print('PLAYER: Damaged')
+	Events.player_damaged.connect(func(damage):
+		print('PLAYER: Damaged - %d' % damage)
 	)
 	
 	Events.player_died.connect(func():
