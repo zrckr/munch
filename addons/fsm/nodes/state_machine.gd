@@ -30,7 +30,8 @@ var states: Array[State] = [null]:
 	get:
 		return states
 
-var _state_kwargs := {}
+@onready
+var _available_states: Array[State] = []
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -58,16 +59,18 @@ func _ready() -> void:
 	for child in get_children():
 		if child is State:
 			child.state_machine = self
+			_available_states.append(child)
 
 
-## Provides kwargs for provided state to consume.
-func consume_kwargs(state_name: StringName) -> Dictionary:
-	if not _state_kwargs.has(state_name):
-		return {}
+func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
 	
-	var kwargs = _state_kwargs[state_name]
-	_state_kwargs.erase(state_name)
-	return kwargs
+	for state in _available_states:
+		if not state.disabled:
+			state.transition_attempts()
+			if state == current_state:
+				state.act(delta)
 
 
 ## Replaces the front current state with new one via its name [param state_name].
@@ -77,40 +80,49 @@ func transition_to(state_name: StringName, kwargs := {}) -> void:
 		transition_queue(state_name, kwargs)
 		return
 	
-	var previous_state_name = current_state.name
-	states.pop_front()
-	states.push_front(get_node(NodePath(state_name)))
+	await get_tree().physics_frame
 	
-	transitioned.emit(previous_state_name, state_name)
-	_state_kwargs[state_name] = kwargs
+	var previous_state = states.pop_front()
+	var next_state = get_node(NodePath(state_name))
+	
+	states.push_front(next_state)
+	_handle_transition(previous_state, next_state, kwargs)
 
 
 ## Pushes down the front current state with new one via its name [param state_name].
 ## Optionally, takes a [param kwargs] dictionary to pass data to the state.
 func transition_queue(state_name: StringName, kwargs := {}) -> void:
-	var previous_state_name = current_state.name
-	states.push_front(get_node(NodePath(state_name)))
+	await get_tree().physics_frame
 	
-	transitioned.emit(previous_state_name, state_name)
-	_state_kwargs[state_name] = kwargs
+	var previous_state = states.front()
+	var next_state = get_node(NodePath(state_name))
+	
+	states.push_front(next_state)
+	_handle_transition(previous_state, next_state, kwargs)
 
 
 ## Pops back the front current state with underlying one in the state stack.
 ## Optionally, takes a [param kwargs] dictionary to pass data to the state.
 func transition_back(kwargs := {}) -> void:
+	await get_tree().physics_frame
+	
 	if len(states) < 2:
 		push_error("There is no underlying state in the state stack for the transition")
 		return
 	
-	var previous_state_name = current_state.name
-	states.pop_front()
-	var current_state_name = current_state.name
+	var previous_state = states.pop_front()
+	var next_state = states.front()
 	
-	transitioned.emit(previous_state_name, current_state_name)
-	_state_kwargs[current_state_name] = kwargs
+	_handle_transition(previous_state, next_state, kwargs)
 
 
 ## Resets the state machine.
 func reset() -> void:
 	if current_state:
 		current_state.end()
+
+
+func _handle_transition(previous: State, next: State, kwargs: Dictionary) -> void:
+	previous.end()
+	next.begin(kwargs)
+	transitioned.emit(previous.name, next.name)
