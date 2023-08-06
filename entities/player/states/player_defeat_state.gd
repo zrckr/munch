@@ -6,7 +6,6 @@ extends State
 
 
 func begin(_kwargs := {}) -> void:
-	Events.player_died.emit()
 	player_animations.play('defeated')
 
 
