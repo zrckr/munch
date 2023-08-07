@@ -44,12 +44,12 @@ func _prepare_entity_to_spawn() -> void:
 		_entity_to_spawn.add_to_group(group)
 
 
-func _on_body_entered(body: PhysicsBody2D) -> void:
+func _on_body_entered(body: Node2D) -> void:
 	if body is Entity:
 		set_physics_process(false)
 
 
-func _on_body_exited(body: PhysicsBody2D) -> void:
+func _on_body_exited(body: Node2D) -> void:
 	if body is Entity:
 		set_physics_process(true)
 
