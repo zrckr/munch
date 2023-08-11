@@ -36,16 +36,6 @@ texture = ExtResource("4_6s3ax")
 hframes = 5
 vframes = 5
 frame = 21
-metadata/_aseprite_wizard_config_ = {
-"layer": "",
-"o_ex_p": "",
-"o_folder": "",
-"o_name": "munchkin",
-"only_visible": false,
-"op_exp": false,
-"player": "AnimationPlayer",
-"source": "res://skins/munchkin/munchkin.ase"
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animations"]
 autoplay = "idle"
