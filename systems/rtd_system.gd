@@ -65,7 +65,7 @@ func _roll_the_dice(entity: Entity) -> void:
 	var random_ability = _choose_random_ability(_current_chance)
 	var random_properties = random_ability.properties
 	
-	random_ability.state = entity.state
+	random_ability.global_position = entity.global_position
 	random_ability.add_to_group(entity.properties.entity_group)
 	
 	get_viewport().add_child(random_ability)
@@ -76,7 +76,7 @@ func _back_to_default(entity: Entity) -> void:
 	var default_ability = _choose_default_ability()
 	var default_properties = default_ability.properties
 	
-	default_ability.state = entity.state
+	default_ability.global_position = entity.global_position
 	
 	get_viewport().add_child(default_ability)
 	Events.player_roll_worn_off.emit(default_properties)
