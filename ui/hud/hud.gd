@@ -1,6 +1,6 @@
 extends Control
 
-const MUNCH_ICON := 'res://assets/munch/munch_icon.tres'
+const MUNCH_ICON := 'res://entities/munch/assets/munch_icon.tres'
 
 const MUNCHIES_STRINGS := {
 	0: 'EAT MUNCHIES! ',
