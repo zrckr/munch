@@ -11,18 +11,23 @@ var munch_component: MunchComponent
 @export var player_animations: EntityAnimations
 
 
-func _on_munchbox_area_entered(munch_hitbox: CollisionBox) -> void:
-	match state_machine.current_state.name:
-		&'Move':
-			munch_component.eat_munch(munch_hitbox)
-			state_machine.transition_to(&'Eat')
+func transition_attempts() -> void:
+	for munch_hitbox in munchbox.get_overlapping_areas():
+		if not munch_hitbox is CollisionBox:
+			return
+		
+		match state_machine.current_state.name:
+			&'Move':
+				munch_component.eat_munch(munch_hitbox)
+				state_machine.transition_to(&'Eat')
+				break
 
 
 func begin(_kwargs := {}) -> void:
 	munchbox.disable()
 	
 	if munch_component.can_transform_to_ability:
-		player_animations.play('transform')
+		player_animations.play('transform', 2.0)
 		return
 	
 	player_animations.play('move', 2.0)

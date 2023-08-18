@@ -34,4 +34,3 @@ player = NodePath("../..")
 player_animations = NodePath("../../Animations")
 
 [connection signal="finished" from="Animations" to="StateMachine/Eat" method="_on_player_animations_finished"]
-[connection signal="area_entered" from="MunchBox" to="StateMachine/Eat" method="_on_munchbox_area_entered"]

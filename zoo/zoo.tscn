@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://2et0j1kq3ixs"]
 
 [ext_resource type="PackedScene" uid="uid://dcjrgb0bm2flw" path="res://entities/divil/divil.tscn" id="2_2gfwp"]
-[ext_resource type="PackedScene" uid="uid://bml7ddqie1tki" path="res://entities/abilities/hoover/hoover.tscn" id="2_nocav"]
+[ext_resource type="PackedScene" uid="uid://b6mj5ys62qxse" path="res://entities/abilities/hoover/hoover.tscn" id="2_nocav"]
 
 [node name="Zoo" type="Node2D"]
 
