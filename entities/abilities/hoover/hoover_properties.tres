@@ -6,7 +6,7 @@
 resource_name = "hoover"
 script = ExtResource("1_qhkru")
 display_name = "Damn Hoover"
-entity_group = "negative_roll"
+entity_group = "positive_roll"
 lifetime = 20
 health_points = 3
 health_type = 1
