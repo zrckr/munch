@@ -9,7 +9,7 @@
 [node name="RoundSystem" type="Node" groups=["round_system"]]
 script = ExtResource("1_o8l4u")
 rounds = Array[Resource("res://rounds/round.gd")]([ExtResource("2_jy60p")])
-max_position = Vector2(720, 480)
+map_size = Rect2i(0, 0, 720, 480)
 entity_scene_player = ExtResource("3_kh3wu")
 entity_scene_munch = ExtResource("4_skbgh")
 entity_scene_spawner = ExtResource("5_evgap")

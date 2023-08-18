@@ -2,7 +2,7 @@ class_name RoundUnit
 extends Resource
 
 @export
-var position_type: Positioner.Type
+var position_type: RandomPositioner.Type
 
 @export
 var entity_scene: PackedScene

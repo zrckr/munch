@@ -3,8 +3,7 @@ extends System
 
 @export_group("Rounds Properties")
 @export var rounds: Array[Round]
-@export var min_position: Vector2
-@export var max_position: Vector2
+@export var map_size: Rect2i
 
 @export_group('Entity Scenes', 'entity_scene_')
 @export var entity_scene_player: PackedScene
@@ -61,13 +60,12 @@ func end_current_round() -> void:
 
 
 func _queue_player_to_spawn() -> void:
-	var positioner = Positioner.new() \
-		.set_min_position(min_position) \
-		.set_max_position(max_position) \
+	var positioner = RandomPositioner.new() \
+		.set_map_size(map_size) \
 		.set_edge_offset(Math.QUADRUPLE)
 	
 	var player_entity = entity_scene_player.instantiate() as Entity
-	player_entity.global_position = positioner.get_center_of_box()
+	player_entity.global_position = positioner.get_position_in_map_center()
 	
 	_queue_node_to_spawn(player_entity)
 
@@ -78,16 +76,15 @@ func _queue_munchies_to_spawn() -> void:
 
 
 func _queue_one_munch_to_spawn(spawn_time := 0) -> void:
-	var positioner = Positioner.new() \
-		.set_min_position(min_position) \
-		.set_max_position(max_position) \
+	var positioner = RandomPositioner.new() \
+		.set_map_size(map_size) \
 		.set_edge_offset(Math.QUADRUPLE)
 	
-	var start_position = positioner.get_center_of_box()
+	var start_position = positioner.get_position_in_map_center()
 	
 	var munch_entity = entity_scene_munch.instantiate() as Entity
 	munch_entity.global_position = positioner \
-		.get_random_inside_area(start_position, munchies_spawn_radius)
+		.get_position_on_spiral(start_position, munchies_spawn_radius, Math.DOUBLE)
 		
 	_queue_node_to_spawn(munch_entity, spawn_time)
 
@@ -103,9 +100,8 @@ func _queue_enemies_to_spawn() -> void:
 func _queue_enemy_to_spawn(group: RoundGroup, unit: RoundUnit, spawn_time := 0) -> void:
 	var groups = [group.resource_name, unit.resource_name]
 	
-	var positioner = Positioner.new() \
-		.set_min_position(min_position) \
-		.set_max_position(max_position) \
+	var positioner = RandomPositioner.new() \
+		.set_map_size(map_size) \
 		.set_edge_offset(Math.DOUBLE)
 	
 	var position_type = (
@@ -116,7 +112,7 @@ func _queue_enemy_to_spawn(group: RoundGroup, unit: RoundUnit, spawn_time := 0) 
 	var spawner = entity_scene_spawner.instantiate() as Spawner
 	spawner.entity_scene = unit.entity_scene
 	spawner.entity_groups = groups
-	spawner.global_position = positioner.get_random_by_type(position_type)
+	spawner.global_position = positioner.get_position_by_type(position_type)
 	
 	_queue_node_to_spawn(spawner, spawn_time)
 

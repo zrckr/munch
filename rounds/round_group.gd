@@ -16,4 +16,4 @@ var respawn_time := 1
 var override_enabled := false
 
 @export
-var override_position_type: Positioner.Type
+var override_position_type: RandomPositioner.Type

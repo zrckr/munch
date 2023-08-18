@@ -18,6 +18,10 @@ var _edges: Vector2:
 	get: return Vector2.ONE * _edge_offset
 
 
+func _init() -> void:
+	_random.randomize()
+
+
 func set_map_size(value: Rect2) -> RandomPositioner:
 	_map_size = value
 	return self
@@ -44,7 +48,7 @@ func get_position_in_map_center() -> Vector2:
 
 func get_position_by_type(type: Type) -> Vector2:
 	if type == Type.RANDOMLY_SELECT:
-		type = (_random.randi() % len(Type) - 1) as Type
+		type = (_random.randi() % (len(Type) - 1)) as Type
 	
 	match type:
 		Type.INSIDE_THE_MAP:
