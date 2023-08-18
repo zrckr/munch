@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bbsheqbbsjbbn"]
+[gd_scene load_steps=21 format=3 uid="uid://bbsheqbbsjbbn"]
 
 [ext_resource type="Script" path="res://entities/entity.gd" id="1_mumsa"]
 [ext_resource type="Resource" uid="uid://do6k0atg3n35t" path="res://entities/abilities/panzer/panzer_properties.tres" id="2_eqf1t"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://entities/abilities/panzer/panzer_blackboard.gd" id="2_wnnnd"]
 [ext_resource type="Texture2D" uid="uid://onsvxw17odwc" path="res://entities/abilities/panzer/assets/panzer.png" id="3_r80jh"]
 [ext_resource type="AnimationLibrary" uid="uid://b5bx6jnb6h613" path="res://entities/abilities/panzer/assets/panzer.tres" id="4_ficlx"]
+[ext_resource type="Script" path="res://entities/components/lifetime_component.gd" id="4_fyoal"]
+[ext_resource type="Script" path="res://entities/components/health_component.gd" id="5_0to1c"]
 [ext_resource type="Script" path="res://entities/collision_box.gd" id="5_njda7"]
 [ext_resource type="Script" path="res://addons/fsm/nodes/state_machine.gd" id="6_7idbl"]
 [ext_resource type="PackedScene" uid="uid://cmv8lin1i0e4s" path="res://entities/abilities/panzer/panzer_shield.tscn" id="6_px4r7"]
@@ -38,6 +40,16 @@ debug_color = Color(0, 0.6, 0.7, 0.2)
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("2_wnnnd")
+
+[node name="Components" type="Node" parent="."]
+
+[node name="Lifetime" type="Node" parent="Components" node_paths=PackedStringArray("entity")]
+script = ExtResource("4_fyoal")
+entity = NodePath("../..")
+
+[node name="Health" type="Node" parent="Components" node_paths=PackedStringArray("entity")]
+script = ExtResource("5_0to1c")
+entity = NodePath("../..")
 
 [node name="Animations" type="Node2D" parent="."]
 position = Vector2(0, -8)

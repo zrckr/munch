@@ -16,8 +16,7 @@ extends State
 @export var panzer_blackboard: PanzerBlackboard
 
 
-func _physics_process(delta: float) -> void:
-	super._physics_process(delta)
+func _physics_process(_delta: float) -> void:
 	_find_nearest_target_body()
 
 

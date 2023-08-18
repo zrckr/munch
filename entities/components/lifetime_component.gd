@@ -14,13 +14,9 @@ var is_running: bool:
 var _duration_timer: Timer
 
 
-func _notification(what: int) -> void:
-	match what:
-		NOTIFICATION_READY:
-			_create_duration_timer()
-			_start_lifetime()
-		NOTIFICATION_PROCESS:
-			_process_lifetime()
+func _ready() -> void:
+	_create_duration_timer()
+	_start_lifetime()
 
 
 func _create_duration_timer() -> void:
@@ -36,7 +32,7 @@ func _start_lifetime() -> void:
 		_duration_timer.start(entity.properties.lifetime)
 
 
-func _process_lifetime() -> void:
+func _process(_delta: float) -> void:
 	var timer_active = not _duration_timer.is_stopped()
 	var is_player = entity.is_in_group(Entity.Group.PLAYER)
 	
@@ -45,5 +41,5 @@ func _process_lifetime() -> void:
 
 
 func _on_duration_timer_timeout() -> void:
-	if entity.is_player_default():
+	if entity.is_player_ability():
 		entity.wear_off_roll()
