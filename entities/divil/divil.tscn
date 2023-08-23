@@ -1,11 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcjrgb0bm2flw"]
+[gd_scene load_steps=5 format=3 uid="uid://dcjrgb0bm2flw"]
 
-[ext_resource type="Script" path="res://entities/entity.gd" id="1_iq1x5"]
-[ext_resource type="Resource" uid="uid://crmtt3wvk7qa5" path="res://entities/divil/divil_properties.tres" id="2_djf61"]
-[ext_resource type="Script" path="res://entities/entity_animations.gd" id="3_ls8ur"]
 [ext_resource type="Texture2D" uid="uid://41qj6c3rwqad" path="res://entities/divil/assets/divil.png" id="4_6s3ax"]
 [ext_resource type="AnimationLibrary" uid="uid://cpxl3h3pybhww" path="res://entities/divil/assets/divil.tres" id="5_vwhhi"]
-[ext_resource type="Script" path="res://entities/collision_box.gd" id="6_46v6i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_or5au"]
 size = Vector2(16, 16)
@@ -18,8 +14,6 @@ collision_layer = 8
 collision_mask = 9
 motion_mode = 1
 safe_margin = 0.16
-script = ExtResource("1_iq1x5")
-properties = ExtResource("2_djf61")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
@@ -27,7 +21,6 @@ shape = SubResource("RectangleShape2D_or5au")
 
 [node name="Animations" type="Node2D" parent="."]
 position = Vector2(0, -8)
-script = ExtResource("3_ls8ur")
 
 [node name="Sprite" type="Sprite2D" parent="Animations"]
 texture_filter = 1
@@ -48,7 +41,6 @@ position = Vector2(0, -8)
 collision_layer = 16
 collision_mask = 0
 monitoring = false
-script = ExtResource("6_46v6i")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CircleShape2D_6v475")

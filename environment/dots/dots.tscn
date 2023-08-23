@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://j4mg4nhqkw0h"]
+
+[ext_resource type="Texture2D" uid="uid://r4d8kuhjxvtb" path="res://environment/dots/dots.png" id="1_e4350"]
+[ext_resource type="Texture2D" uid="uid://brkvwjogs3db3" path="res://environment/textures/munch_texture.tres" id="2_xah4t"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8iypw"]
+blend_mode = 3
+
+[node name="Dots" type="Polygon2D"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(360, 240)
+texture = ExtResource("1_e4350")
+polygon = PackedVector2Array(-360, -240, 360, -240, 360, 240, -360, 240)
+metadata/_edit_lock_ = true
+
+[node name="Overlay" type="Polygon2D" parent="."]
+texture_filter = 1
+texture_repeat = 3
+material = SubResource("CanvasItemMaterial_8iypw")
+texture = ExtResource("2_xah4t")
+polygon = PackedVector2Array(-360, -240, 360, -240, 360, 240, -360, 240)

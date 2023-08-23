@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca0c3tnbotyyu"]
+
+[ext_resource type="PackedScene" uid="uid://c6bej2hdspp8d" path="res://entities/player/player_base.tscn" id="1_adrkn"]
+[ext_resource type="AnimationLibrary" uid="uid://bebt05yg0uyt8" path="res://entities/abilities/bigboy/assets/bigboy.tres" id="4_fpmu1"]
+[ext_resource type="Texture2D" uid="uid://dvqn8vbo733rw" path="res://entities/player/assets/munchkin_rotations.png" id="6_y23wu"]
+
+[node name="BigBoy" instance=ExtResource("1_adrkn")]
+
+[node name="CollisionShape" parent="." index="0"]
+position = Vector2(0, -16)
+
+[node name="Animations" parent="." index="1"]
+position = Vector2(0, -16)
+
+[node name="Sprite" parent="Animations" index="0"]
+scale = Vector2(2, 2)
+texture = ExtResource("6_y23wu")
+hframes = 18
+vframes = 2
+
+[node name="AnimationPlayer" parent="Animations" index="1"]
+libraries = {
+"": ExtResource("4_fpmu1")
+}
+
+[node name="HurtBox" parent="." index="2"]
+position = Vector2(0, -16)
+
+[node name="CollisionShape" parent="HurtBox" index="0"]
+disabled = true

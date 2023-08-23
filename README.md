@@ -1,7 +1,7 @@
 Project MUNCH
 =============
 
-![](public/hoover.gif) ![](public/blackout.gif)
+![](miscellaneous/hoover.gif) ![](miscellaneous/blackout.gif)
 
 Introduction
 ------------
@@ -49,20 +49,8 @@ Controls
 Building
 --------
 
-The game is Godot 4.0.3 project.
+The game is Godot 4.1.1 project.
 Download the [Godot binary](https://godotengine.org/download) binary and open the project.
-
-License
--------
-
-The source code is licensed under [GNU Lesser General Public License
-v2.1](licenses/LICENSE-LGPL)
-
-The media assets is licensed under [Creative Commons Attribution-NonCommercial
-4.0 International Public License](licenses/LICENSE-CC-BY-NC)
-
-These licenses do not apply to addons in the `addons/` folder, which are
-distributed with their own licenses.
 
 Inspirated by
 -------------

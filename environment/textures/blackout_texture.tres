@@ -1,0 +1,10 @@
+[gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://bt6fx2opnyp38"]
+
+[ext_resource type="Gradient" uid="uid://ns2cakeacp7l" path="res://environment/gradients/blackout_gradient.tres" id="1_y4ilu"]
+
+[resource]
+gradient = ExtResource("1_y4ilu")
+width = 240
+height = 180
+fill = 1
+fill_to = Vector2(0.6, 0.75)

@@ -1,15 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://63xj1ottp7nk"]
-
-[ext_resource type="Script" path="res://entities/spawner/spawner.gd" id="1_rcdcp"]
-[ext_resource type="Material" uid="uid://dxgea0csu46c7" path="res://entities/spawner/assets/pixelate.tres" id="2_ivymu"]
+[gd_scene load_steps=2 format=3 uid="uid://63xj1ottp7nk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m8goo"]
 size = Vector2(16, 16)
 
 [node name="Spawner" type="Node2D"]
-script = ExtResource("1_rcdcp")
-time_to_spawn = 3
-shader_material = ExtResource("2_ivymu")
 
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0

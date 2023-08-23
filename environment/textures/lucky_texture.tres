@@ -1,0 +1,10 @@
+[gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://clw3tx5i5xb1i"]
+
+[ext_resource type="Gradient" uid="uid://gpfusi7akinm" path="res://environment/gradients/lucky_gradient.tres" id="1_f3kgh"]
+
+[resource]
+gradient = ExtResource("1_f3kgh")
+width = 240
+height = 180
+fill = 1
+fill_to = Vector2(0.33, 0.33)

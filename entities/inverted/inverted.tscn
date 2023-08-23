@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://csti5ni2w45fc"]
+
+[ext_resource type="PackedScene" uid="uid://c6bej2hdspp8d" path="res://entities/player/player_base.tscn" id="1_4q6re"]
+[ext_resource type="Material" uid="uid://dtd5x0kf5251u" path="res://entities/abilities/inverted/assets/inverted.tres" id="3_1jnb1"]
+
+[node name="Inverted" instance=ExtResource("1_4q6re")]
+
+[node name="Animations" parent="." index="1"]
+material = ExtResource("3_1jnb1")

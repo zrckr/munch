@@ -1,36 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsbouvu3xf32r"]
+[gd_scene load_steps=2 format=3 uid="uid://dsbouvu3xf32r"]
 
 [ext_resource type="PackedScene" uid="uid://c6bej2hdspp8d" path="res://entities/player/player_base.tscn" id="1_m6s0q"]
-[ext_resource type="Script" path="res://entities/collision_box.gd" id="2_psgtx"]
-[ext_resource type="Resource" uid="uid://bymi512knjeag" path="res://entities/player/player_properties.tres" id="2_ukobv"]
-[ext_resource type="Script" path="res://entities/player/states/player_eat_state.gd" id="3_6egqt"]
-[ext_resource type="Script" path="res://entities/components/munch_component.gd" id="4_2elto"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_1bw51"]
-radius = 9.5
 
 [node name="Player" instance=ExtResource("1_m6s0q")]
-properties = ExtResource("2_ukobv")
-
-[node name="MunchBox" type="Area2D" parent="." index="3"]
-position = Vector2(0, -8)
-collision_layer = 0
-collision_mask = 32
-monitorable = false
-script = ExtResource("2_psgtx")
-
-[node name="CollisionShape" type="CollisionShape2D" parent="MunchBox" index="0"]
-shape = SubResource("CircleShape2D_1bw51")
-debug_color = Color(0.701961, 0.701961, 0.701961, 0.419608)
-
-[node name="Munch" type="Node" parent="Components" index="3"]
-script = ExtResource("4_2elto")
-
-[node name="Eat" type="Node" parent="StateMachine" index="4" node_paths=PackedStringArray("munch_component", "munchbox", "player", "player_animations")]
-script = ExtResource("3_6egqt")
-munch_component = NodePath("../../Components/Munch")
-munchbox = NodePath("../../MunchBox")
-player = NodePath("../..")
-player_animations = NodePath("../../Animations")
-
-[connection signal="finished" from="Animations" to="StateMachine/Eat" method="_on_player_animations_finished"]
+script = null

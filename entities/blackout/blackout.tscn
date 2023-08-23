@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgp5c1nq6erls"]
+
+[ext_resource type="PackedScene" uid="uid://c6bej2hdspp8d" path="res://entities/player/player_base.tscn" id="1_plbht"]
+[ext_resource type="Texture2D" uid="uid://bde1ekegrd3km" path="res://entities/abilities/blackout/assets/blackout.png" id="3_fvpmu"]
+
+[node name="Blackout" instance=ExtResource("1_plbht")]
+
+[node name="Effect" type="Node2D" parent="." index="3"]
+position = Vector2(0, -8)
+
+[node name="PointLight" type="PointLight2D" parent="Effect" index="0"]
+z_index = 100
+z_as_relative = false
+texture_filter = 1
+texture_repeat = 3
+color = Color(1, 0.94, 0.76, 1)
+blend_mode = 2
+texture = ExtResource("3_fvpmu")
+texture_scale = 0.5
+
+[node name="DirectionalLight" type="DirectionalLight2D" parent="Effect" index="1"]
+color = Color(0, 0, 0, 1)
+blend_mode = 2

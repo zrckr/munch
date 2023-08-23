@@ -1,0 +1,10 @@
+[gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://brkvwjogs3db3"]
+
+[ext_resource type="Gradient" uid="uid://bnsk0h6wet5nm" path="res://environment/gradients/munch_gradient.tres" id="1_3475n"]
+
+[resource]
+gradient = ExtResource("1_3475n")
+width = 240
+height = 180
+fill = 1
+fill_to = Vector2(0.33, 0.33)

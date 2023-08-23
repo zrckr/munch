@@ -1,16 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://demj0a08gekqc"]
+[gd_scene load_steps=7 format=3 uid="uid://demj0a08gekqc"]
 
-[ext_resource type="Script" path="res://entities/entity.gd" id="1_37jtp"]
-[ext_resource type="Resource" uid="uid://bck43kgh2r2r8" path="res://entities/munch/munch_properties.tres" id="2_0hanb"]
-[ext_resource type="Script" path="res://entities/entity_animations.gd" id="3_g5eyf"]
 [ext_resource type="Texture2D" uid="uid://12snf7se5pww" path="res://entities/munch/assets/munch.png" id="5_6q0o8"]
-[ext_resource type="Script" path="res://entities/collision_box.gd" id="6_3dq2a"]
 [ext_resource type="AnimationLibrary" uid="uid://d2ou2phowi1ss" path="res://entities/munch/assets/munch.tres" id="6_u2mhy"]
-[ext_resource type="Script" path="res://entities/munch/states/munch_wait_state.gd" id="7_chjv3"]
-[ext_resource type="Script" path="res://addons/fsm/nodes/state_machine.gd" id="7_ou67a"]
-[ext_resource type="Script" path="res://entities/munch/munch_blackboard.gd" id="7_p4aju"]
-[ext_resource type="Script" path="res://entities/munch/states/munch_scatter_state.gd" id="8_phf7l"]
-[ext_resource type="Script" path="res://entities/munch/states/munch_frightened_state.gd" id="9_pe5hl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svj2w"]
 size = Vector2(6, 6)
@@ -27,20 +18,12 @@ radius = 32.0
 [node name="Munch" type="CharacterBody2D"]
 collision_layer = 32
 motion_mode = 1
-script = ExtResource("1_37jtp")
-properties = ExtResource("2_0hanb")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_svj2w")
 
-[node name="Blackboard" type="Node2D" parent="." node_paths=PackedStringArray("munch", "munch_animations")]
-script = ExtResource("7_p4aju")
-munch = NodePath("..")
-munch_animations = NodePath("../Animations")
-
 [node name="Animations" type="Node2D" parent="."]
 rotation = 1.5708
-script = ExtResource("3_g5eyf")
 
 [node name="Sprite" type="Sprite2D" parent="Animations"]
 texture_filter = 1
@@ -59,7 +42,6 @@ libraries = {
 collision_layer = 32
 collision_mask = 0
 monitoring = false
-script = ExtResource("6_3dq2a")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CircleShape2D_6v475")
@@ -69,7 +51,6 @@ debug_color = Color(0.701961, 0.52549, 0, 0.419608)
 collision_layer = 0
 collision_mask = 2
 monitorable = false
-script = ExtResource("6_3dq2a")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="LostBox"]
 shape = SubResource("CircleShape2D_4r7uj")
@@ -79,38 +60,7 @@ debug_color = Color(0.168627, 1, 0, 0)
 collision_layer = 0
 collision_mask = 2
 monitorable = false
-script = ExtResource("6_3dq2a")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="DetectionBox"]
 shape = SubResource("CircleShape2D_ru841")
 debug_color = Color(1, 0.75, 0, 0)
-
-[node name="StateMachine" type="Node" parent="."]
-script = ExtResource("7_ou67a")
-initial_state = NodePath("Scatter")
-
-[node name="Wait" type="Node" parent="StateMachine" node_paths=PackedStringArray("wait_timer")]
-script = ExtResource("7_chjv3")
-wait_timer = NodePath("WaitTimer")
-
-[node name="WaitTimer" type="Timer" parent="StateMachine/Wait"]
-process_callback = 0
-one_shot = true
-
-[node name="Scatter" type="Node" parent="StateMachine" node_paths=PackedStringArray("lostbox", "munch", "munch_animations", "munch_blackboard")]
-script = ExtResource("8_phf7l")
-acceleration_speed = 6.0
-lostbox = NodePath("../../LostBox")
-munch = NodePath("../..")
-munch_animations = NodePath("../../Animations")
-munch_blackboard = NodePath("../../Blackboard")
-
-[node name="Frightened" type="Node" parent="StateMachine" node_paths=PackedStringArray("detection_box", "munch", "munch_animations", "munch_blackboard")]
-script = ExtResource("9_pe5hl")
-acceleration_speed = 15.0
-mininum_deviation_angle = -5
-maximum_deviation_angle = 5
-detection_box = NodePath("../../DetectionBox")
-munch = NodePath("../..")
-munch_animations = NodePath("../../Animations")
-munch_blackboard = NodePath("../../Blackboard")
